@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Home · ScipioTyping{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">Salve, {{ profile.name }}</p>
+  <h1>Train your hands.<br><em>Explore great ideas.</em></h1>
+  <p>Build speed and accuracy through history, mythology, chess, poetry, and mathematics.</p>
+  <a class="button" href="{{ url_for('main.library') }}">Choose a passage</a>
+</section>
+<section class="stat-grid" aria-label="Your progress">
+  <article><strong>{{ stats.attempts }}</strong><span>passages completed</span></article>
+  <article><strong>{{ stats.wpm }}</strong><span>average WPM</span></article>
+  <article><strong>{{ stats.accuracy }}%</strong><span>average accuracy</span></article>
+  <article><strong>{{ passage_count }}</strong><span>passages available</span></article>
+</section>
+<section class="callout"><h2>Today’s campaign</h2><p>Aim for {{ profile.daily_goal_minutes }} careful minutes. Accuracy builds speed.</p></section>
+{% endblock %}
+

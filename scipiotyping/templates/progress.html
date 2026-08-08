@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Progress · ScipioTyping{% endblock %}
+{% block content %}
+<div class="page-heading"><p class="eyebrow">{{ profile.name }}’s record</p><h1>Progress</h1></div>
+<div class="stat-grid"><article><strong>{{ '%.1f'|format(best.best_wpm) }}</strong><span>best WPM</span></article><article><strong>{{ '%.1f'|format(best.best_accuracy) }}%</strong><span>best accuracy</span></article><article><strong>{{ attempts|length }}</strong><span>recent attempts</span></article></div>
+<div class="table-wrap"><table><thead><tr><th>Date</th><th>Passage</th><th>WPM</th><th>Accuracy</th><th>Errors</th></tr></thead><tbody>{% for attempt in attempts %}<tr><td>{{ attempt.completed_at[:10] }}</td><td>{{ attempt.passage_id|replace('-', ' ')|title }}</td><td>{{ '%.1f'|format(attempt.net_wpm) }}</td><td>{{ '%.1f'|format(attempt.accuracy) }}%</td><td>{{ attempt.errors }}</td></tr>{% else %}<tr><td colspan="5">Complete a passage to begin your record.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}
+

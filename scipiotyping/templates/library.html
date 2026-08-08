@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Library · ScipioTyping{% endblock %}
+{% block content %}
+<div class="page-heading"><p class="eyebrow">The library</p><h1>Choose an expedition</h1><p>Every passage teaches an idea while you practice.</p></div>
+<form class="filters" method="get">
+  <label>Subject<select name="category"><option value="">All subjects</option>{% for category in categories %}<option {% if selected_category == category %}selected{% endif %}>{{ category }}</option>{% endfor %}</select></label>
+  <label>Difficulty<select name="difficulty"><option value="">All levels</option>{% for level in range(1,6) %}<option value="{{ level }}" {% if selected_difficulty == level %}selected{% endif %}>Level {{ level }}</option>{% endfor %}</select></label>
+  <button class="button small">Filter</button>
+</form>
+<div class="card-grid">
+{% for passage in passages %}
+  <article class="passage-card"><div><span class="tag">{{ passage.category }}</span><span class="level">Level {{ passage.difficulty }}</span></div><h2>{{ passage.title }}</h2><p>{{ passage.context }}</p><small>{{ passage.word_count }} words · Age {{ passage.age }}+</small><a class="button secondary" href="{{ url_for('main.practice', passage_id=passage.id) }}">Begin</a></article>
+{% else %}<p>No passages match those filters.</p>{% endfor %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Parent dashboard · ScipioTyping{% endblock %}
+{% block content %}
+<div class="page-heading"><p class="eyebrow">Local controls</p><h1>Parent dashboard</h1><p>ScipioTyping keeps this information only on this computer.</p></div>
+{% if message %}<p class="notice" role="status">{{ message }}</p>{% endif %}
+<div class="split"><section class="panel"><h2>Practice settings</h2><form method="post"><label>Daily goal (minutes)<input type="number" min="5" max="120" name="daily_goal_minutes" value="{{ profile.daily_goal_minutes }}"></label><label>Preferred difficulty<input type="number" min="1" max="5" name="preferred_difficulty" value="{{ profile.preferred_difficulty }}"></label><button class="button">Save settings</button></form></section><section class="panel"><h2>Data</h2><p>{{ stats.attempts }} attempts · {{ stats.wpm }} average WPM · {{ stats.accuracy }}% accuracy</p><p><a href="{{ url_for('main.export_data', format_name='csv') }}">Download CSV</a></p><p><a href="{{ url_for('main.export_data', format_name='json') }}">Download JSON</a></p></section></div>
+{% endblock %}
+
