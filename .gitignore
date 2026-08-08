@@ -9,3 +9,4 @@ instance/*
 dist/
 build/
 *.egg-info/
+*.lnk
