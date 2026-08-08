@@ -5,7 +5,7 @@ Home
 ├── Recommended practice ──> Typing exercise ──> Results
 ├── Lessons ────────────────> Placement / lesson exercise
 ├── Library ────────────────> Filtered passage ──> Typing exercise
-├── Progress ───────────────> Trends / achievements / print report
+├── Progress ───────────────> Trends / keyboard heatmap / targeted workshop
 ├── Profiles ───────────────> Select learner
 ├── Parent
 │   ├── Settings and goals
@@ -14,4 +14,3 @@ Home
 │   └── Export / backup / restore / reset
 └── Help
 ```
-

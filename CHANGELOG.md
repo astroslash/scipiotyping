@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1.0 — 2026-08-08
+
+- Added server-authoritative per-key opportunities, matches, errors, and accuracy.
+- Added recent and all-time key analysis with weak, developing, and mastered states.
+- Added an accessible keyboard heatmap that does not rely on color alone.
+- Added deterministic, offline weak-key workshops assembled from local content.
+- Added focus-key results, mastery feedback, and two focused-practice achievements.
+- Added schema migration 5 with reproducible generated targets and focus metadata.
+- Added migration, scoring, aggregation, generation, route, and Microsoft Edge tests.
+
 ## 1.0.1 — 2026-08-08
 
 - Replaced slot-by-slot scoring with character-sequence alignment.

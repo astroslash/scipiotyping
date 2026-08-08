@@ -11,7 +11,11 @@ ACHIEVEMENTS = {
     "speed-25": ("Swift Scribe", "Reach 25 net WPM."),
     "ten-passages": ("Ten Expeditions", "Complete ten passages."),
     "five-subjects": ("Curious Scholar", "Practice in five subjects."),
+    "targeted-first": ("Focused Practice", "Complete your first weak-key workshop."),
+    "key-mastered": ("Key Master", "Master a key through focused practice."),
 }
+
+KEYBOARD_ROWS = ["1234567890", "qwertyuiop", "asdfghjkl;", "zxcvbnm,./"]
 
 
 def award_achievements(connection, profile_id: int, passage_lookup: dict[str, dict]) -> list[str]:
@@ -22,6 +26,9 @@ def award_achievements(connection, profile_id: int, passage_lookup: dict[str, di
     if any(row["accuracy"] >= 100 for row in rows): codes.add("accuracy-100")
     if any(row["net_wpm"] >= 25 for row in rows): codes.add("speed-25")
     if len(rows) >= 10: codes.add("ten-passages")
+    targeted_completed = any(row["mode"] == "targeted" for row in rows)
+    if targeted_completed: codes.add("targeted-first")
+    if targeted_completed and any(item["status"] == "mastered" for item in key_report(rows)): codes.add("key-mastered")
     categories = {passage_lookup[row["passage_id"]]["category"] for row in rows if row["passage_id"] in passage_lookup}
     if len(categories) >= 5: codes.add("five-subjects")
     existing = {row[0] for row in connection.execute("SELECT code FROM achievements WHERE profile_id=?", (profile_id,))}
@@ -51,6 +58,63 @@ def weak_keys(rows, limit: int = 6) -> list[tuple[str, int]]:
         try: counts.update(json.loads(row["error_map"] or "{}"))
         except (json.JSONDecodeError, TypeError): pass
     return counts.most_common(limit)
+
+
+def aggregate_key_stats(rows, recent_limit: int | None = None) -> dict[str, dict[str, int]]:
+    totals: dict[str, dict[str, int]] = {}
+    completed_rows = []
+    for row in rows:
+        row_keys = row.keys() if hasattr(row, "keys") else ()
+        if "completed" in row_keys and not row["completed"]:
+            continue
+        completed_rows.append(row)
+    selected = completed_rows[:recent_limit] if recent_limit else completed_rows
+    for row in selected:
+        try:
+            payload = json.loads(row["key_stats"] or "{}")
+        except (json.JSONDecodeError, TypeError, KeyError, IndexError):
+            continue
+        if not isinstance(payload, dict):
+            continue
+        for key, values in payload.items():
+            if not isinstance(values, dict) or key.startswith("extra "):
+                continue
+            bucket = totals.setdefault(key, {"expected": 0, "matched": 0, "errors": 0})
+            for field in bucket:
+                try:
+                    bucket[field] += max(0, int(values.get(field, 0)))
+                except (TypeError, ValueError):
+                    pass
+    return totals
+
+
+def key_report(rows) -> list[dict]:
+    all_time = aggregate_key_stats(rows)
+    recent = aggregate_key_stats(rows, 10)
+    keys = list("1234567890qwertyuiopasdfghjkl;zxcvbnm,./") + ["space"]
+    report = []
+    for key in keys:
+        total = all_time.get(key, {"expected": 0, "matched": 0, "errors": 0})
+        current = recent.get(key, {"expected": 0, "matched": 0, "errors": 0})
+        recent_accuracy = current["matched"] / current["expected"] * 100 if current["expected"] else None
+        all_accuracy = total["matched"] / total["expected"] * 100 if total["expected"] else None
+        if current["expected"] < 10:
+            status = "unknown"
+        elif current["expected"] >= 30 and recent_accuracy >= 97 and current["errors"] <= 2:
+            status = "mastered"
+        elif recent_accuracy < 92:
+            status = "weak"
+        else:
+            status = "developing"
+        report.append({"key": key, "label": "Space" if key == "space" else key.upper(),
+                       "recent": current, "all": total, "recent_accuracy": recent_accuracy,
+                       "all_accuracy": all_accuracy, "status": status})
+    return report
+
+
+def focus_keys(rows, limit: int = 3) -> list[dict]:
+    eligible = [item for item in key_report(rows) if item["recent"]["expected"] >= 10 and item["status"] != "mastered"]
+    return sorted(eligible, key=lambda item: (item["recent_accuracy"], -item["recent"]["expected"], item["key"]))[:limit]
 
 
 def recommend(profile, rows, all_passages: list[dict]) -> tuple[dict, str]:

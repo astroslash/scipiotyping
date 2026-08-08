@@ -1,4 +1,14 @@
-# Release checklist — 1.0.1
+# Release checklist — 1.1.0
+
+## 1.1.0
+
+- [x] Per-key evidence and schema migration 5 implemented.
+- [x] Weak, developing, and mastered classifications unit tested.
+- [x] Accessible keyboard heatmap added.
+- [x] Deterministic offline targeted drills and reproducible storage added.
+- [x] Focus-key feedback and achievements added.
+- [x] Full release command completed.
+- [x] Version 1.1.0 committed, tagged, and pushed.
 
 ## 1.0.1
 
@@ -8,7 +18,7 @@
 - [x] Manual finish fallback verified in Microsoft Edge.
 - [x] Raw WPM, adjusted WPM, accuracy, and error types displayed.
 - [x] Full release command completed.
-- [ ] Version 1.0.1 committed, tagged, and pushed.
+- [x] Version 1.0.1 committed, tagged, and pushed.
 
 ## 1.0.0
 

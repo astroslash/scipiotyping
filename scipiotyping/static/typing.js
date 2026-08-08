@@ -195,6 +195,14 @@
       addText('h2', 'Expedition complete');
       addText('p', `Raw speed: ${score.gross_wpm} WPM · Adjusted speed: ${score.adjusted_wpm} WPM · Accuracy: ${score.accuracy}%`);
       addText('p', `Corrected errors: ${score.corrected_errors} · Remaining errors: ${score.errors} (${score.substitutions} substitutions, ${score.insertions} insertions, ${score.deletions} deletions, ${score.transpositions} transpositions)`);
+      if (score.focus_feedback.length) {
+        addText('h3', 'Focus-key results');
+        score.focus_feedback.forEach(item => {
+          const trend = item.change === null ? '' : item.change > 0 ? ` Recent accuracy improved by ${item.change} points.` : item.change < 0 ? ` Recent accuracy changed by ${item.change} points; one careful repeat will help.` : ' Recent accuracy held steady.';
+          const guidance = item.status === 'mastered' ? ' Mastery reached.' : item.accuracy >= 92 ? ' This attempt was accurate; keep building evidence.' : ' Slow down and practice this key again.';
+          addText('p', `${item.label}: ${item.accuracy}% accuracy across ${item.expected} uses.${trend}${guidance}`);
+        });
+      }
       addText('h3', 'Aligned result');
       renderDiff(score.operations);
       const message = score.accuracy >= 95 ? 'Excellent control. Accuracy is building lasting speed.' : 'Good effort. Review the marked characters, then try again carefully.';

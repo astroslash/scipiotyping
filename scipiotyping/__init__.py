@@ -8,11 +8,12 @@ from pathlib import Path
 from flask import Flask
 
 from . import db
-from .content import validate_content_command
+from .content import load_passages, validate_content_command
+from .lessons import lesson_passages
 from .routes import bp
 from .security import csrf_token, protect_csrf
 
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 
 
 def create_app(test_config: dict | None = None) -> Flask:
@@ -40,4 +41,8 @@ def create_app(test_config: dict | None = None) -> Flask:
     app.jinja_env.globals["csrf_token"] = csrf_token
     with app.app_context():
         db.init_database()
+        lookup = {item["id"]: item["text"] for item in load_passages(app.config["CONTENT_PATH"])}
+        lookup.update({item["id"]: item["text"] for item in lesson_passages()})
+        lookup.update({row["id"]: row["text"] for row in db.get_db().execute("SELECT id,text FROM custom_passages")})
+        db.backfill_key_stats(db.get_db(), lookup)
     return app

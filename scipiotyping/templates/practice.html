@@ -3,6 +3,7 @@
 {% block head %}<meta name="passage-id" content="{{ passage.id }}">{% endblock %}
 {% block content %}
 <div class="practice-heading"><div><p class="eyebrow">{{ passage.category }} · Level {{ passage.difficulty }}</p><h1>{{ passage.title }}</h1></div><button id="restart" class="text-button">Restart</button></div>
+{% if passage.focus_keys %}<p class="notice"><strong>Focus keys:</strong> {% for key in passage.focus_keys %}<kbd>{{ 'Space' if key == 'space' else key|upper }}</kbd>{% if not loop.last %}, {% endif %}{% endfor %}. Work carefully; mastery comes from repeated accurate use.</p>{% endif %}
 <section id="typing-app" class="typing-panel" data-text="{{ passage.text|e }}" data-mode="{{ mode }}" data-lesson="{{ lesson_id }}">
   <div class="live-stats"><span><strong id="timer">0:00</strong> time</span><span><strong id="wpm">0</strong> adjusted WPM</span><span><strong id="accuracy">100%</strong> accuracy</span><span><strong id="character-progress">0 / {{ passage.character_count }} characters</strong></span></div>
   <div id="passage" class="passage-text" aria-label="Text to type">{{ passage.text }}</div>

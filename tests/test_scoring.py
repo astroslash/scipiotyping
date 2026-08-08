@@ -83,3 +83,11 @@ def test_alignment_operations_reconstruct_both_inputs():
     operations = align_text(target, typed)
     assert "".join(operation["expected"] for operation in operations) == target
     assert "".join(operation["typed"] for operation in operations) == typed
+
+
+def test_key_statistics_record_opportunities_matches_and_errors():
+    score = score_text("a sad", "a sxad", 60)
+    assert score["key_stats"]["a"]["expected"] == 2
+    assert score["key_stats"]["a"]["matched"] == 2
+    assert score["key_stats"]["d"]["errors"] == 0
+    assert score["key_stats"]["extra x"]["errors"] == 1

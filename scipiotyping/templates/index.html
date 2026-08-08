@@ -7,6 +7,7 @@
   <p>Build speed and accuracy through history, mythology, chess, poetry, and mathematics.</p>
   <a class="button" href="{{ url_for('main.library') }}">Choose a passage</a>
   <a class="button secondary" href="{{ url_for('main.lessons') }}">Follow a lesson</a>
+  {% if focus %}<a class="button secondary" href="{{ url_for('main.targeted_practice') }}">Practice weak keys</a>{% endif %}
 </section>
 <section class="stat-grid" aria-label="Your progress">
   <article><strong>{{ stats.attempts }}</strong><span>passages completed</span></article>
@@ -15,5 +16,6 @@
   <article><strong>{{ passage_count }}</strong><span>passages available</span></article>
 </section>
 <section class="callout"><p class="eyebrow">Recommended next</p><h2>{{ suggestion.title }}</h2><p>{{ reason }}</p><a class="button" href="{{ url_for('main.practice', passage_id=suggestion.id) }}">Practice this passage</a></section>
+{% if focus %}<section class="callout"><p class="eyebrow">Focused training</p><h2>Strengthen {% for item in focus %}{{ item.label }}{% if not loop.last %}, {% endif %}{% endfor %}</h2><p>A private drill can concentrate on the keys that need the most recent practice.</p><a class="button" href="{{ url_for('main.targeted_practice') }}">Start weak-key workshop</a></section>{% endif %}
 <section class="callout"><h2>Today’s campaign</h2><p>Aim for {{ profile.daily_goal_minutes }} careful minutes. Your current streak is {{ streak }} day{% if streak != 1 %}s{% endif %}. Accuracy builds speed.</p></section>
 {% endblock %}

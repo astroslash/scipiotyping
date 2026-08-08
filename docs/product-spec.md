@@ -42,6 +42,17 @@ access; it is not represented as internet-grade authentication.
 - Active time excludes a pause after 15 seconds without keyboard activity.
 - Corrected errors are recorded separately and do not reduce adjusted WPM.
 
+## Personalized practice
+
+- Each completed attempt stores how often each key was expected, matched, or
+  missed so accuracy has a meaningful denominator.
+- Recent analysis uses the last ten completed attempts and requires at least ten
+  uses before rating a key.
+- A key is mastered after at least thirty recent uses, 97% accuracy, and no more
+  than two errors.
+- Weak-key workshops are deterministic, generated from local content, and store
+  their target and generator metadata with the result.
+
 ## Release scope
 
 Version 1.0 includes local profiles, placement, lesson tracks, adaptive passage

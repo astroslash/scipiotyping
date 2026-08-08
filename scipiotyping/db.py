@@ -3,6 +3,7 @@ from __future__ import annotations
 import sqlite3
 from datetime import UTC, datetime
 from pathlib import Path
+import json
 
 import click
 from flask import current_app, g
@@ -98,6 +99,18 @@ def migrate(connection: sqlite3.Connection) -> None:
                 connection.execute(f"ALTER TABLE attempts ADD COLUMN {name} {definition}")
         connection.execute("UPDATE attempts SET adjusted_wpm=net_wpm WHERE adjusted_wpm IS NULL")
         connection.execute("UPDATE schema_version SET version=4")
+        version = 4
+    if version < 5:
+        additions = [
+            ("key_stats", "TEXT NOT NULL DEFAULT '{}'"),
+            ("target_text", "TEXT"),
+            ("focus_keys", "TEXT NOT NULL DEFAULT '[]'"),
+            ("generator_version", "INTEGER"),
+        ]
+        for name, definition in additions:
+            if not _has_column(connection, "attempts", name):
+                connection.execute(f"ALTER TABLE attempts ADD COLUMN {name} {definition}")
+        connection.execute("UPDATE schema_version SET version=5")
     connection.commit()
 
 
@@ -109,6 +122,32 @@ def init_database() -> None:
         "INSERT OR IGNORE INTO profiles(name, created_at) VALUES (?, ?)",
         ("Kenneth", datetime.now(UTC).isoformat()),
     )
+    connection.commit()
+
+
+def backfill_key_stats(connection: sqlite3.Connection, passage_lookup: dict[str, str]) -> None:
+    """Add best-effort key evidence to pre-v5 attempts whose target still exists."""
+    rows = connection.execute("SELECT id, passage_id, error_map FROM attempts WHERE key_stats='{}'").fetchall()
+    for row in rows:
+        target = passage_lookup.get(row["passage_id"])
+        if not target:
+            continue
+        try:
+            errors = json.loads(row["error_map"] or "{}")
+        except (json.JSONDecodeError, TypeError):
+            errors = {}
+        statistics: dict[str, dict[str, int]] = {}
+        for character in target:
+            key = "space" if character == " " else character.lower()
+            statistics.setdefault(key, {"expected": 0, "matched": 0, "errors": 0})["expected"] += 1
+        for key, values in statistics.items():
+            try:
+                count = min(values["expected"], max(0, int(errors.get(key, 0))))
+            except (TypeError, ValueError):
+                count = 0
+            values["errors"] = count
+            values["matched"] = values["expected"] - count
+        connection.execute("UPDATE attempts SET key_stats=? WHERE id=?", (json.dumps(statistics), row["id"]))
     connection.commit()
 
 

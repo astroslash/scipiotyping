@@ -46,6 +46,29 @@ def main() -> None:
                 row = get_db().execute("SELECT * FROM attempts").fetchone()
                 assert row["completed"] == 1 and row["corrected_errors"] == 1
                 assert json.loads(row["error_map"]).get("a") == 1, row["error_map"]
+                weak = json.loads(row["key_stats"])
+                weak["a"] = {"expected": 20, "matched": 10, "errors": 10}
+                get_db().execute("UPDATE attempts SET key_stats=? WHERE id=?", (json.dumps(weak), row["id"]))
+                get_db().commit()
+
+            # Personalized path: heatmap recommendation opens and completes a reproducible drill.
+            driver.get("http://127.0.0.1:5001/progress")
+            assert driver.find_element(By.CSS_SELECTOR, ".key-a, [aria-label^='A,']").is_displayed()
+            workshop_links = driver.find_elements(By.LINK_TEXT, "Practice weak keys")
+            assert workshop_links and workshop_links[0].is_displayed()
+            workshop_links[0].click()
+            assert "Weak-Key Workshop" in driver.find_element(By.TAG_NAME, "h1").text
+            targeted_text = driver.find_element(By.ID, "passage").text
+            targeted_field = driver.find_element(By.ID, "typing-input")
+            targeted_field.send_keys(targeted_text[0])
+            time.sleep(0.6)
+            targeted_field.send_keys(targeted_text[1:])
+            WebDriverWait(driver, 10).until(lambda page: page.find_element(By.ID, "results").is_displayed())
+            targeted_result = driver.find_element(By.ID, "results").text
+            assert "Focus-key results" in targeted_result
+            with app.app_context():
+                targeted_row = get_db().execute("SELECT * FROM attempts WHERE mode='targeted'").fetchone()
+                assert targeted_row["target_text"] == targeted_text and json.loads(targeted_row["focus_keys"])
 
             # Regression: one omitted interior character must not prevent automatic completion.
             driver.get("http://127.0.0.1:5001/practice/drill-home-row?mode=lesson&lesson=home-row")

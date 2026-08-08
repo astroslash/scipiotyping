@@ -10,7 +10,7 @@ def post_form(client, path, csrf, data=None, **kwargs):
 
 
 def test_health_and_primary_pages(client):
-    assert client.get("/health").get_json()["schema"] == 4
+    assert client.get("/health").get_json()["schema"] == 5
     for path in ["/", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
         assert client.get(path).status_code == 200
 
@@ -57,6 +57,38 @@ def test_attempt_with_substitution_completes_and_is_adjusted(client, csrf, app):
     assert response.status_code==201 and data["completed"] is True
     assert data["substitutions"]==1 and data["accuracy"]<100
     assert data["adjusted_wpm"]<data["gross_wpm"]
+    assert data["key_stats"][passage["text"][0].lower()]["errors"] == 1
+
+
+def test_targeted_practice_uses_weak_keys_and_stores_reproducible_target(client, csrf, app):
+    with app.app_context():
+        from scipiotyping.content import load_passages
+        passage = next(p for p in load_passages(app.config["CONTENT_PATH"]) if p["id"] == "marathon-messenger")
+    typed = "".join("x" if character.lower() == "a" else character for character in passage["text"])
+    response = client.post("/api/attempts", headers={"X-CSRF-Token": csrf}, json={
+        "passage_id": passage["id"], "duration_seconds": 120, "typed_text": typed, "mode": "practice"})
+    assert response.status_code == 201
+    progress = client.get("/progress")
+    assert b"Keyboard progress" in progress.data and b"Practice weak keys" in progress.data
+    assert b'aria-label="Per-key recent accuracy"' in progress.data
+    assert b"Needs practice" in progress.data and b"Not enough data" in progress.data
+    workshop = client.get("/practice/targeted")
+    assert workshop.status_code == 200 and b"Weak-Key Workshop" in workshop.data
+    with client.session_transaction() as state:
+        target = state["targeted_passage"]
+    response = client.post("/api/attempts", headers={"X-CSRF-Token": csrf}, json={
+        "passage_id": target["id"], "duration_seconds": 60, "typed_text": target["text"], "mode": "targeted"})
+    data = response.get_json()
+    assert response.status_code == 201 and data["focus_feedback"]
+    assert data["focus_feedback"][0]["baseline_accuracy"] is not None
+    assert data["focus_feedback"][0]["recent_accuracy"] is not None
+    assert data["focus_feedback"][0]["change"] is not None
+    assert "Focused Practice" in data["achievements"]
+    with app.app_context():
+        row = get_db().execute("SELECT * FROM attempts WHERE mode='targeted'").fetchone()
+        assert row["target_text"] == target["text"]
+        assert json.loads(row["focus_keys"])
+        assert row["generator_version"] == 1
 
 
 def test_attempt_rejects_client_metrics_and_bad_text(client, csrf):

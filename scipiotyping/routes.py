@@ -16,8 +16,10 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .content import load_passages, validate_passages
 from .db import get_db, init_database
 from .lessons import LESSONS, lesson_passages, placement_level, progression_level, unlocked_lessons
-from .progress import ACHIEVEMENTS, award_achievements, recommend, streak_days, weak_keys
+from .progress import (ACHIEVEMENTS, KEYBOARD_ROWS, award_achievements,
+                       focus_keys, key_report, recommend, streak_days, weak_keys)
 from .scoring import score_text
+from .targeted import targeted_passage
 
 bp = Blueprint("main", __name__)
 
@@ -43,6 +45,13 @@ def passages() -> list[dict]:
 
 def practice_items() -> list[dict]:
     return passages() + lesson_passages()
+
+
+def _session_targeted_passage() -> dict | None:
+    item = session.get("targeted_passage")
+    if not isinstance(item, dict) or not isinstance(item.get("text"), str) or not str(item.get("id", "")).startswith("targeted-"):
+        return None
+    return item
 
 
 def _safe_error_map(value: object) -> dict[str, int]:
@@ -99,7 +108,7 @@ def _require_parent() -> None:
 @bp.get("/health")
 def health():
     get_db().execute("SELECT 1").fetchone()
-    return jsonify(status="ok", application="ScipioTyping", schema=4)
+    return jsonify(status="ok", application="ScipioTyping", schema=5)
 
 
 @bp.get("/")
@@ -108,7 +117,8 @@ def index():
     rows = get_db().execute("SELECT * FROM attempts WHERE profile_id=? ORDER BY completed_at DESC", (profile["id"],)).fetchall()
     stats = get_db().execute("SELECT COUNT(*) attempts, COALESCE(ROUND(AVG(adjusted_wpm),1),0) wpm, COALESCE(ROUND(AVG(accuracy),1),0) accuracy FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
     suggestion, reason = recommend(profile, rows, passages())
-    return render_template("index.html", profile=profile, stats=stats, passage_count=len(passages()), suggestion=suggestion, reason=reason, streak=streak_days(rows))
+    focus = focus_keys(rows)
+    return render_template("index.html", profile=profile, stats=stats, passage_count=len(passages()), suggestion=suggestion, reason=reason, streak=streak_days(rows), focus=focus)
 
 
 @bp.get("/library")
@@ -124,15 +134,37 @@ def library():
 
 @bp.get("/practice/<passage_id>")
 def practice(passage_id: str):
-    passage = next((item for item in practice_items() if item["id"] == passage_id), None)
+    candidates = practice_items()
+    targeted = _session_targeted_passage()
+    if targeted:
+        candidates.append(targeted)
+    passage = next((item for item in candidates if item["id"] == passage_id), None)
     if not passage: abort(404)
     return render_template("practice.html", passage=passage, mode=request.args.get("mode", "practice"), lesson_id=request.args.get("lesson", ""))
+
+
+@bp.get("/practice/targeted")
+def targeted_practice():
+    profile = selected_profile()
+    rows = get_db().execute("SELECT * FROM attempts WHERE profile_id=? ORDER BY completed_at DESC", (profile["id"],)).fetchall()
+    focus = focus_keys(rows)
+    if not focus:
+        flash("Complete more practice before starting a weak-key workshop.", "error")
+        return redirect(url_for("main.progress"))
+    sources = [item["text"] for item in practice_items()]
+    passage = targeted_passage(profile["id"], [item["key"] for item in focus], sources)
+    session["targeted_passage"] = passage
+    return render_template("practice.html", passage=passage, mode="targeted", lesson_id="")
 
 
 @bp.post("/api/attempts")
 def save_attempt():
     data = request.get_json(silent=True) or {}
-    passage = next((p for p in practice_items() if p["id"] == data.get("passage_id")), None)
+    candidates = practice_items()
+    targeted = _session_targeted_passage()
+    if targeted:
+        candidates.append(targeted)
+    passage = next((p for p in candidates if p["id"] == data.get("passage_id")), None)
     try:
         duration = float(data.get("duration_seconds", 0)); typed = str(data.get("typed_text", ""))
         corrected_errors = max(0, min(10000, int(data.get("corrected_errors", 0))))
@@ -142,26 +174,51 @@ def save_attempt():
     except (TypeError, ValueError):
         return jsonify(error="Invalid attempt data."), 400
     profile = selected_profile(); now = datetime.now(UTC); connection = get_db()
-    mode = data.get("mode") if data.get("mode") in {"practice", "lesson", "placement"} else "practice"
+    mode = data.get("mode") if data.get("mode") in {"practice", "lesson", "placement", "targeted"} else "practice"
+    if mode == "targeted" and (not targeted or passage["id"] != targeted["id"]):
+        return jsonify(error="That targeted drill is no longer active."), 400
     lesson_id = data.get("lesson_id") if any(l["id"] == data.get("lesson_id") for l in LESSONS) else None
+    focus = passage.get("focus_keys", []) if mode == "targeted" else []
+    generator_version = passage.get("generator_version") if mode == "targeted" else None
+    before_rows = connection.execute("SELECT * FROM attempts WHERE profile_id=? ORDER BY completed_at DESC", (profile["id"],)).fetchall()
+    before_report = {item["key"]: item for item in key_report(before_rows)}
     cursor = connection.execute(
         """INSERT INTO attempts(profile_id, passage_id, started_at, completed_at, duration_seconds,
         typed_characters, correct_characters, errors, corrected_errors, gross_wpm, net_wpm, accuracy,
         completed, error_map, mode, lesson_id, adjusted_wpm, substitutions, insertions, deletions,
-        transpositions) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+        transpositions, key_stats, target_text, focus_keys, generator_version)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
         (profile["id"], passage["id"], (now-timedelta(seconds=duration)).isoformat(), now.isoformat(), duration,
          score["typed_characters"], score["correct_characters"], score["errors"], corrected_errors,
          score["gross_wpm"], score["net_wpm"], score["accuracy"], int(score["completed"]),
          json.dumps(_combined_error_map(data.get("error_map"), score["error_map"])), mode, lesson_id,
-         score["adjusted_wpm"], score["substitutions"], score["insertions"], score["deletions"], score["transpositions"]))
+         score["adjusted_wpm"], score["substitutions"], score["insertions"], score["deletions"], score["transpositions"],
+         json.dumps(score["key_stats"]), passage["text"] if mode == "targeted" else None,
+         json.dumps(focus), generator_version))
     if mode == "placement" and score["completed"]:
         level = placement_level(score["net_wpm"], score["accuracy"])
         connection.execute("UPDATE profiles SET placement_level=?, placement_complete=1, preferred_difficulty=? WHERE id=?", (level, level, profile["id"]))
         score["placement_level"] = level
     new_awards = award_achievements(connection, profile["id"], {p["id"]:p for p in practice_items()})
     connection.commit()
+    if mode == "targeted":
+        session.pop("targeted_passage", None)
+    after_rows = connection.execute("SELECT * FROM attempts WHERE profile_id=? ORDER BY completed_at DESC", (profile["id"],)).fetchall()
+    after_report = {item["key"]: item for item in key_report(after_rows)}
+    focus_feedback = []
+    for key in focus:
+        stats = score["key_stats"].get(key, {"expected": 0, "matched": 0, "errors": 0})
+        accuracy = stats["matched"] / stats["expected"] * 100 if stats["expected"] else 0
+        baseline = before_report.get(key, {}).get("recent_accuracy")
+        current = after_report.get(key, {})
+        recent_accuracy = current.get("recent_accuracy")
+        focus_feedback.append({"key": key, "label": "Space" if key == "space" else key.upper(),
+                               "accuracy": round(accuracy, 1), "baseline_accuracy": baseline,
+                               "recent_accuracy": recent_accuracy, "status": current.get("status", "unknown"),
+                               "change": round(recent_accuracy - baseline, 1) if baseline is not None and recent_accuracy is not None else None,
+                               **stats})
     return jsonify(id=cursor.lastrowid, corrected_errors=corrected_errors,
-                   achievements=[ACHIEVEMENTS[c][0] for c in new_awards], **score), 201
+                   achievements=[ACHIEVEMENTS[c][0] for c in new_awards], focus_feedback=focus_feedback, **score), 201
 
 
 @bp.get("/lessons")
@@ -189,7 +246,9 @@ def progress():
     best = connection.execute("SELECT COALESCE(MAX(adjusted_wpm),0) best_wpm, COALESCE(MAX(accuracy),0) best_accuracy, COALESCE(SUM(duration_seconds)/60,0) minutes FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
     awards = [{"code":r["code"], "earned_at":r["earned_at"], "title":ACHIEVEMENTS.get(r["code"],(r["code"],""))[0], "description":ACHIEVEMENTS.get(r["code"],("", ""))[1]} for r in connection.execute("SELECT * FROM achievements WHERE profile_id=? ORDER BY earned_at", (profile["id"],))]
     chart = list(reversed([{"wpm":r["adjusted_wpm"],"accuracy":r["accuracy"],"date":r["completed_at"][:10]} for r in rows[:12]]))
-    return render_template("progress.html", attempts=rows, best=best, profile=profile, awards=awards, streak=streak_days(rows), weak_keys=weak_keys(rows), chart=chart)
+    report = key_report(rows)
+    focus = focus_keys(rows)
+    return render_template("progress.html", attempts=rows, best=best, profile=profile, awards=awards, streak=streak_days(rows), weak_keys=weak_keys(rows), chart=chart, key_report=report, key_lookup={item["key"]: item for item in report}, keyboard_rows=KEYBOARD_ROWS, focus=focus)
 
 
 @bp.get("/profiles")

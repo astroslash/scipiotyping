@@ -71,7 +71,32 @@ def alignment_summary(target: str, typed: str) -> dict:
         "deletions": counts["delete"],
         "transpositions": counts["transpose"],
         "error_map": dict(error_map),
+        "key_stats": key_statistics(target, operations),
     }
+
+
+def _key_label(character: str) -> str:
+    return "space" if character == " " else character.lower()
+
+
+def key_statistics(target: str, operations: list[dict[str, str]]) -> dict[str, dict[str, int]]:
+    """Return server-authoritative opportunities, matches, and errors per key."""
+    statistics: dict[str, dict[str, int]] = {}
+    for character in target:
+        label = _key_label(character)
+        statistics.setdefault(label, {"expected": 0, "matched": 0, "errors": 0})["expected"] += 1
+    for operation in operations:
+        if operation["op"] == "match":
+            label = _key_label(operation["expected"])
+            statistics[label]["matched"] += 1
+        elif operation["op"] in {"substitute", "delete", "transpose"}:
+            for character in operation["expected"]:
+                statistics[_key_label(character)]["errors"] += 1
+        elif operation["op"] == "insert":
+            for character in operation["typed"]:
+                label = f"extra {_key_label(character)}"
+                statistics.setdefault(label, {"expected": 0, "matched": 0, "errors": 0})["errors"] += 1
+    return statistics
 
 
 def completion_threshold(target_length: int) -> int:
