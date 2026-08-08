@@ -6,6 +6,7 @@
   <h1>Train your hands.<br><em>Explore great ideas.</em></h1>
   <p>Build speed and accuracy through history, mythology, chess, poetry, and mathematics.</p>
   <a class="button" href="{{ url_for('main.library') }}">Choose a passage</a>
+  <a class="button secondary" href="{{ url_for('main.lessons') }}">Follow a lesson</a>
 </section>
 <section class="stat-grid" aria-label="Your progress">
   <article><strong>{{ stats.attempts }}</strong><span>passages completed</span></article>
@@ -13,6 +14,6 @@
   <article><strong>{{ stats.accuracy }}%</strong><span>average accuracy</span></article>
   <article><strong>{{ passage_count }}</strong><span>passages available</span></article>
 </section>
-<section class="callout"><h2>Today’s campaign</h2><p>Aim for {{ profile.daily_goal_minutes }} careful minutes. Accuracy builds speed.</p></section>
+<section class="callout"><p class="eyebrow">Recommended next</p><h2>{{ suggestion.title }}</h2><p>{{ reason }}</p><a class="button" href="{{ url_for('main.practice', passage_id=suggestion.id) }}">Practice this passage</a></section>
+<section class="callout"><h2>Today’s campaign</h2><p>Aim for {{ profile.daily_goal_minutes }} careful minutes. Your current streak is {{ streak }} day{% if streak != 1 %}s{% endif %}. Accuracy builds speed.</p></section>
 {% endblock %}
-

@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% block title %}Unlock Parent Area · ScipioTyping{% endblock %}
+{% block content %}<section class="hero narrow"><p class="eyebrow">Local protection</p><h1>Parent area locked</h1><form method="post" action="{{ url_for('main.parent_unlock') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><label>Parent PIN<input type="password" inputmode="numeric" name="pin" required autofocus></label><button class="button">Unlock</button></form><p class="hint">This PIN discourages casual access on this computer. It is not an online account.</p></section>{% endblock %}
+

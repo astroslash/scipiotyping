@@ -5,10 +5,7 @@ __pycache__/
 .coverage
 htmlcov/
 .env
-instance/*.db
-instance/backups/
-instance/exports/
+instance/*
 dist/
 build/
 *.egg-info/
-

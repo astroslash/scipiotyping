@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% block title %}Placement · ScipioTyping{% endblock %}
+{% block content %}<section class="hero"><p class="eyebrow">Starting point</p><h1>Placement exercise</h1><p>Type one short passage at a comfortable pace. ScipioTyping will use speed and accuracy to choose a level; a parent can change it later.</p><a class="button" href="{{ url_for('main.practice', passage_id=passage.id, mode='placement') }}">Begin placement</a></section>{% endblock %}
+

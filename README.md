@@ -1,36 +1,45 @@
 # ScipioTyping
 
-ScipioTyping is a private, offline-first typing tutor built for Kenneth. It runs
-in a web browser, stores progress in a local SQLite database, and uses no cloud
-accounts, advertisements, analytics, CDNs, or subscriptions.
+ScipioTyping is a private, offline-first typing tutor made for Kenneth. It runs
+in a browser, stores progress in a local SQLite database, and uses no cloud
+account, advertisement, analytics service, CDN, or subscription.
 
-## Windows setup
+## Start on Windows
 
-Open PowerShell in this directory and run:
+Right-click `start-scipiotyping.ps1` and choose **Run with PowerShell**, or open
+PowerShell in this folder and run:
+
+```powershell
+.\start-scipiotyping.ps1
+```
+
+The first run creates `.venv` and installs the two required Python packages.
+Later launches work offline. The browser opens to `http://127.0.0.1:5000`.
+Leave the PowerShell window open while using the app; press `Ctrl+C` there to
+stop it.
+
+If PowerShell blocks local scripts, use this equivalent command:
+
+```powershell
+.\.venv\Scripts\python.exe -m scipiotyping
+```
+
+## Developer setup
 
 ```powershell
 py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements-dev.txt
-python -m scipiotyping init-db
-python -m scipiotyping
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m flask --app scipiotyping init-db
+.\run-tests.ps1
 ```
 
-Then open `http://127.0.0.1:5000`. Press `Ctrl+C` in PowerShell to stop it.
-After installation, `start-scipiotyping.ps1` provides a one-command launcher.
+## Data and privacy
 
-## Tests and content checks
+Progress, profiles, preferences, achievements, and custom passages are stored in
+`instance/scipiotyping.db`. A locally generated secret protects browser sessions.
+The Parent dashboard downloads CSV/JSON reports and complete SQLite backups.
+Restore automatically preserves the previous database under `instance/backups`.
 
-```powershell
-.\.venv\Scripts\python.exe -m pytest
-.\.venv\Scripts\python.exe -m scipiotyping validate-content
-```
-
-## Privacy and backups
-
-All progress is stored in `instance/scipiotyping.db`. The parent dashboard can
-download JSON/CSV exports and create or restore local backups. Keep backups in
-a safe place before moving or upgrading the computer.
-
-See `docs/parent-guide.md` and `docs/developer-guide.md` for more detail.
-
+The server binds only to `127.0.0.1` unless a knowledgeable user deliberately
+changes `SCIPIO_HOST`. See [Parent guide](docs/parent-guide.md), [Developer
+guide](docs/developer-guide.md), and [Troubleshooting](docs/troubleshooting.md).

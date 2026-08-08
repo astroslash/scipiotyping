@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% block title %}Profiles · ScipioTyping{% endblock %}
+{% block content %}<div class="page-heading"><p class="eyebrow">Local learners</p><h1>Who is practicing?</h1></div><div class="card-grid">{% for profile in profiles %}<article class="passage-card"><h2>{{ profile.name }}</h2><p>Daily goal: {{ profile.daily_goal_minutes }} minutes</p>{% if profile.id == selected.id %}<strong>Current profile</strong>{% else %}<form method="post" action="{{ url_for('main.select_profile', profile_id=profile.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="button">Use this profile</button></form>{% endif %}</article>{% endfor %}</div>{% endblock %}
+
