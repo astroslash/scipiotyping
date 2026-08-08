@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import io
 import json
+import secrets
 import shutil
 import sqlite3
 import tempfile
@@ -20,6 +21,7 @@ from .progress import (ACHIEVEMENTS, KEYBOARD_ROWS, award_achievements,
                        focus_keys, key_report, recommend, streak_days, weak_keys)
 from .scoring import score_text
 from .targeted import targeted_passage
+from .timing import daily_practice_summary, format_duration
 
 bp = Blueprint("main", __name__)
 
@@ -88,6 +90,13 @@ def selected_profile():
     return profile
 
 
+@bp.app_context_processor
+def daily_goal_context():
+    profile = selected_profile()
+    summary = daily_practice_summary(get_db(), profile["id"], profile["daily_goal_minutes"])
+    return {"daily_practice": summary, "format_duration": format_duration}
+
+
 def _setting(key: str, default: str = "") -> str:
     row = get_db().execute("SELECT value FROM settings WHERE key=?", (key,)).fetchone()
     return row["value"] if row else default
@@ -108,7 +117,7 @@ def _require_parent() -> None:
 @bp.get("/health")
 def health():
     get_db().execute("SELECT 1").fetchone()
-    return jsonify(status="ok", application="ScipioTyping", schema=5)
+    return jsonify(status="ok", application="ScipioTyping", schema=6)
 
 
 @bp.get("/")
@@ -157,6 +166,56 @@ def targeted_practice():
     return render_template("practice.html", passage=passage, mode="targeted", lesson_id="")
 
 
+@bp.post("/api/practice-sessions")
+def start_practice_session():
+    data = request.get_json(silent=True) or {}
+    candidates = practice_items()
+    targeted = _session_targeted_passage()
+    if targeted:
+        candidates.append(targeted)
+    passage = next((item for item in candidates if item["id"] == data.get("passage_id")), None)
+    mode = data.get("mode") if data.get("mode") in {"practice", "lesson", "placement", "targeted"} else "practice"
+    if not passage or (mode == "targeted" and (not targeted or passage["id"] != targeted["id"])):
+        return jsonify(error="Invalid practice session."), 400
+    profile = selected_profile()
+    now = datetime.now(UTC).isoformat()
+    identifier = secrets.token_urlsafe(18)
+    connection = get_db()
+    connection.execute("""INSERT INTO practice_sessions(
+        id,profile_id,passage_id,mode,started_at,updated_at,active_seconds)
+        VALUES(?,?,?,?,?,?,0)""", (identifier, profile["id"], passage["id"], mode, now, now))
+    connection.commit()
+    summary = daily_practice_summary(connection, profile["id"], profile["daily_goal_minutes"])
+    return jsonify(id=identifier, daily=summary), 201
+
+
+@bp.patch("/api/practice-sessions/<session_id>")
+def update_practice_session(session_id: str):
+    data = request.get_json(silent=True) or {}
+    profile = selected_profile()
+    connection = get_db()
+    row = connection.execute("SELECT * FROM practice_sessions WHERE id=? AND profile_id=?", (session_id, profile["id"])).fetchone()
+    try:
+        active = float(data.get("active_seconds"))
+    except (TypeError, ValueError):
+        return jsonify(error="Invalid active time."), 400
+    if not row or row["completed_at"] or active < row["active_seconds"] or active > 14400:
+        return jsonify(error="Invalid practice session update."), 400
+    now = datetime.now(UTC)
+    started = datetime.fromisoformat(row["started_at"])
+    if active > (now - started).total_seconds() + 5:
+        return jsonify(error="Active time exceeds elapsed session time."), 400
+    delta = active - row["active_seconds"]
+    connection.execute("UPDATE practice_sessions SET active_seconds=?,updated_at=? WHERE id=?",
+                       (active, now.isoformat(), session_id))
+    if delta > 0:
+        connection.execute("INSERT INTO practice_time_segments(session_id,recorded_at,active_seconds) VALUES(?,?,?)",
+                           (session_id, now.isoformat(), delta))
+    connection.commit()
+    summary = daily_practice_summary(connection, profile["id"], profile["daily_goal_minutes"])
+    return jsonify(session_seconds=round(active, 1), daily=summary)
+
+
 @bp.post("/api/attempts")
 def save_attempt():
     data = request.get_json(silent=True) or {}
@@ -174,7 +233,18 @@ def save_attempt():
     except (TypeError, ValueError):
         return jsonify(error="Invalid attempt data."), 400
     profile = selected_profile(); now = datetime.now(UTC); connection = get_db()
+    practice_session_id = data.get("practice_session_id")
+    practice_session = None
+    if practice_session_id:
+        practice_session = connection.execute(
+            "SELECT * FROM practice_sessions WHERE id=? AND profile_id=? AND passage_id=?",
+            (practice_session_id, profile["id"], passage["id"]),
+        ).fetchone()
+        if practice_session is None or practice_session["completed_at"]:
+            return jsonify(error="Invalid practice session."), 400
     mode = data.get("mode") if data.get("mode") in {"practice", "lesson", "placement", "targeted"} else "practice"
+    if practice_session and practice_session["mode"] != mode:
+        return jsonify(error="Practice session mode does not match."), 400
     if mode == "targeted" and (not targeted or passage["id"] != targeted["id"]):
         return jsonify(error="That targeted drill is no longer active."), 400
     lesson_id = data.get("lesson_id") if any(l["id"] == data.get("lesson_id") for l in LESSONS) else None
@@ -199,6 +269,25 @@ def save_attempt():
         level = placement_level(score["net_wpm"], score["accuracy"])
         connection.execute("UPDATE profiles SET placement_level=?, placement_complete=1, preferred_difficulty=? WHERE id=?", (level, level, profile["id"]))
         score["placement_level"] = level
+    if practice_session:
+        final_active = max(duration, practice_session["active_seconds"])
+        connection.execute("""UPDATE practice_sessions SET active_seconds=?,updated_at=?,completed_at=?,attempt_id=?
+                              WHERE id=?""",
+                           (final_active, now.isoformat(), now.isoformat(),
+                            cursor.lastrowid, practice_session["id"]))
+        if final_active > practice_session["active_seconds"]:
+            connection.execute("INSERT INTO practice_time_segments(session_id,recorded_at,active_seconds) VALUES(?,?,?)",
+                               (practice_session["id"], now.isoformat(), final_active-practice_session["active_seconds"]))
+    else:
+        implicit_id = secrets.token_urlsafe(18)
+        connection.execute("""INSERT INTO practice_sessions(
+            id,profile_id,passage_id,mode,started_at,updated_at,completed_at,active_seconds,attempt_id)
+            VALUES(?,?,?,?,?,?,?,?,?)""",
+            (implicit_id, profile["id"], passage["id"], mode,
+             (now-timedelta(seconds=duration)).isoformat(), now.isoformat(), now.isoformat(), duration,
+             cursor.lastrowid))
+        connection.execute("INSERT INTO practice_time_segments(session_id,recorded_at,active_seconds) VALUES(?,?,?)",
+                           (implicit_id, now.isoformat(), duration))
     new_awards = award_achievements(connection, profile["id"], {p["id"]:p for p in practice_items()})
     connection.commit()
     if mode == "targeted":
@@ -217,7 +306,9 @@ def save_attempt():
                                "recent_accuracy": recent_accuracy, "status": current.get("status", "unknown"),
                                "change": round(recent_accuracy - baseline, 1) if baseline is not None and recent_accuracy is not None else None,
                                **stats})
+    daily = daily_practice_summary(connection, profile["id"], profile["daily_goal_minutes"])
     return jsonify(id=cursor.lastrowid, corrected_errors=corrected_errors,
+                   session_seconds=round(duration, 1), daily=daily,
                    achievements=[ACHIEVEMENTS[c][0] for c in new_awards], focus_feedback=focus_feedback, **score), 201
 
 
@@ -335,7 +426,20 @@ def add_content():
 
 @bp.get("/export/<format_name>")
 def export_data(format_name: str):
-    _require_parent(); rows = [dict(r) for r in get_db().execute("SELECT * FROM attempts ORDER BY completed_at")]
+    _require_parent()
+    if format_name in {"time-json", "time-csv"}:
+        rows = [dict(r) for r in get_db().execute("""SELECT practice_sessions.*, profiles.name profile_name
+            FROM practice_sessions JOIN profiles ON profiles.id=practice_sessions.profile_id
+            ORDER BY started_at""")]
+        if format_name == "time-json":
+            return Response(json.dumps(rows, indent=2), mimetype="application/json",
+                            headers={"Content-Disposition":"attachment; filename=scipiotyping-practice-time.json"})
+        output = io.StringIO()
+        fields = list(rows[0]) if rows else ["id","profile_id","profile_name","passage_id","mode","started_at","active_seconds"]
+        writer = csv.DictWriter(output, fieldnames=fields); writer.writeheader(); writer.writerows(rows)
+        return Response(output.getvalue(), mimetype="text/csv",
+                        headers={"Content-Disposition":"attachment; filename=scipiotyping-practice-time.csv"})
+    rows = [dict(r) for r in get_db().execute("SELECT * FROM attempts ORDER BY completed_at")]
     if format_name == "json": return Response(json.dumps(rows,indent=2),mimetype="application/json",headers={"Content-Disposition":"attachment; filename=scipiotyping-progress.json"})
     if format_name == "csv":
         output=io.StringIO(); fields=list(rows[0]) if rows else ["id","profile_id","passage_id","completed_at","net_wpm","accuracy"]; writer=csv.DictWriter(output,fieldnames=fields); writer.writeheader(); writer.writerows(rows)
@@ -380,7 +484,7 @@ def restore():
 def reset_progress():
     _require_parent(); profile=selected_profile()
     if request.form.get("confirmation") != f"RESET {profile['name']}": flash(f"Type RESET {profile['name']} exactly.","error")
-    else: get_db().execute("DELETE FROM attempts WHERE profile_id=?",(profile["id"],)); get_db().execute("DELETE FROM achievements WHERE profile_id=?",(profile["id"],)); get_db().commit(); flash("Progress reset for this profile.","success")
+    else: get_db().execute("DELETE FROM practice_sessions WHERE profile_id=?",(profile["id"],)); get_db().execute("DELETE FROM attempts WHERE profile_id=?",(profile["id"],)); get_db().execute("DELETE FROM achievements WHERE profile_id=?",(profile["id"],)); get_db().commit(); flash("Progress reset for this profile.","success")
     return redirect(url_for("main.parent"))
 
 

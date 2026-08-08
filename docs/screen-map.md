@@ -2,6 +2,7 @@
 
 ```text
 Home
+├── Persistent daily goal meter (all screens)
 ├── Recommended practice ──> Typing exercise ──> Results
 ├── Lessons ────────────────> Placement / lesson exercise
 ├── Library ────────────────> Filtered passage ──> Typing exercise

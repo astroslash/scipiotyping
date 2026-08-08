@@ -53,6 +53,18 @@ access; it is not represented as internet-grade authentication.
 - Weak-key workshops are deterministic, generated from local content, and store
   their target and generator metadata with the result.
 
+## Daily practice time
+
+- Every screen displays active practice today against the selected profile's
+  configurable daily goal.
+- A practice session starts with the first typed character and pauses after 15
+  seconds without keyboard activity.
+- Periodic absolute-time updates preserve unfinished-session time without
+  double-counting retries.
+- The current exercise updates the daily meter immediately; completion reports
+  both session time and the updated daily total.
+- Daily boundaries follow the computer's local date while timestamps remain UTC.
+
 ## Release scope
 
 Version 1.0 includes local profiles, placement, lesson tracks, adaptive passage

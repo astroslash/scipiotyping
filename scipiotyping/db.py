@@ -111,6 +111,32 @@ def migrate(connection: sqlite3.Connection) -> None:
             if not _has_column(connection, "attempts", name):
                 connection.execute(f"ALTER TABLE attempts ADD COLUMN {name} {definition}")
         connection.execute("UPDATE schema_version SET version=5")
+        version = 5
+    connection.executescript("""
+    CREATE TABLE IF NOT EXISTS practice_sessions (
+      id TEXT PRIMARY KEY,
+      profile_id INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+      passage_id TEXT NOT NULL,
+      mode TEXT NOT NULL,
+      started_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL,
+      completed_at TEXT,
+      active_seconds REAL NOT NULL DEFAULT 0 CHECK(active_seconds >= 0),
+      attempt_id INTEGER UNIQUE REFERENCES attempts(id) ON DELETE CASCADE
+    );
+    CREATE INDEX IF NOT EXISTS idx_practice_sessions_profile_started
+      ON practice_sessions(profile_id, started_at);
+    CREATE TABLE IF NOT EXISTS practice_time_segments (
+      id INTEGER PRIMARY KEY,
+      session_id TEXT NOT NULL REFERENCES practice_sessions(id) ON DELETE CASCADE,
+      recorded_at TEXT NOT NULL,
+      active_seconds REAL NOT NULL CHECK(active_seconds > 0)
+    );
+    CREATE INDEX IF NOT EXISTS idx_practice_time_segments_recorded
+      ON practice_time_segments(recorded_at);
+    """)
+    if version < 6:
+        connection.execute("UPDATE schema_version SET version=6")
     connection.commit()
 
 
@@ -148,6 +174,23 @@ def backfill_key_stats(connection: sqlite3.Connection, passage_lookup: dict[str,
             values["errors"] = count
             values["matched"] = values["expected"] - count
         connection.execute("UPDATE attempts SET key_stats=? WHERE id=?", (json.dumps(statistics), row["id"]))
+    connection.commit()
+
+
+def backfill_practice_sessions(connection: sqlite3.Connection) -> None:
+    """Represent historical attempts as completed sessions exactly once."""
+    connection.execute("""INSERT OR IGNORE INTO practice_sessions(
+        id, profile_id, passage_id, mode, started_at, updated_at, completed_at,
+        active_seconds, attempt_id)
+        SELECT 'legacy-' || id, profile_id, passage_id, mode, started_at,
+               completed_at, completed_at, duration_seconds, id FROM attempts""")
+    connection.execute("""INSERT INTO practice_time_segments(session_id,recorded_at,active_seconds)
+        SELECT practice_sessions.id, practice_sessions.completed_at, practice_sessions.active_seconds
+        FROM practice_sessions
+        WHERE practice_sessions.completed_at IS NOT NULL
+          AND practice_sessions.active_seconds > 0
+          AND NOT EXISTS (SELECT 1 FROM practice_time_segments
+                          WHERE practice_time_segments.session_id=practice_sessions.id)""")
     connection.commit()
 
 

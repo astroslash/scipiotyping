@@ -14,6 +14,10 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="{{ url_for('main.index') }}">Scipio<span>Typing</span></a>
+    <div id="daily-goal" class="daily-goal{% if daily_practice.goal_reached %} goal-reached{% endif %}" data-base-seconds="{{ daily_practice.active_seconds }}" data-goal-seconds="{{ daily_practice.goal_seconds }}">
+      <label id="daily-goal-label" for="daily-goal-progress">{% if daily_practice.goal_reached %}Daily goal reached!{% else %}Today: <span id="daily-time">{{ format_duration(daily_practice.active_seconds) }}</span> / <span id="daily-goal-time">{{ format_duration(daily_practice.goal_seconds) }}</span>{% endif %}</label>
+      <progress id="daily-goal-progress" value="{{ [daily_practice.active_seconds, daily_practice.goal_seconds]|min }}" max="{{ daily_practice.goal_seconds }}" aria-describedby="daily-goal-label"></progress>
+    </div>
     <nav aria-label="Main navigation">
       <a href="{{ url_for('main.library') }}">Library</a>
       <a href="{{ url_for('main.lessons') }}">Lessons</a>

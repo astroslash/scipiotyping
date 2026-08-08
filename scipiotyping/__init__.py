@@ -13,7 +13,7 @@ from .lessons import lesson_passages
 from .routes import bp
 from .security import csrf_token, protect_csrf
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 
 def create_app(test_config: dict | None = None) -> Flask:
@@ -45,4 +45,5 @@ def create_app(test_config: dict | None = None) -> Flask:
         lookup.update({item["id"]: item["text"] for item in lesson_passages()})
         lookup.update({row["id"]: row["text"] for row in db.get_db().execute("SELECT id,text FROM custom_passages")})
         db.backfill_key_stats(db.get_db(), lookup)
+        db.backfill_practice_sessions(db.get_db())
     return app

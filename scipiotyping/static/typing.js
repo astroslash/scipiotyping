@@ -24,7 +24,55 @@
   let previous = '';
   let saved = false;
   let currentExpectedIndex = 0;
+  let practiceSessionId = null;
+  let sessionStartPromise = null;
+  let recordedActiveSeconds = 0;
+  let lastHeartbeatSeconds = 0;
+  let heartbeatInFlight = false;
   const keyErrors = {};
+
+  async function beginPracticeSession() {
+    if (practiceSessionId) return practiceSessionId;
+    if (!sessionStartPromise) {
+      sessionStartPromise = fetch('/api/practice-sessions', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'X-CSRF-Token': csrf},
+        body: JSON.stringify({passage_id: document.querySelector('meta[name="passage-id"]').content, mode: app.dataset.mode})
+      }).then(response => {
+        if (!response.ok) throw new Error('session');
+        return response.json();
+      }).then(data => {
+        practiceSessionId = data.id;
+        if (window.ScipioDaily) window.ScipioDaily.setAbsolute(data.daily.active_seconds);
+        return practiceSessionId;
+      }).catch(() => {
+        sessionStartPromise = null;
+        return null;
+      });
+    }
+    return sessionStartPromise;
+  }
+
+  async function saveHeartbeat(seconds = activeSeconds(), keepalive = false) {
+    if (heartbeatInFlight || seconds <= recordedActiveSeconds || !await beginPracticeSession()) return;
+    heartbeatInFlight = true;
+    try {
+      const response = await fetch(`/api/practice-sessions/${encodeURIComponent(practiceSessionId)}`, {
+        method: 'PATCH', keepalive,
+        headers: {'Content-Type': 'application/json', 'X-CSRF-Token': csrf},
+        body: JSON.stringify({active_seconds: seconds})
+      });
+      if (!response.ok) throw new Error('heartbeat');
+      const data = await response.json();
+      recordedActiveSeconds = data.session_seconds;
+      lastHeartbeatSeconds = recordedActiveSeconds;
+      if (window.ScipioDaily) window.ScipioDaily.setAbsolute(data.daily.active_seconds);
+    } catch {
+      // The absolute value is retried on the next heartbeat, so time cannot double-count.
+    } finally {
+      heartbeatInFlight = false;
+    }
+  }
 
   function align(expected, typed, prefixMode = false) {
     const rows = expected.length + 1, columns = typed.length + 1;
@@ -138,6 +186,8 @@
     accuracyEl.textContent = `${Math.round(measurement.accuracy)}%`;
     progressEl.textContent = `${Math.min(value.length, target.length)} / ${target.length} characters`;
     finishButton.hidden = value.length < completionMinimum;
+    if (window.ScipioDaily) window.ScipioDaily.updateCurrent(Math.max(0, measurement.seconds - recordedActiveSeconds));
+    if (measurement.seconds - lastHeartbeatSeconds >= 10) saveHeartbeat(measurement.seconds);
   }
 
   function likelyComplete(value) {
@@ -182,19 +232,24 @@
     input.disabled = true; finishButton.disabled = true;
     const measurement = metrics(input.value);
     try {
+      await beginPracticeSession();
       const response = await fetch('/api/attempts', {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'X-CSRF-Token': csrf},
         body: JSON.stringify({passage_id: document.querySelector('meta[name="passage-id"]').content,
           duration_seconds: measurement.seconds, typed_text: input.value, corrected_errors: correctedErrors,
-          error_map: keyErrors, mode: app.dataset.mode, lesson_id: app.dataset.lesson, finish_reason: manual ? 'manual' : 'automatic'})
+          error_map: keyErrors, mode: app.dataset.mode, lesson_id: app.dataset.lesson,
+          practice_session_id: practiceSessionId, finish_reason: manual ? 'manual' : 'automatic'})
       });
       if (!response.ok) throw new Error();
       const score = await response.json();
+      recordedActiveSeconds = score.session_seconds;
+      if (window.ScipioDaily) window.ScipioDaily.setAbsolute(score.daily.active_seconds);
       results.replaceChildren();
       addText('h2', 'Expedition complete');
       addText('p', `Raw speed: ${score.gross_wpm} WPM · Adjusted speed: ${score.adjusted_wpm} WPM · Accuracy: ${score.accuracy}%`);
       addText('p', `Corrected errors: ${score.corrected_errors} · Remaining errors: ${score.errors} (${score.substitutions} substitutions, ${score.insertions} insertions, ${score.deletions} deletions, ${score.transpositions} transpositions)`);
+      addText('p', `You practiced for ${window.ScipioDaily ? window.ScipioDaily.format(score.session_seconds) : Math.round(score.session_seconds) + ' seconds'} this session. Today: ${window.ScipioDaily ? window.ScipioDaily.format(score.daily.active_seconds) : Math.round(score.daily.active_seconds) + ' seconds'} of your ${window.ScipioDaily ? window.ScipioDaily.format(score.daily.goal_seconds) : Math.round(score.daily.goal_seconds / 60) + ' minute'} goal.${score.daily.goal_reached ? ' Daily goal reached!' : ''}`);
       if (score.focus_feedback.length) {
         addText('h3', 'Focus-key results');
         score.focus_feedback.forEach(item => {
@@ -232,7 +287,7 @@
   });
   input.addEventListener('input', () => {
     const now = performance.now();
-    if (!started) { started = now; lastActivity = now; interval = setInterval(() => update(align(target, input.value, true)), 500); }
+    if (!started) { started = now; lastActivity = now; beginPracticeSession(); interval = setInterval(() => update(align(target, input.value, true)), 500); }
     else if (now - lastActivity > 15000) inactiveMs += now - lastActivity - 15000;
     lastActivity = now;
     if (input.value.length < previous.length) correctedErrors += previous.length - input.value.length;
@@ -242,6 +297,7 @@
     if (likelyComplete(input.value)) completionTimer = setTimeout(() => finish(false), 450);
   });
   finishButton.addEventListener('click', () => finish(true));
+  window.addEventListener('pagehide', () => { if (started && !saved) saveHeartbeat(activeSeconds(), true); });
   document.querySelector('#restart').addEventListener('click', () => location.reload());
   const initial = paint(); update(initial); input.focus();
 })();

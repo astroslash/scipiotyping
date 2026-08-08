@@ -1,4 +1,15 @@
-# Release checklist — 1.1.0
+# Release checklist — 1.2.0
+
+## 1.2.0
+
+- [x] Practice-session schema migration 6 and historical backfill implemented.
+- [x] Profile-owned, idempotent active-time heartbeats implemented.
+- [x] Local-day summary and configurable goal calculation tested.
+- [x] Daily meter displayed across all primary screens.
+- [x] Live session and daily progress verified in Microsoft Edge.
+- [x] Abandoned session, export, reset, backup, and restore behavior covered.
+- [x] Full release command completed.
+- [x] Version 1.2.0 committed, tagged, and pushed.
 
 ## 1.1.0
 

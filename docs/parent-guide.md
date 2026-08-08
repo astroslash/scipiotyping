@@ -6,12 +6,18 @@
    keyboard heatmap. After enough practice, **Practice weak keys** opens a
    private drill assembled locally from the student's recent results.
 4. Use **Parent** to change goals, add profiles, set an optional PIN, add an
-   original passage, export results, or download a complete backup.
+   original passage, export results and practice time, or download a complete
+   backup.
 5. Press `Ctrl+C` in the PowerShell window when finished.
 
 Accuracy matters more than a high early WPM. Encourage a relaxed pace and short,
 regular sessions. ScipioTyping's streak allows today to remain unfinished and
 does not use public leaderboards or purchases.
+
+The header shows active practice today against the student's goal on every
+screen. Typing time is saved periodically, so most time from an unfinished
+exercise is retained. The timer pauses after 15 seconds without typing and does
+not count time spent reading menus.
 
 Before restoring or resetting, download a complete backup. Restore requires the
 word `RESTORE`; reset requires `RESET` followed by the active student's name.

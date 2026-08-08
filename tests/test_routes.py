@@ -10,9 +10,11 @@ def post_form(client, path, csrf, data=None, **kwargs):
 
 
 def test_health_and_primary_pages(client):
-    assert client.get("/health").get_json()["schema"] == 5
+    assert client.get("/health").get_json()["schema"] == 6
     for path in ["/", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
-        assert client.get(path).status_code == 200
+        response = client.get(path)
+        assert response.status_code == 200
+        assert b'id="daily-goal"' in response.data
 
 
 def test_practice_page_server_renders_passage_text(client):
@@ -45,6 +47,29 @@ def test_attempt_is_scored_by_server(client, csrf, app):
     data=response.get_json()
     assert response.status_code==201 and data["accuracy"]==100 and data["completed"] is True
     assert "First Expedition" in data["achievements"]
+    assert data["session_seconds"] == 120 and data["daily"]["active_seconds"] == 120
+    with app.app_context():
+        saved_session = get_db().execute("SELECT * FROM practice_sessions").fetchone()
+        assert saved_session["attempt_id"] and saved_session["completed_at"]
+
+
+def test_practice_session_heartbeats_are_idempotent_and_profile_owned(client, csrf, app):
+    started = client.post("/api/practice-sessions", headers={"X-CSRF-Token": csrf}, json={
+        "passage_id": "marathon-messenger", "mode": "practice"})
+    assert started.status_code == 201
+    session_id = started.get_json()["id"]
+    headers = {"X-CSRF-Token": csrf}
+    first = client.patch(f"/api/practice-sessions/{session_id}", headers=headers, json={"active_seconds": .1})
+    repeated = client.patch(f"/api/practice-sessions/{session_id}", headers=headers, json={"active_seconds": .1})
+    assert first.status_code == repeated.status_code == 200
+    assert repeated.get_json()["daily"]["active_seconds"] == .1
+    assert client.patch(f"/api/practice-sessions/{session_id}", headers=headers, json={"active_seconds": 99}).status_code == 400
+    post_form(client, "/parent/profiles", csrf, {"name": "Alex"})
+    with app.app_context():
+        alex = get_db().execute("SELECT id FROM profiles WHERE name='Alex'").fetchone()[0]
+    post_form(client, f"/profiles/{alex}/select", csrf)
+    assert client.patch(f"/api/practice-sessions/{session_id}", headers=headers, json={"active_seconds": .2}).status_code == 400
+    assert b'data-base-seconds="0.0"' in client.get("/").data
 
 
 def test_attempt_with_substitution_completes_and_is_adjusted(client, csrf, app):
@@ -135,6 +160,8 @@ def test_custom_content_validation_and_add(client, csrf):
 def test_exports_and_backup(client, csrf):
     assert client.get("/export/json").status_code==200
     assert client.get("/export/csv").status_code==200
+    assert client.get("/export/time-json").status_code==200
+    assert client.get("/export/time-csv").status_code==200
     backup=client.get("/parent/backup")
     assert backup.status_code==200 and backup.data[:16]==b"SQLite format 3\x00"
 
@@ -156,3 +183,15 @@ def test_valid_backup_restore_round_trip(client, csrf, app):
 def test_reset_requires_exact_confirmation(client, csrf, app):
     response=post_form(client,"/parent/reset",csrf,{"confirmation":"RESET"},follow_redirects=True)
     assert b"Type RESET Kenneth exactly" in response.data
+
+
+def test_reset_removes_attempts_and_unfinished_practice_time(client, csrf, app):
+    started = client.post("/api/practice-sessions", headers={"X-CSRF-Token": csrf}, json={
+        "passage_id": "marathon-messenger", "mode": "practice"})
+    identifier = started.get_json()["id"]
+    assert client.patch(f"/api/practice-sessions/{identifier}", headers={"X-CSRF-Token": csrf},
+                        json={"active_seconds": .1}).status_code == 200
+    response = post_form(client, "/parent/reset", csrf, {"confirmation": "RESET Kenneth"}, follow_redirects=True)
+    assert b"Progress reset" in response.data
+    with app.app_context():
+        assert get_db().execute("SELECT COUNT(*) FROM practice_sessions").fetchone()[0] == 0

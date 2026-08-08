@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.0 — 2026-08-08
+
+- Added a persistent daily practice meter to every screen.
+- Added active-time practice sessions with idempotent periodic heartbeats.
+- Preserved time from unfinished exercises while excluding long inactivity.
+- Added local-day goal calculations and live 15-minute goal feedback.
+- Linked completed sessions to attempts without double-counting time.
+- Added practice-time CSV/JSON exports and reset/backup integration.
+- Added schema migration 6 with historical attempt backfill.
+- Added timing, timezone-boundary, profile-isolation, API, UI, and Edge tests.
+
 ## 1.1.0 — 2026-08-08
 
 - Added server-authoritative per-key opportunities, matches, errors, and accuracy.

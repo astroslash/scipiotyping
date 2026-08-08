@@ -31,6 +31,8 @@ def main() -> None:
         driver = webdriver.Edge(options=options)
         try:
             driver.get("http://127.0.0.1:5001/practice/drill-home-row?mode=lesson&lesson=home-row")
+            daily_goal = driver.find_element(By.ID, "daily-goal")
+            assert daily_goal.is_displayed() and "Today:" in daily_goal.text
             passage = driver.find_element(By.ID, "passage")
             assert passage.is_displayed() and passage.text == DRILL_TEXTS["home-row"]
             field = driver.find_element(By.ID, "typing-input")
@@ -42,6 +44,8 @@ def main() -> None:
             WebDriverWait(driver, 10).until(lambda page: page.find_element(By.ID, "results").is_displayed())
             result = driver.find_element(By.ID, "results").text
             assert "Expedition complete" in result and "accuracy: 100%" in result.lower()
+            assert "You practiced for" in result and "of your 15:00 goal" in result
+            assert float(driver.find_element(By.ID, "daily-goal").get_attribute("data-base-seconds")) >= 0.5
             with app.app_context():
                 row = get_db().execute("SELECT * FROM attempts").fetchone()
                 assert row["completed"] == 1 and row["corrected_errors"] == 1
