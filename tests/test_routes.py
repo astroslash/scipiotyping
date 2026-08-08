@@ -10,9 +10,18 @@ def post_form(client, path, csrf, data=None, **kwargs):
 
 
 def test_health_and_primary_pages(client):
-    assert client.get("/health").get_json()["schema"] == 3
+    assert client.get("/health").get_json()["schema"] == 4
     for path in ["/", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
         assert client.get(path).status_code == 200
+
+
+def test_practice_page_server_renders_passage_text(client):
+    from scipiotyping.lessons import DRILL_TEXTS
+
+    response = client.get("/practice/drill-home-row?mode=lesson&lesson=home-row")
+    assert response.status_code == 200
+    assert b'id="passage"' in response.data
+    assert DRILL_TEXTS["home-row"].encode() in response.data
 
 
 def test_missing_passage_is_404(client):
@@ -36,6 +45,18 @@ def test_attempt_is_scored_by_server(client, csrf, app):
     data=response.get_json()
     assert response.status_code==201 and data["accuracy"]==100 and data["completed"] is True
     assert "First Expedition" in data["achievements"]
+
+
+def test_attempt_with_substitution_completes_and_is_adjusted(client, csrf, app):
+    with app.app_context():
+        from scipiotyping.content import load_passages
+        passage=next(p for p in load_passages(app.config["CONTENT_PATH"]) if p["id"]=="marathon-messenger")
+    typed="X" + passage["text"][1:]
+    response=client.post("/api/attempts",headers={"X-CSRF-Token":csrf},json={"passage_id":passage["id"],"duration_seconds":120,"typed_text":typed,"corrected_errors":0,"mode":"practice"})
+    data=response.get_json()
+    assert response.status_code==201 and data["completed"] is True
+    assert data["substitutions"]==1 and data["accuracy"]<100
+    assert data["adjusted_wpm"]<data["gross_wpm"]
 
 
 def test_attempt_rejects_client_metrics_and_bad_text(client, csrf):

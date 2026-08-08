@@ -84,6 +84,20 @@ def migrate(connection: sqlite3.Connection) -> None:
         if not _has_column(connection, "profiles", "active"):
             connection.execute("ALTER TABLE profiles ADD COLUMN active INTEGER NOT NULL DEFAULT 1")
         connection.execute("UPDATE schema_version SET version=3")
+        version = 3
+    if version < 4:
+        additions = [
+            ("adjusted_wpm", "REAL"),
+            ("substitutions", "INTEGER NOT NULL DEFAULT 0"),
+            ("insertions", "INTEGER NOT NULL DEFAULT 0"),
+            ("deletions", "INTEGER NOT NULL DEFAULT 0"),
+            ("transpositions", "INTEGER NOT NULL DEFAULT 0"),
+        ]
+        for name, definition in additions:
+            if not _has_column(connection, "attempts", name):
+                connection.execute(f"ALTER TABLE attempts ADD COLUMN {name} {definition}")
+        connection.execute("UPDATE attempts SET adjusted_wpm=net_wpm WHERE adjusted_wpm IS NULL")
+        connection.execute("UPDATE schema_version SET version=4")
     connection.commit()
 
 
@@ -107,4 +121,3 @@ def init_db_command() -> None:
 def init_app(app) -> None:
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
-

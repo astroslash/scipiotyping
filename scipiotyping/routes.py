@@ -60,6 +60,13 @@ def _safe_error_map(value: object) -> dict[str, int]:
     return cleaned
 
 
+def _combined_error_map(client_value: object, final_value: object) -> dict[str, int]:
+    combined = _safe_error_map(client_value)
+    for key, count in _safe_error_map(final_value).items():
+        combined[key] = max(combined.get(key, 0), count)
+    return combined
+
+
 def selected_profile():
     connection = get_db()
     profile_id = session.get("profile_id")
@@ -92,14 +99,14 @@ def _require_parent() -> None:
 @bp.get("/health")
 def health():
     get_db().execute("SELECT 1").fetchone()
-    return jsonify(status="ok", application="ScipioTyping", schema=3)
+    return jsonify(status="ok", application="ScipioTyping", schema=4)
 
 
 @bp.get("/")
 def index():
     profile = selected_profile()
     rows = get_db().execute("SELECT * FROM attempts WHERE profile_id=? ORDER BY completed_at DESC", (profile["id"],)).fetchall()
-    stats = get_db().execute("SELECT COUNT(*) attempts, COALESCE(ROUND(AVG(net_wpm),1),0) wpm, COALESCE(ROUND(AVG(accuracy),1),0) accuracy FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
+    stats = get_db().execute("SELECT COUNT(*) attempts, COALESCE(ROUND(AVG(adjusted_wpm),1),0) wpm, COALESCE(ROUND(AVG(accuracy),1),0) accuracy FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
     suggestion, reason = recommend(profile, rows, passages())
     return render_template("index.html", profile=profile, stats=stats, passage_count=len(passages()), suggestion=suggestion, reason=reason, streak=streak_days(rows))
 
@@ -128,7 +135,9 @@ def save_attempt():
     passage = next((p for p in practice_items() if p["id"] == data.get("passage_id")), None)
     try:
         duration = float(data.get("duration_seconds", 0)); typed = str(data.get("typed_text", ""))
-        if not passage or duration < 0.5 or duration > 14400 or len(typed) > len(passage["text"]): raise ValueError
+        corrected_errors = max(0, min(10000, int(data.get("corrected_errors", 0))))
+        allowance = max(20, int(len(passage["text"]) * 0.10)) if passage else 0
+        if not passage or duration < 0.5 or duration > 14400 or len(typed) > len(passage["text"]) + allowance: raise ValueError
         score = score_text(passage["text"], typed, duration)
     except (TypeError, ValueError):
         return jsonify(error="Invalid attempt data."), 400
@@ -138,17 +147,21 @@ def save_attempt():
     cursor = connection.execute(
         """INSERT INTO attempts(profile_id, passage_id, started_at, completed_at, duration_seconds,
         typed_characters, correct_characters, errors, corrected_errors, gross_wpm, net_wpm, accuracy,
-        completed, error_map, mode, lesson_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+        completed, error_map, mode, lesson_id, adjusted_wpm, substitutions, insertions, deletions,
+        transpositions) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
         (profile["id"], passage["id"], (now-timedelta(seconds=duration)).isoformat(), now.isoformat(), duration,
-         score["typed_characters"], score["correct_characters"], score["errors"], max(0, int(data.get("corrected_errors",0))),
-         score["gross_wpm"], score["net_wpm"], score["accuracy"], int(score["completed"]), json.dumps(_safe_error_map(data.get("error_map")) or score["error_map"]), mode, lesson_id))
+         score["typed_characters"], score["correct_characters"], score["errors"], corrected_errors,
+         score["gross_wpm"], score["net_wpm"], score["accuracy"], int(score["completed"]),
+         json.dumps(_combined_error_map(data.get("error_map"), score["error_map"])), mode, lesson_id,
+         score["adjusted_wpm"], score["substitutions"], score["insertions"], score["deletions"], score["transpositions"]))
     if mode == "placement" and score["completed"]:
         level = placement_level(score["net_wpm"], score["accuracy"])
         connection.execute("UPDATE profiles SET placement_level=?, placement_complete=1, preferred_difficulty=? WHERE id=?", (level, level, profile["id"]))
         score["placement_level"] = level
     new_awards = award_achievements(connection, profile["id"], {p["id"]:p for p in practice_items()})
     connection.commit()
-    return jsonify(id=cursor.lastrowid, achievements=[ACHIEVEMENTS[c][0] for c in new_awards], **score), 201
+    return jsonify(id=cursor.lastrowid, corrected_errors=corrected_errors,
+                   achievements=[ACHIEVEMENTS[c][0] for c in new_awards], **score), 201
 
 
 @bp.get("/lessons")
@@ -173,9 +186,9 @@ def placement():
 def progress():
     profile = selected_profile(); connection = get_db()
     rows = connection.execute("SELECT * FROM attempts WHERE profile_id=? ORDER BY completed_at DESC LIMIT 100", (profile["id"],)).fetchall()
-    best = connection.execute("SELECT COALESCE(MAX(net_wpm),0) best_wpm, COALESCE(MAX(accuracy),0) best_accuracy, COALESCE(SUM(duration_seconds)/60,0) minutes FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
+    best = connection.execute("SELECT COALESCE(MAX(adjusted_wpm),0) best_wpm, COALESCE(MAX(accuracy),0) best_accuracy, COALESCE(SUM(duration_seconds)/60,0) minutes FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
     awards = [{"code":r["code"], "earned_at":r["earned_at"], "title":ACHIEVEMENTS.get(r["code"],(r["code"],""))[0], "description":ACHIEVEMENTS.get(r["code"],("", ""))[1]} for r in connection.execute("SELECT * FROM achievements WHERE profile_id=? ORDER BY earned_at", (profile["id"],))]
-    chart = list(reversed([{"wpm":r["net_wpm"],"accuracy":r["accuracy"],"date":r["completed_at"][:10]} for r in rows[:12]]))
+    chart = list(reversed([{"wpm":r["adjusted_wpm"],"accuracy":r["accuracy"],"date":r["completed_at"][:10]} for r in rows[:12]]))
     return render_template("progress.html", attempts=rows, best=best, profile=profile, awards=awards, streak=streak_days(rows), weak_keys=weak_keys(rows), chart=chart)
 
 
@@ -201,7 +214,7 @@ def parent():
             connection.execute("UPDATE profiles SET daily_goal_minutes=?, preferred_difficulty=? WHERE id=?", (goal,difficulty,profile["id"])); connection.commit(); flash("Settings saved.", "success")
         else: flash("Use a goal from 5 to 120 minutes and difficulty from 1 to 5.", "error")
         return redirect(url_for("main.parent"))
-    stats = connection.execute("SELECT COUNT(*) attempts, COALESCE(ROUND(AVG(net_wpm),1),0) wpm, COALESCE(ROUND(AVG(accuracy),1),0) accuracy FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
+    stats = connection.execute("SELECT COUNT(*) attempts, COALESCE(ROUND(AVG(adjusted_wpm),1),0) wpm, COALESCE(ROUND(AVG(accuracy),1),0) accuracy FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
     return render_template("parent.html", profile=profile, stats=stats, profiles=connection.execute("SELECT * FROM profiles WHERE active=1 ORDER BY name").fetchall(), custom=_custom_passages(), pin_enabled=bool(_setting("parent_pin_hash")))
 
 

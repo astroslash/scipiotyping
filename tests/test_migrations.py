@@ -9,7 +9,8 @@ def test_v1_database_migrates_without_data_loss(tmp_path):
     connection.execute("INSERT INTO profiles(name,created_at) VALUES('Kenneth','2026-01-01')")
     connection.commit(); migrate(connection)
     assert connection.execute("SELECT name FROM profiles").fetchone()[0]=="Kenneth"
-    assert connection.execute("SELECT version FROM schema_version").fetchone()[0]==3
+    assert connection.execute("SELECT version FROM schema_version").fetchone()[0]==4
     assert connection.execute("SELECT name FROM sqlite_master WHERE name='custom_passages'").fetchone()
+    columns={row[1] for row in connection.execute("PRAGMA table_info(attempts)")}
+    assert {"adjusted_wpm","substitutions","insertions","deletions","transpositions"}.issubset(columns)
     connection.close()
-

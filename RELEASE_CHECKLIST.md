@@ -1,4 +1,16 @@
-# Release checklist — 1.0.0
+# Release checklist — 1.0.1
+
+## 1.0.1
+
+- [x] Alignment scoring implemented and unit tested.
+- [x] Existing progress preserved through schema migration 4.
+- [x] Automatic imperfect-passage completion verified in Microsoft Edge.
+- [x] Manual finish fallback verified in Microsoft Edge.
+- [x] Raw WPM, adjusted WPM, accuracy, and error types displayed.
+- [x] Full release command completed.
+- [ ] Version 1.0.1 committed, tagged, and pushed.
+
+## 1.0.0
 
 - [x] Python 3.14 virtual environment created.
 - [x] Runtime and test dependencies pinned and installed.

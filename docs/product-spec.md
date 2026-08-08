@@ -33,11 +33,14 @@ access; it is not represented as internet-grade authentication.
 
 ## Scoring
 
-- Gross WPM = typed characters / 5 / active minutes.
-- Accuracy = matching submitted characters / typed characters × 100.
-- Net WPM = max(0, gross WPM - uncorrected errors / active minutes).
+- Raw WPM = typed characters / 5 / active minutes.
+- The target and submission are aligned before scoring, so one missing character
+  does not shift every character that follows it.
+- Accuracy = aligned matches / (matches + substitutions + insertions + deletions
+  + transpositions) × 100.
+- Adjusted WPM = aligned matching characters / 5 / active minutes.
 - Active time excludes a pause after 15 seconds without keyboard activity.
-- Corrected errors are recorded separately and do not reduce final net WPM.
+- Corrected errors are recorded separately and do not reduce adjusted WPM.
 
 ## Release scope
 
@@ -45,4 +48,3 @@ Version 1.0 includes local profiles, placement, lesson tracks, adaptive passage
 recommendations, 60 curated passages, goals, streaks, achievements, trend and
 error reports, parent controls, import/export, backup/restore, accessible themes,
 offline assets, a Windows launcher, tests, and household documentation.
-

@@ -4,11 +4,12 @@
 {% block content %}
 <div class="practice-heading"><div><p class="eyebrow">{{ passage.category }} · Level {{ passage.difficulty }}</p><h1>{{ passage.title }}</h1></div><button id="restart" class="text-button">Restart</button></div>
 <section id="typing-app" class="typing-panel" data-text="{{ passage.text|e }}" data-mode="{{ mode }}" data-lesson="{{ lesson_id }}">
-  <div class="live-stats"><span><strong id="timer">0:00</strong> time</span><span><strong id="wpm">0</strong> WPM</span><span><strong id="accuracy">100%</strong> accuracy</span></div>
-  <div id="passage" class="passage-text" aria-label="Text to type"></div>
+  <div class="live-stats"><span><strong id="timer">0:00</strong> time</span><span><strong id="wpm">0</strong> adjusted WPM</span><span><strong id="accuracy">100%</strong> accuracy</span><span><strong id="character-progress">0 / {{ passage.character_count }} characters</strong></span></div>
+  <div id="passage" class="passage-text" aria-label="Text to type">{{ passage.text }}</div>
   <label class="input-label" for="typing-input">Type here</label>
   <textarea id="typing-input" rows="4" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="instructions"></textarea>
   <p id="instructions" class="hint">Begin typing to start the clock. Backspace corrections are allowed; pasted and dropped text are blocked. The timer pauses after 15 seconds without typing.</p>
+  <button id="finish-button" class="button secondary" type="button" hidden>Finish and score</button>
   <div id="results" class="results" hidden aria-live="polite"></div>
 </section>
 <details class="context"><summary>What you are learning</summary><p>{{ passage.context }}</p><p><strong>Vocabulary:</strong> {{ passage.vocabulary|join('; ') }}</p><p><strong>Source:</strong> {{ passage.source }} ({{ passage.rights }})</p></details>
