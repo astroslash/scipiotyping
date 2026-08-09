@@ -7,13 +7,13 @@ from pathlib import Path
 
 from flask import Flask
 
+__version__ = "1.4.1"
+
 from . import db
 from .content import content_report_command, load_passages, validate_content_command
 from .lessons import lesson_passages
 from .routes import bp
 from .security import csrf_token, protect_csrf
-
-__version__ = "1.4.0"
 
 
 def create_app(test_config: dict | None = None) -> Flask:
@@ -30,6 +30,7 @@ def create_app(test_config: dict | None = None) -> Flask:
         SECRET_KEY=local_secret,
         DATABASE=os.environ.get("SCIPIO_DATABASE", str(Path(app.instance_path) / "scipiotyping.db")),
         CONTENT_PATH=str(Path(app.root_path).parent / "content"),
+        APPLICATION_VERSION=__version__,
         MAX_CONTENT_LENGTH=2 * 1024 * 1024,
     )
     if test_config:

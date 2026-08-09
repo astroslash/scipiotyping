@@ -10,7 +10,8 @@ def post_form(client, path, csrf, data=None, **kwargs):
 
 
 def test_health_and_primary_pages(client):
-    assert client.get("/health").get_json()["schema"] == 7
+    health = client.get("/health").get_json()
+    assert health["schema"] == 7 and health["version"] == "1.4.1"
     for path in ["/", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
         response = client.get(path)
         assert response.status_code == 200

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.1 — 2026-08-09
+
+- Added the running application version to the local health check.
+- Updated the Windows launcher to distinguish the current release from a stale
+  ScipioTyping server left running after an upgrade.
+- Restart only a verified ScipioTyping listener when its version is old, and
+  refuse to stop unrelated programs that happen to use port 5000.
+
 ## 1.4.0 — 2026-08-09
 
 - Doubled the reviewed built-in library from 60 to 120 passages.

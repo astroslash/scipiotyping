@@ -114,7 +114,10 @@ def _require_parent() -> None:
 @bp.get("/health")
 def health():
     get_db().execute("SELECT 1").fetchone()
-    return jsonify(status="ok", application="ScipioTyping", schema=SCHEMA_VERSION)
+    return jsonify(
+        status="ok", application="ScipioTyping", schema=SCHEMA_VERSION,
+        version=current_app.config["APPLICATION_VERSION"],
+    )
 
 
 @bp.get("/")

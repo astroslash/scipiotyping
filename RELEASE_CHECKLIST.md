@@ -1,4 +1,13 @@
-# Release checklist — 1.4.0
+# Release checklist — 1.4.1
+
+## 1.4.1
+
+- [x] Reproduced the Library error against the stale August 8 server.
+- [x] Confirmed the current code serves Kenneth's unchanged database correctly.
+- [x] Added version reporting and version-aware Windows launcher restart logic.
+- [x] Verified the launcher refuses to terminate an unrelated port-5000 process.
+- [x] Exercised the real stale-server upgrade path and Library page in Edge.
+- [x] Full release command completed; version committed, tagged, and pushed.
 
 ## 1.4.0
 
