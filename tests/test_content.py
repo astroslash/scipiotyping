@@ -1,4 +1,5 @@
 import json
+from collections import Counter
 from pathlib import Path
 
 import pytest
@@ -32,14 +33,43 @@ def _passage(identifier: str, title: str | None = None) -> dict:
     }
 
 
-def test_builtin_library_preserves_the_sixty_legacy_passages(app):
+def test_builtin_library_preserves_all_released_passages(app):
     items = load_passages(app.config["CONTENT_PATH"])
     manifest = json.loads((Path(app.config["CONTENT_PATH"]) / "manifest.json").read_text(encoding="utf-8"))
     counts = {}
     for item in items:
         counts[item["category"]] = counts.get(item["category"], 0) + 1
-    assert len(items) >= 60 and len(counts) >= 10
-    assert set(manifest["legacy_ids"]).issubset({item["id"] for item in items})
+    assert len(items) == 120 and counts == {
+        "Battles and Strategy": 12,
+        "Chess": 12,
+        "Classical History": 12,
+        "Epic Literature": 12,
+        "Greek Mythology": 12,
+        "History of Warfare": 12,
+        "Leaders": 12,
+        "Mathematics": 12,
+        "Poetry": 12,
+        "World History": 12,
+    }
+    assert set(manifest["legacy_ids"]) == {item["id"] for item in items}
+
+
+def test_v14_expansion_has_planned_levels_lengths_and_sources(app):
+    additions = [
+        item for item in load_passages(app.config["CONTENT_PATH"])
+        if item["added_in"] == "1.4.0"
+    ]
+    bands = {2: (45, 65), 3: (60, 85), 4: (80, 115), 5: (105, 150)}
+    assert len(additions) == 60
+    assert Counter(item["difficulty"] for item in additions) == {
+        2: 5, 3: 15, 4: 25, 5: 15,
+    }
+    for item in additions:
+        low, high = bands[item["difficulty"]]
+        assert low <= item["word_count"] <= high
+        assert item["rights"] == "original"
+        assert item["review_status"] == "reviewed"
+        assert item["references"][0].get("url", "").startswith("https://")
 
 
 def test_all_builtin_content_has_schema_two_metadata(app):
@@ -97,4 +127,4 @@ def test_content_report_and_inventory_are_deterministic(app):
     inventory = render_inventory(items)
     assert report["total"] == len(items)
     assert sum(report["categories"].values()) == len(items)
-    assert "# Content inventory" in inventory and "| Chess | 6 |" in inventory
+    assert "# Content inventory" in inventory and "| Chess | 12 |" in inventory

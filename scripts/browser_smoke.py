@@ -33,7 +33,7 @@ def main() -> None:
             driver.get("http://127.0.0.1:5001/library")
             assert driver.find_element(By.NAME, "status").is_displayed()
             assert driver.find_element(By.NAME, "sort").is_displayed()
-            assert "page 1 of 3" in driver.find_element(By.CLASS_NAME, "library-summary").text.lower()
+            assert "page 1 of 5" in driver.find_element(By.CLASS_NAME, "library-summary").text.lower()
 
             driver.get("http://127.0.0.1:5001/practice/drill-home-row?mode=lesson&lesson=home-row")
             daily_goal = driver.find_element(By.ID, "daily-goal")

@@ -190,5 +190,209 @@
         "citation": "Original educational summary"
       }
     ]
+  },
+  {
+    "id": "algebraic-chess-notation",
+    "title": "A Map for Every Chess Move",
+    "text": "Algebraic notation gives every chessboard square a short address. Files use letters a through h, and ranks use numbers 1 through 8. A capital letter identifies most pieces, while a pawn move uses only its destination. Thus Nf3 means a knight moves to f3. Notation lets players save, replay, and study a game.",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "accuracy",
+      "capital letters"
+    ],
+    "context": "A beginner-friendly introduction to the notation system recognized by FIDE.",
+    "vocabulary": [
+      "file: a vertical column on a chessboard",
+      "rank: a horizontal row on a chessboard"
+    ],
+    "source": "Original summary based on FIDE Handbook, Laws of Chess, Appendix C: Algebraic Notation",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "capital letters"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "FIDE Handbook, Laws of Chess, Appendix C: Algebraic Notation",
+        "url": "https://handbook.fide.com/chapter/E012023"
+      }
+    ],
+    "category": "Chess"
+  },
+  {
+    "id": "staunton-set-standard",
+    "title": "The Staunton Chess Set",
+    "text": "In 1849, a London firm began selling the chessmen now called the Staunton pattern. The design made each piece easy to recognize: broad-based kings and queens, slotted bishops, and carved knight heads. Leading player and writer Howard Staunton endorsed the set, but maker Nathaniel Cooke and manufacturer John Jaques were central to its success. A common design helped tournaments and clubs avoid confusion. Today, many competition sets still follow the same visual language, even when materials and details differ.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "The design, marketing, and lasting standardization of Staunton-pattern pieces.",
+    "vocabulary": [
+      "endorsed: publicly approved",
+      "standardization: adoption of a consistent design or rule"
+    ],
+    "source": "Original summary based on World Chess Hall of Fame, Prized and Played: Highlights from the Jon Crumiller Collection",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "World Chess Hall of Fame, Prized and Played: Highlights from the Jon Crumiller Collection",
+        "url": "https://worldchesshof.org/program/prized-and-played-highlights-from-the-jon-crumiller-collection/"
+      }
+    ],
+    "category": "Chess"
+  },
+  {
+    "id": "vera-menchik-champion",
+    "title": "Vera Menchik at the Board",
+    "text": "Vera Menchik won the first Women's World Chess Championship in 1927 and defended the title repeatedly. She also competed in strong open events against leading male masters, defeating several of them. Some contemporaries treated those results as surprising because chess culture offered women fewer opportunities and less respect. Menchik's record challenged that prejudice, but her importance is not merely symbolic: she was a serious positional player with durable tournament results. Learning her story helps explain both chess skill and the institutions that decide who receives invitations, coaching, and public attention.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "Menchik's achievements placed within the unequal chess institutions of her era.",
+    "vocabulary": [
+      "positional: based on long-term advantages in a chess position",
+      "prejudice: an unfair judgment formed without adequate reason"
+    ],
+    "source": "Original summary based on FIDE, History of the World Chess Championship",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "FIDE, History of the World Chess Championship",
+        "url": "https://old.fide.com/fide/fide-world-chess-federation.html"
+      }
+    ],
+    "category": "Chess"
+  },
+  {
+    "id": "steinitz-positional-theory",
+    "title": "Steinitz and the Logic of Position",
+    "text": "Wilhelm Steinitz became the first generally recognized world chess champion after defeating Johannes Zukertort in 1886. He argued that an attack should grow from advantages already present in the position. A player might first improve development, pawn structure, king safety, or control of key squares. This did not mean that Steinitz avoided combinations; it meant that tactics needed a sound basis. Later masters revised many of his rules, yet his method encouraged players to explain why a move works. Chess study became less a collection of brilliant surprises and more an investigation of connected causes.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "Steinitz's influence on positional explanation, without claiming that he invented every underlying idea.",
+    "vocabulary": [
+      "combination: a calculated sequence of forcing moves",
+      "pawn structure: the arrangement of pawns in a position"
+    ],
+    "source": "Original summary based on FIDE, History of the World Chess Championship",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "FIDE, History of the World Chess Championship",
+        "url": "https://old.fide.com/fide/fide-world-chess-federation.html"
+      }
+    ],
+    "category": "Chess"
+  },
+  {
+    "id": "fischer-spassky-1972",
+    "title": "The Match Beyond the Board",
+    "text": "Bobby Fischer and Boris Spassky played the 1972 World Championship in Reykjavík during the Cold War. Newspapers framed the contest as the United States against the Soviet chess system, although the players were individuals, not pieces moved by governments. Fischer lost the first game, forfeited the second during a dispute over conditions, then returned and eventually won. His preparation and inventive play influenced later competitors. The spectacle also exposed a danger in hero stories: Fischer's later conduct included hateful public statements that deserve direct condemnation. Chess history can recognize extraordinary games without excusing harmful beliefs. Spassky's sportsmanship and the work of organizers also belong to the complete account.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "A balanced account of the 1972 match that separates chess achievement from later hateful conduct.",
+    "vocabulary": [
+      "forfeited: lost by failing to play under the rules",
+      "condemnation: a clear statement that something is wrong"
+    ],
+    "source": "Original summary based on World Chess Hall of Fame, 1972 Fischer/Spassky: The Match, Its Origin, and Influence",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "World Chess Hall of Fame, 1972 Fischer/Spassky: The Match, Its Origin, and Influence",
+        "url": "https://worldchesshof.org/program/1972-fischer-spassky-the-match-its-origin-and-influence/"
+      }
+    ],
+    "category": "Chess"
+  },
+  {
+    "id": "chess-variants-rule-labs",
+    "title": "Chess Variants as Rule Laboratories",
+    "text": "Chess has never existed in only one unchanging form. Regional games developed different pieces and goals, while modern designers deliberately alter the board, starting position, or movement rules. In Chess960, for example, the major pieces begin in one of many possible arrangements, reducing dependence on memorized openings while preserving normal movement after the start. Other variants add players, hidden information, or unusual boards. A variant acts like a laboratory: changing one rule reveals what that rule contributes to planning, fairness, and enjoyment. Standard chess remains valuable because a shared rule set connects distant opponents; variants are valuable because they make familiar assumptions visible and invite fresh calculation.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "A cultural and analytical introduction to chess variants, including Chess960.",
+    "vocabulary": [
+      "variant: a form that differs from a standard version",
+      "assumption: an idea accepted before it is tested"
+    ],
+    "source": "Original summary based on World Chess Hall of Fame, POW! Capturing Superheroes, Chess & Comics",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "World Chess Hall of Fame, POW! Capturing Superheroes, Chess & Comics",
+        "url": "https://worldchesshof.org/news-insights/world-chess-hall-of-fame-galleries-to-open-interactive-exhibition-celebrating-chess-variants-through-time-and-culture/"
+      }
+    ],
+    "category": "Chess"
   }
 ]

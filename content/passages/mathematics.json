@@ -190,5 +190,209 @@
         "citation": "Original mathematics explanation"
       }
     ]
+  },
+  {
+    "id": "variables-mystery-boxes",
+    "title": "A Variable Is a Useful Name",
+    "text": "A variable is a letter or symbol that stands for a number. In x + 5 = 12, the equation says that one unknown number plus five equals twelve, so x is seven. Variables can also describe changing quantities. If t is time, then a formula can show how distance depends on t. The symbol is a useful name, not a trick.",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "accuracy",
+      "capital letters"
+    ],
+    "context": "A concrete distinction between an unknown in an equation and a changing quantity in a formula.",
+    "vocabulary": [
+      "variable: a symbol representing a number",
+      "equation: a statement that two expressions are equal"
+    ],
+    "source": "Original summary based on OpenStax, Elementary Algebra 2e, Use a General Strategy to Solve Linear Equations",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "capital letters"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "OpenStax, Elementary Algebra 2e, Use a General Strategy to Solve Linear Equations",
+        "url": "https://openstax.org/books/elementary-algebra-2e/pages/2-4-use-a-general-strategy-to-solve-linear-equations"
+      }
+    ],
+    "category": "Mathematics"
+  },
+  {
+    "id": "prime-factor-building-blocks",
+    "title": "Prime Building Blocks",
+    "text": "A prime number is a whole number greater than one with exactly two positive factors: one and itself. Every whole number greater than one can be written as a product of primes. For example, 60 equals 2 × 2 × 3 × 5. Apart from order, this prime factorization is unique. That makes primes like building blocks for multiplication. The number one is not prime, because including it would destroy the useful uniqueness of the factorization.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "An intuitive introduction to primes and the fundamental theorem of arithmetic.",
+    "vocabulary": [
+      "factor: a number multiplied by another to make a product",
+      "unique: the only one of its kind"
+    ],
+    "source": "Original summary based on OpenStax, Prealgebra 2e, Prime Factorization and the Least Common Multiple",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "OpenStax, Prealgebra 2e, Prime Factorization and the Least Common Multiple",
+        "url": "https://openstax.org/books/prealgebra-2e/pages/2-5-prime-factorization-and-the-least-common-multiple"
+      }
+    ],
+    "category": "Mathematics"
+  },
+  {
+    "id": "logarithms-reverse-exponents",
+    "title": "Logarithms Ask for the Exponent",
+    "text": "An exponent answers a multiplication question: 10 cubed is 1,000. A logarithm reverses that question. The base-10 logarithm of 1,000 is 3 because three is the exponent placed on 10. This reversal makes logarithms useful when quantities span enormous ranges or grow by repeated multiplication. Before electronic calculators, logarithm tables turned difficult multiplication into addition. The idea is exact, while a decimal approximation of a logarithm may be rounded. Thinking of logarithms as inverse exponents removes much of their mystery.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "A simplified but mathematically accurate explanation of logarithms as inverse operations.",
+    "vocabulary": [
+      "inverse: an operation that reverses another",
+      "approximation: a value close to, but not exactly, the true value"
+    ],
+    "source": "Original summary based on OpenStax, College Algebra 2e, Logarithmic Functions",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "OpenStax, College Algebra 2e, Logarithmic Functions",
+        "url": "https://openstax.org/books/college-algebra-2e/pages/6-3-logarithmic-functions"
+      }
+    ],
+    "category": "Mathematics"
+  },
+  {
+    "id": "combinations-count-without-listing",
+    "title": "Counting Teams Without Listing Them",
+    "text": "Suppose a coach must choose three players from ten, and the order of their names does not matter. Listing every team would be slow and might repeat groups. Combinations provide a systematic count. First imagine ordered choices: ten options, then nine, then eight. That gives 720 arrangements. Each three-person team appears six times because its members can be ordered in 3 × 2 × 1 ways. Dividing 720 by 6 gives 120 different teams. The formula is a compressed version of this reasoning, not a rule that appeared from nowhere.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "A worked intuition for combinations that explains why division by the ordering count is required.",
+    "vocabulary": [
+      "combination: a selection in which order does not matter",
+      "systematic: done by a complete, organized method"
+    ],
+    "source": "Original summary based on OpenStax, Contemporary Mathematics, Counting Methods",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "OpenStax, Contemporary Mathematics, Counting Methods",
+        "url": "https://openstax.org/books/contemporary-mathematics/pages/7-introduction"
+      }
+    ],
+    "category": "Mathematics"
+  },
+  {
+    "id": "limits-approaching-value",
+    "title": "A Limit Describes an Approach",
+    "text": "A limit asks what value a function approaches as its input moves close to a chosen number. Imagine f(x) = (x² − 1)/(x − 1). At x = 1, this expression has zero in the denominator and is undefined. Yet whenever x is not 1, factoring shows that it equals x + 1. As x approaches 1 from either side, the output approaches 2. Therefore the limit is 2 even though the original function has a hole there. A limit is not merely substituting the final input; it describes nearby behavior with a precise definition. This idea allows calculus to discuss instantaneous change and accumulated area without pretending that division by zero is allowed.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "A standard removable-discontinuity example distinguishing a limit from a function value.",
+    "vocabulary": [
+      "function: a rule assigning one output to each allowed input",
+      "undefined: not assigned a valid mathematical value"
+    ],
+    "source": "Original summary based on OpenStax, Calculus Volume 1, The Limit of a Function",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "OpenStax, Calculus Volume 1, The Limit of a Function",
+        "url": "https://openstax.org/books/calculus-volume-1/pages/2-2-the-limit-of-a-function"
+      }
+    ],
+    "category": "Mathematics"
+  },
+  {
+    "id": "modular-arithmetic-clocks",
+    "title": "Clock Arithmetic and Secret Messages",
+    "text": "Modular arithmetic tracks remainders after division. On a twelve-hour clock, adding five hours to 10 gives 3, because 15 and 3 leave the same remainder when divided by 12. Mathematicians write this relationship as 15 ≡ 3 (mod 12). The idea creates repeating number systems that are useful far beyond clocks. In basic cryptography, a letter can become a number and be shifted by a fixed amount modulo 26; wrapping around keeps every result in the alphabet. Modern encryption uses much more difficult operations, so a simple shift is not secure. Still, the example reveals the foundation: arithmetic rules can transform information predictably for someone who knows the key, while making the pattern less obvious to an observer.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "A precise introduction to congruence and a clearly limited toy example from cryptography.",
+    "vocabulary": [
+      "remainder: what is left after whole-number division",
+      "cryptography: methods for protecting information with codes and mathematics"
+    ],
+    "source": "Original summary based on OpenStax, Contemporary Mathematics, Number Theory and Cryptography",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "OpenStax, Contemporary Mathematics, Number Theory and Cryptography",
+        "url": "https://openstax.org/books/contemporary-mathematics/pages/10-introduction"
+      }
+    ],
+    "category": "Mathematics"
   }
 ]

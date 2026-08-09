@@ -13,7 +13,7 @@ from .lessons import lesson_passages
 from .routes import bp
 from .security import csrf_token, protect_csrf
 
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 
 
 def create_app(test_config: dict | None = None) -> Flask:

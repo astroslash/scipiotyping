@@ -44,6 +44,6 @@ The server binds only to `127.0.0.1` unless a knowledgeable user deliberately
 changes `SCIPIO_HOST`. See [Parent guide](docs/parent-guide.md), [Developer
 guide](docs/developer-guide.md), and [Troubleshooting](docs/troubleshooting.md).
 
-Built-in passages are organized by subject under `content/passages` and remain
-available offline. The Library can filter completed or unpracticed passages,
-sort the collection, and page through larger future content sets.
+The 120 built-in passages are organized into ten subjects under
+`content/passages` and remain available offline. The Library can filter
+completed or unpracticed passages, sort the collection, and page through it.

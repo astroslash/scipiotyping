@@ -191,5 +191,209 @@
         "citation": "Original literary explanation"
       }
     ]
+  },
+  {
+    "id": "iliad-opening-quarrel",
+    "title": "A Quarrel Opens the Iliad",
+    "text": "The Iliad begins with anger, not victory. Agamemnon takes a prize awarded to Achilles, and Achilles refuses to fight. Their wounded pride harms the entire Greek army. By opening this way, the poem asks whether honor belongs only to a great warrior or also carries duties toward a community.",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "accuracy",
+      "capital letters"
+    ],
+    "context": "An original summary of the conflict that begins Homer's Iliad.",
+    "vocabulary": [
+      "honor: respect connected with character or reputation",
+      "community: people joined by a shared place or purpose"
+    ],
+    "source": "Original summary based on Homer, Iliad, Book 1, translated by A. T. Murray (public domain), Perseus Digital Library",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "capital letters"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Homer, Iliad, Book 1, translated by A. T. Murray (public domain), Perseus Digital Library",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0134:book=1"
+      }
+    ],
+    "category": "Epic Literature"
+  },
+  {
+    "id": "hector-andromache-wall",
+    "title": "Hector at the City Wall",
+    "text": "In Book 6 of the Iliad, Hector meets his wife Andromache and their young son near the walls of Troy. She fears that battle will leave their family unprotected. Hector understands the danger, yet he believes shame and duty require him to return. Their conversation slows the action and gives the war a human scale. The scene does not settle which choice is right; it shows how public honor can collide with private love.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "A family-centered reading of Hector and Andromache in the Iliad.",
+    "vocabulary": [
+      "private: belonging to personal or family life",
+      "collide: come into serious conflict"
+    ],
+    "source": "Original summary based on Homer, Iliad, Book 6, translated by A. T. Murray (public domain), Perseus Digital Library",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Homer, Iliad, Book 6, translated by A. T. Murray (public domain), Perseus Digital Library",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0134:book=6"
+      }
+    ],
+    "category": "Epic Literature"
+  },
+  {
+    "id": "embassy-to-achilles",
+    "title": "The Embassy to Achilles",
+    "text": "When the Greek army is in danger, Agamemnon offers gifts if Achilles will return to battle. Odysseus, Ajax, and Phoenix carry the proposal. Achilles answers that no treasure can repay a life once it is lost. Phoenix appeals to friendship and tells a warning story; Ajax speaks more bluntly about loyalty. The embassy fails, but its failure is meaningful. Each speaker defines honor differently, and Achilles must measure reputation against survival. Epic debate becomes a kind of contest in which reasoning, memory, and emotion matter as much as physical strength.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "How speeches in Iliad Book 9 test competing ideas of honor and obligation.",
+    "vocabulary": [
+      "embassy: representatives sent to negotiate",
+      "obligation: a duty or responsibility"
+    ],
+    "source": "Original summary based on Homer, Iliad, Book 9, translated by A. T. Murray (public domain), Perseus Digital Library",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Homer, Iliad, Book 9, translated by A. T. Murray (public domain), Perseus Digital Library",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0134:book=9"
+      }
+    ],
+    "category": "Epic Literature"
+  },
+  {
+    "id": "shield-of-achilles-world",
+    "title": "A World on Achilles' Shield",
+    "text": "The divine smith Hephaestus makes new armor for Achilles after Patroclus dies. On the shield, the poet describes stars, farms, dances, courts, weddings, herds, and two cities: one at peace and one at war. The object is imaginary, yet its scenes widen the poem beyond the battlefield. Ordinary work and celebration continue beside conflict. Scholars disagree about how every detail should be pictured, because the description is poetic rather than a technical blueprint. The shield invites readers to consider the whole world that warriors defend, disrupt, and sometimes fail to see.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "An interpretation of the extended shield description in Iliad Book 18.",
+    "vocabulary": [
+      "divine: connected with a god",
+      "blueprint: a detailed technical plan"
+    ],
+    "source": "Original summary based on Homer, Iliad, Book 18, translated by A. T. Murray (public domain), Perseus Digital Library",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Homer, Iliad, Book 18, translated by A. T. Murray (public domain), Perseus Digital Library",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0134:book=18"
+      }
+    ],
+    "category": "Epic Literature"
+  },
+  {
+    "id": "priam-and-achilles",
+    "title": "Priam Enters the Enemy Camp",
+    "text": "Near the end of the Iliad, the aged king Priam secretly enters the Greek camp to recover the body of his son Hector. He asks Achilles to remember his own father. For a moment, the two enemies grieve together: Priam for Hector, Achilles for Patroclus and for the father he may never see again. Achilles accepts the ransom and grants time for funeral rites. The war has not ended, and neither man forgets his side. They share a meal, restoring another ordinary human custom. Still, shared sorrow interrupts revenge. The scene suggests that recognizing an enemy's humanity can create a narrow space for mercy even inside a violent conflict.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "A non-graphic account of supplication, grief, and mercy in Iliad Book 24.",
+    "vocabulary": [
+      "ransom: payment offered for a person or body",
+      "supplication: a humble request for protection or mercy"
+    ],
+    "source": "Original summary based on Homer, Iliad, Book 24, translated by A. T. Murray (public domain), Perseus Digital Library",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Homer, Iliad, Book 24, translated by A. T. Murray (public domain), Perseus Digital Library",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0134:book=24"
+      }
+    ],
+    "category": "Epic Literature"
+  },
+  {
+    "id": "odysseus-cyclops-name",
+    "title": "The Name Nobody",
+    "text": "Trapped in the Cyclops's cave, Odysseus says that his name is Nobody. After he and his companions blind Polyphemus and escape beneath sheep, the Cyclops calls for help. His neighbors hear that “Nobody” is hurting him, so they leave. The clever name saves the group, but Odysseus then shouts his true identity from the ship because he wants credit. Polyphemus calls on Poseidon to punish him, extending the voyage home. The episode joins intelligence with pride: the same hero can form an excellent plan and then weaken it. His companions urge silence, but he ignores them. Readers can admire a tactic while still judging the choice that follows.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "A source-based summary of identity, cleverness, and pride in Odyssey Book 9.",
+    "vocabulary": [
+      "identity: who a person is",
+      "tactic: a planned action used to reach a goal"
+    ],
+    "source": "Original summary based on Homer, Odyssey, Book 9, translated by A. T. Murray (public domain), Perseus Digital Library",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Homer, Odyssey, Book 9, translated by A. T. Murray (public domain), Perseus Digital Library",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0136:book=9"
+      }
+    ],
+    "category": "Epic Literature"
   }
 ]

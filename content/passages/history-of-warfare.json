@@ -190,5 +190,209 @@
         "citation": "Original educational summary of longstanding humanitarian principles"
       }
     ]
+  },
+  {
+    "id": "war-elephants-limits",
+    "title": "The Power and Limits of War Elephants",
+    "text": "Armies in South Asia, Persia, the Mediterranean, and other regions used elephants to carry fighters and frighten horses. Their height and force could disrupt a formation, especially when opponents were unfamiliar with them. Yet elephants needed great amounts of food, water, training, and care. Missiles, noise, rough ground, or panic could make them turn unpredictably. They were never living tanks with automatic victory. Their history shows that an impressive weapon is also a demanding logistical system with weaknesses an opponent can study.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "A cross-regional introduction emphasizing logistics and the limits of a famous military animal.",
+    "vocabulary": [
+      "formation: an organized arrangement of troops",
+      "logistical: connected with moving and supplying people or equipment"
+    ],
+    "source": "Original summary based on Encyclopaedia Britannica, Elephant: Importance to Humans",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Encyclopaedia Britannica, Elephant: Importance to Humans",
+        "url": "https://www.britannica.com/animal/elephant-mammal/Importance-to-humans"
+      }
+    ],
+    "category": "History of Warfare"
+  },
+  {
+    "id": "stirrup-history-debate",
+    "title": "The Stirrup Debate",
+    "text": "A stirrup supports a rider's foot and can improve balance when mounting, turning, or using weapons. Forms of foot support developed in Asia and spread westward over centuries. Some historians once argued that the stirrup alone created the armored knight and even feudal society in Europe. Most scholars now treat that claim cautiously. Saddles, horse breeding, landholding, training, weapons, and political needs changed together. One useful invention can matter greatly without causing an entire social system by itself.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "A technological history lesson that directly identifies a debated single-cause theory.",
+    "vocabulary": [
+      "feudal: related to medieval ties of land, service, and authority",
+      "single-cause: explaining an outcome through only one factor"
+    ],
+    "source": "Original summary based on The Metropolitan Museum of Art, The Armored Horse in Europe, 1480–1620",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "The Metropolitan Museum of Art, The Armored Horse in Europe, 1480–1620",
+        "url": "https://www.metmuseum.org/essays/the-armored-horse-in-europe-1480-1620"
+      }
+    ],
+    "category": "History of Warfare"
+  },
+  {
+    "id": "mongol-remount-mobility",
+    "title": "Several Horses for One Rider",
+    "text": "Mongol cavalrymen commonly traveled with several horses and changed mounts during a campaign. A fresh horse allowed continued movement while another rested and grazed. Riders carried compact supplies, and units communicated through practiced signals and organization. This mobility helped Mongol armies appear where opponents did not expect them. It also depended on broad grasslands, healthy herds, skilled care, and seasonal conditions; it could not work equally well everywhere. Strategy came from the relationship between people, animals, landscape, and discipline, not from a magical ability to move without limits.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "Mongol operational mobility explained through remounts, environment, care, and organization.",
+    "vocabulary": [
+      "remount: a fresh horse replacing a tired one",
+      "operational: connected with organizing and carrying out a campaign"
+    ],
+    "source": "Original summary based on U.S. Army University Press, Great Commanders (chapter on Genghis Khan)",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "U.S. Army University Press, Great Commanders (chapter on Genghis Khan)",
+        "url": "https://www.armyupress.army.mil/Portals/7/combat-studies-institute/csi-books/GreatCommanders.pdf"
+      }
+    ],
+    "category": "History of Warfare"
+  },
+  {
+    "id": "railways-mobilization-supply",
+    "title": "Railways Change Military Time",
+    "text": "Nineteenth-century railways could move troops, horses, food, and ammunition farther and faster than wagons alone. They also changed planning. Timetables helped mobilize huge armies, while junctions and bridges became strategic targets. A railway offered great capacity but little flexibility away from its tracks. Engines required fuel, cars required scheduling, and damaged lines required repair crews. During the American Civil War and later conflicts, commanders learned that transportation networks could shape where an army gathered and how long it remained supplied. Technology increased power while creating new points of dependence.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "Rail transport treated as a system of capacity, scheduling, repair, and vulnerability.",
+    "vocabulary": [
+      "mobilize: prepare and move forces for action",
+      "junction: a place where rail lines or roads meet"
+    ],
+    "source": "Original summary based on U.S. Army Transportation Museum, Railroads in Military Operations",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "U.S. Army Transportation Museum, Railroads in Military Operations",
+        "url": "https://transportation.army.mil/history/studies/railroad.html"
+      }
+    ],
+    "category": "History of Warfare"
+  },
+  {
+    "id": "radar-integrated-defense",
+    "title": "Radar Was Part of a System",
+    "text": "During the Battle of Britain in 1940, coastal radar stations detected approaching aircraft by sending out radio waves and measuring their return. Radar did not identify every aircraft perfectly or win the campaign by itself. Observers confirmed reports, operations rooms combined information, controllers directed fighter squadrons, and ground crews repaired and refueled planes. This linked system helped Britain use limited fighters where they were needed. The lesson is broader than one invention: information gains value when trained people check it, communicate it clearly, and connect it to timely decisions.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "An explanation of radar within Britain's larger detection, command, and fighter-control system.",
+    "vocabulary": [
+      "radar: detection using reflected radio waves",
+      "squadron: an organized unit of military aircraft"
+    ],
+    "source": "Original summary based on Imperial War Museums, How Radar Gave Britain the Edge in the Battle of Britain",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Imperial War Museums, How Radar Gave Britain the Edge in the Battle of Britain",
+        "url": "https://www.iwm.org.uk/history/how-radar-gave-britain-the-edge-in-the-battle-of-britain"
+      }
+    ],
+    "category": "History of Warfare"
+  },
+  {
+    "id": "humanitarian-demining",
+    "title": "Clearing Mines After Fighting Ends",
+    "text": "Landmines and unexploded weapons can injure people long after a war has ended, blocking farms, roads, schools, and water sources. Humanitarian demining begins with maps, local reports, and careful surveys. Trained teams mark hazardous ground, use detectors or other tools, remove or destroy devices, and record cleared areas. Risk education helps communities recognize warnings without encouraging anyone to touch a suspicious object. Survivors may need medical care, rehabilitation, and legal support. Clearance is slow because accuracy matters more than speed. This work shows that the history of warfare includes responsibility after battle: restoring safe movement and ordinary life can require years of patient cooperation among residents, specialists, and governments.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "Age-appropriate mine-action education focused on civilian safety, recovery, and long-term responsibility.",
+    "vocabulary": [
+      "unexploded: fired or placed but not detonated",
+      "rehabilitation: support that helps restore health and daily ability"
+    ],
+    "source": "Original summary based on United Nations, Achieving Zero New Victims of Landmines",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "United Nations, Achieving Zero New Victims of Landmines",
+        "url": "https://www.un.org/en/chronicle/article/achieving-zero-new-victims-landmines"
+      }
+    ],
+    "category": "History of Warfare"
   }
 ]

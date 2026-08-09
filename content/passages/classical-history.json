@@ -192,5 +192,209 @@
         "citation": "Original historical summary based on Polybius and modern scholarship"
       }
     ]
+  },
+  {
+    "id": "greek-vases-evidence",
+    "title": "Pictures on Greek Vases",
+    "text": "A painted Greek vase can act like a small window into daily life. Artists showed musicians, athletes, craftspeople, and families, as well as gods and heroes. Historians compare these pictures with objects and written sources. A vase gives evidence, but it does not tell the whole story by itself.",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "accuracy",
+      "capital letters"
+    ],
+    "context": "How historians use ancient objects while recognizing the limits of a single source.",
+    "vocabulary": [
+      "evidence: information used to support an explanation",
+      "artifact: an object made or used by people"
+    ],
+    "source": "Original summary based on The Metropolitan Museum of Art, Scenes of Everyday Life in Ancient Greece",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "capital letters"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "The Metropolitan Museum of Art, Scenes of Everyday Life in Ancient Greece",
+        "url": "https://www.metmuseum.org/essays/scenes-of-everyday-life-in-ancient-greece"
+      }
+    ],
+    "category": "Classical History"
+  },
+  {
+    "id": "athenian-assembly-limits",
+    "title": "The Athenian Assembly",
+    "text": "In classical Athens, male citizens could meet in the Assembly and vote directly on public questions. They heard speeches, considered proposals, and decided matters such as laws and war. This was an important experiment in self-government, but participation was narrow. Women, enslaved people, and resident foreigners could not vote. Athens therefore shows both the power of civic debate and the need to ask who was excluded from it.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "A balanced introduction to direct democracy and its exclusions in classical Athens.",
+    "vocabulary": [
+      "assembly: a group gathered to make decisions",
+      "resident foreigner: a free person living outside his or her home community"
+    ],
+    "source": "Original summary based on Smarthistory, The Athenian Agora and the Experiment in Democracy",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Smarthistory, The Athenian Agora and the Experiment in Democracy",
+        "url": "https://smarthistory.org/the-athenian-agora-and-the-experiment-in-democracy/"
+      }
+    ],
+    "category": "Classical History"
+  },
+  {
+    "id": "socrates-trial-questions",
+    "title": "The Trial of Socrates",
+    "text": "In 399 BCE, an Athenian jury convicted Socrates of impiety and corrupting the young. The philosopher had spent years questioning confident claims about justice, courage, and knowledge. His method could sharpen thought, but it also irritated powerful neighbors. Our main accounts were written by followers, especially Plato and Xenophon, so historians compare their purposes and differences. The trial raises hard questions: When does criticism strengthen a city, and when may a city punish speech that it believes is harmful? Its outcome still challenges readers to balance civic duty with honest inquiry.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "The charges and source problems surrounding Socrates' trial, presented as questions rather than a simple hero story.",
+    "vocabulary": [
+      "impiety: disrespect toward accepted religious duties",
+      "convicted: found guilty after a trial"
+    ],
+    "source": "Original summary based on Plato, Apology, translated by Harold North Fowler (public-domain edition), Perseus Digital Library",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Plato, Apology, translated by Harold North Fowler (public-domain edition), Perseus Digital Library",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0170:text=Apol."
+      }
+    ],
+    "category": "Classical History"
+  },
+  {
+    "id": "twelve-tables-public-law",
+    "title": "Law Written on Twelve Tables",
+    "text": "About 450 BCE, Romans displayed a set of laws later called the Twelve Tables. The original tablets did not survive, and later writers preserved only parts of their wording. Even so, the tradition matters because citizens could point to rules that were publicly stated instead of known only by officials. The laws protected some procedures while also reflecting an unequal society, including harsh rules about debt and family authority. Written law did not make Rome fair, but it made legal arguments more visible and gave later Romans a foundation to debate.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "A source-aware account of Rome's earliest famous written law code.",
+    "vocabulary": [
+      "procedure: an established way of doing something",
+      "authority: the recognized power to command or decide"
+    ],
+    "source": "Original summary based on World History Encyclopedia, Twelve Tables",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "World History Encyclopedia, Twelve Tables",
+        "url": "https://www.worldhistory.org/Twelve_Tables/"
+      }
+    ],
+    "category": "Classical History"
+  },
+  {
+    "id": "roman-citizenship-expands",
+    "title": "Who Could Become Roman?",
+    "text": "Roman citizenship began as a status tied to the city of Rome, yet it expanded as Roman power spread. Allies and conquered communities negotiated, demanded, or received different legal rights. After the Social War, laws in the early first century BCE extended citizenship to most free people in Italy. In 212 CE, Emperor Caracalla granted it to nearly all free inhabitants of the empire. Citizenship could offer legal protections and public identity, but it also supported taxation and imperial rule. Rights differed by period, place, wealth, gender, and freedom, so one label did not guarantee equal power. Its history shows that belonging can be both a valuable right and a tool of government.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "The gradual, contested expansion of Roman citizenship and its mixed political purposes.",
+    "vocabulary": [
+      "legal status: a position recognized by law",
+      "imperial: connected with an empire or emperor"
+    ],
+    "source": "Original summary based on World History Encyclopedia, Roman Citizenship",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "World History Encyclopedia, Roman Citizenship",
+        "url": "https://www.worldhistory.org/article/859/roman-citizenship/"
+      }
+    ],
+    "category": "Classical History"
+  },
+  {
+    "id": "pompeii-evidence-limits",
+    "title": "Reading the Streets of Pompeii",
+    "text": "The eruption of Vesuvius in 79 CE buried Pompeii beneath volcanic material. Excavated streets, shops, wall paintings, graffiti, and household objects preserve unusual evidence about an ancient city. They reveal commercial signs, political messages, religious practices, and differences of wealth. Yet Pompeii was one place at one moment, not a perfect model of the entire Roman world. Early excavators also removed objects without modern recording methods. Empty rooms may reflect evacuation, decay, or lost finds, and dramatic displays can hide those quieter possibilities. Archaeologists therefore study location and layers carefully, compare Pompeii with other sites, and explain uncertainty instead of treating every discovery as a complete answer.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "How archaeology produces knowledge from Pompeii while accounting for context and earlier excavation practices.",
+    "vocabulary": [
+      "excavated: uncovered carefully from the ground",
+      "context: the surroundings that help explain an object"
+    ],
+    "source": "Original summary based on Smithsonian Libraries, Pompeii: The Last Day",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Smithsonian Libraries, Pompeii: The Last Day",
+        "url": "https://www.si.edu/object/siris_sil_1110803"
+      }
+    ],
+    "category": "Classical History"
   }
 ]

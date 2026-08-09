@@ -190,5 +190,209 @@
         "citation": "Original historical summary"
       }
     ]
+  },
+  {
+    "id": "indus-city-planning",
+    "title": "Streets and Drains of Mohenjo-daro",
+    "text": "Mohenjo-daro was a major city of the Indus civilization more than four thousand years ago. Builders laid out streets in blocks and connected many homes to brick drains and wells. Standard-sized bricks suggest shared planning, although no surviving text explains who directed it. The Indus script has not been confidently deciphered, so archaeology carries much of the evidence. The city's design reveals skilled cooperation without proving that its government matched any familiar modern system.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "An evidence-based account that distinguishes impressive planning from guesses about Indus government.",
+    "vocabulary": [
+      "deciphered: worked out so that writing can be read",
+      "archaeology: study of the past through material remains"
+    ],
+    "source": "Original summary based on UNESCO World Heritage Centre, Archaeological Ruins at Moenjodaro",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "UNESCO World Heritage Centre, Archaeological Ruins at Moenjodaro",
+        "url": "https://whc.unesco.org/en/list/138/"
+      }
+    ],
+    "category": "World History"
+  },
+  {
+    "id": "aksum-trade-coins",
+    "title": "Aksum Connects Three Regions",
+    "text": "The kingdom of Aksum grew in the highlands of present-day Ethiopia and Eritrea. Its Red Sea port of Adulis linked African trade routes with Arabia, the Mediterranean, and the Indian Ocean. Aksumite rulers issued coins in gold, silver, and bronze, sometimes using Greek inscriptions for wide audiences. In the fourth century CE, royal coins began displaying the Christian cross. Coins cannot describe every person's life, but their metal, language, and symbols provide compact evidence of trade and political change.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "Aksum presented through African geography, trade networks, coinage, and religious change.",
+    "vocabulary": [
+      "inscription: words written or carved on an object",
+      "coinage: a system of coins issued by a government"
+    ],
+    "source": "Original summary based on The Metropolitan Museum of Art, Monumental Architecture and Stelae of the Aksumite Empire",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "The Metropolitan Museum of Art, Monumental Architecture and Stelae of the Aksumite Empire",
+        "url": "https://www.metmuseum.org/essays/monumental-architecture-and-stelae-of-the-aksumite-empire"
+      }
+    ],
+    "category": "World History"
+  },
+  {
+    "id": "angkor-water-network",
+    "title": "Water and Power at Angkor",
+    "text": "From the ninth to the fifteenth century, Angkor was the center of the Khmer Empire in what is now Cambodia. Temples such as Angkor Wat stood within a much larger inhabited landscape. Reservoirs, canals, embankments, and rice fields managed water across changing wet and dry seasons. Scholars still debate exactly how every part of this network functioned and how water problems contributed to political change. New surveys have revealed roads and settlement patterns hidden by vegetation. Angkor's history is therefore not a tale of a mysterious lost city, but of generations who engineered, maintained, altered, and eventually left a complex urban region.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "A modern archaeological view of Angkor as an inhabited landscape, not only a group of temples.",
+    "vocabulary": [
+      "reservoir: a place where water is stored",
+      "embankment: a raised bank built to hold back water or support a road"
+    ],
+    "source": "Original summary based on UNESCO World Heritage Centre, Angkor",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "UNESCO World Heritage Centre, Angkor",
+        "url": "https://whc.unesco.org/en/list/668/"
+      }
+    ],
+    "category": "World History"
+  },
+  {
+    "id": "mongol-relay-network",
+    "title": "Messages Across the Mongol Empire",
+    "text": "Mongol rulers supported a relay network often called the yam. Stations along major routes kept fresh horses, supplies, and shelter for authorized messengers. A tablet or document identified a traveler's right to use the system. By changing mounts, envoys could carry orders and reports far faster than one tired horse could travel. Merchants and diplomats also benefited from guarded routes, though safety varied by time and place. The network did not erase the violence of Mongol conquest; it shows how administration helped hold vast territories together after armies had crossed them.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "The Mongol relay system presented as infrastructure for government and exchange.",
+    "vocabulary": [
+      "relay: a system in which one carrier or horse replaces another",
+      "envoy: an official messenger or representative"
+    ],
+    "source": "Original summary based on The Metropolitan Museum of Art, The Legacy of Genghis Khan",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "The Metropolitan Museum of Art, The Legacy of Genghis Khan",
+        "url": "https://www.metmuseum.org/essays/the-legacy-of-genghis-khan"
+      }
+    ],
+    "category": "World History"
+  },
+  {
+    "id": "great-zimbabwe-stone-trade",
+    "title": "Stone Walls of Great Zimbabwe",
+    "text": "Between about 1100 and 1450 CE, Great Zimbabwe became a major political and trading center in southern Africa. Skilled builders fitted granite blocks into high, curving walls without mortar. Cattle wealth and farming supported the community, while glass beads, imported ceramics, and gold routes connected it with Indian Ocean commerce. European colonizers once denied that Africans had built the site, despite clear evidence, because racism shaped their conclusions. Archaeology has firmly restored Great Zimbabwe to the history of Shona-speaking peoples. The ruins show how evidence can correct both missing records and deliberately biased stories.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "An account of Great Zimbabwe that addresses trade, engineering, and the racist denial of African authorship.",
+    "vocabulary": [
+      "mortar: material used to bind stones or bricks",
+      "biased: unfairly shaped toward one conclusion"
+    ],
+    "source": "Original summary based on The Metropolitan Museum of Art, Great Zimbabwe (11th–15th Century)",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "The Metropolitan Museum of Art, Great Zimbabwe (11th–15th Century)",
+        "url": "https://www.metmuseum.org/essays/great-zimbabwe-11th-15th-century"
+      }
+    ],
+    "category": "World History"
+  },
+  {
+    "id": "akbar-imperial-debate",
+    "title": "Akbar's Court of Many Arguments",
+    "text": "The Mughal emperor Akbar ruled much of South Asia from 1556 to 1605. He built alliances with Rajput rulers, ended a tax placed on non-Muslim subjects, and invited Muslim, Hindu, Jain, Zoroastrian, and Christian thinkers to debate at court. Translation projects made Sanskrit works available in Persian, the language of administration. These policies supported a diverse empire, but they did not create modern equality: Akbar remained an absolute monarch who expanded through war and demanded revenue. Court histories also praised their patron, so they require careful reading. His reign shows how curiosity and inclusion can serve genuine learning, political stability, and imperial power at the same time.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "A balanced interpretation of Akbar's religious discussions, translations, alliances, and imperial authority.",
+    "vocabulary": [
+      "Rajput: member of one of several South Asian warrior and ruling communities",
+      "patron: a person who supports a writer, artist, or institution"
+    ],
+    "source": "Original summary based on The Metropolitan Museum of Art, The Art of the Mughals before 1600",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "The Metropolitan Museum of Art, The Art of the Mughals before 1600",
+        "url": "https://www.metmuseum.org/essays/the-art-of-the-mughals-before-1600"
+      }
+    ],
+    "category": "World History"
   }
 ]

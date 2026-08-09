@@ -37,7 +37,7 @@ def test_library_filters(client):
 
 def test_library_paginates_and_preserves_filters(client):
     response = client.get("/library?sort=title")
-    assert b"page 1 of 3" in response.data and b">Next<" in response.data
+    assert b"page 1 of 5" in response.data and b">Next<" in response.data
     assert b"sort=title" in response.data
 
 

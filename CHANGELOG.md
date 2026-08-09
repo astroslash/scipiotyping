@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.4.0 — 2026-08-09
+
+- Doubled the reviewed built-in library from 60 to 120 passages.
+- Added six original, source-backed passages to each of the ten existing
+  subjects without changing any v1.3 passage object.
+- Expanded advanced practice with 25 new Level 4 and 15 new Level 5 passages,
+  while adding 5 Level 2 and 15 Level 3 passages for a balanced path.
+- Added age-aware word bands, original-rights metadata, review dates,
+  vocabulary support, context notes, and structured HTTPS references.
+- Protected all 120 released passage IDs and added regression checks for exact
+  category counts, difficulty distribution, word bands, rights, and sources.
+- Updated the generated inventory, content guidance, release documentation, and
+  browser-tested offline release package.
+
 ## 1.3.0 — 2026-08-09
 
 - Split the built-in library into ten independently maintainable subject files.

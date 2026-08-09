@@ -190,5 +190,209 @@
         "citation": "Original educational passage"
       }
     ]
+  },
+  {
+    "id": "psalm-of-life-action",
+    "title": "Footprints in A Psalm of Life",
+    "text": "Henry Wadsworth Longfellow's “A Psalm of Life” speaks in the voice of a young person who rejects hopelessness. Its steady rhythm urges readers to act in the present, keep working, and leave encouraging “footprints” for others. The poem uses images of marching and battle, but its real contest is the effort to live with purpose. A modern reader can value that energy while asking how rest, patience, and help from other people also support a meaningful life.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "Original commentary on a public-domain poem; only its title and a single key word are quoted.",
+    "vocabulary": [
+      "purpose: a reason for doing something",
+      "rhythm: a repeated pattern of beats"
+    ],
+    "source": "Original summary based on Henry Wadsworth Longfellow, A Psalm of Life, Poetry Foundation (public domain)",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Henry Wadsworth Longfellow, A Psalm of Life, Poetry Foundation (public domain)",
+        "url": "https://www.poetryfoundation.org/poems/44644/a-psalm-of-life"
+      }
+    ],
+    "category": "Poetry"
+  },
+  {
+    "id": "stevenson-requiem-home",
+    "title": "A Home Under the Sky",
+    "text": "Robert Louis Stevenson's short poem “Requiem” imagines the words the speaker would want above his grave. He pictures a traveler who has finally come home beneath a wide, starry sky. The plain language makes death calm rather than frightening. Because Stevenson traveled often and lived with serious illness, the image of rest carries special weight, yet the poem can stand without biography. It asks readers to consider how a few chosen images can express a whole life's direction.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "Original commentary on Stevenson's public-domain poem, with no lines reproduced.",
+    "vocabulary": [
+      "requiem: a work honoring someone who has died",
+      "biography: the story of a person's life"
+    ],
+    "source": "Original summary based on Robert Louis Stevenson, Requiem, in Underwoods, Project Gutenberg (public domain)",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Robert Louis Stevenson, Requiem, in Underwoods, Project Gutenberg (public domain)",
+        "url": "https://www.gutenberg.org/ebooks/438"
+      }
+    ],
+    "category": "Poetry"
+  },
+  {
+    "id": "miniver-cheevy-past",
+    "title": "Miniver Cheevy's Imagined Past",
+    "text": "Edwin Arlington Robinson's “Miniver Cheevy” presents a man who dreams of knights, ancient cities, and famous families while scorning his own time. The jaunty rhythm sounds amusing, but the portrait grows sadder. Miniver blames history and fate instead of changing his habits. His imagined past contains bright armor and glory, not boredom, hunger, or ordinary labor. The poem warns that admiration for history can become an escape from responsibility. Studying the past is most useful when evidence challenges fantasy and helps us act more wisely in the present.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "Original commentary on a public-domain poem about romanticizing history.",
+    "vocabulary": [
+      "scorn: strong disrespect",
+      "romanticize: make something seem better or grander than it was"
+    ],
+    "source": "Original summary based on Edwin Arlington Robinson, Miniver Cheevy, Poetry Foundation (public domain)",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Edwin Arlington Robinson, Miniver Cheevy, Poetry Foundation (public domain)",
+        "url": "https://www.poetryfoundation.org/poems/44978/miniver-cheevy"
+      }
+    ],
+    "category": "Poetry"
+  },
+  {
+    "id": "happy-warrior-character",
+    "title": "Wordsworth's Happy Warrior",
+    "text": "William Wordsworth's “Character of the Happy Warrior” describes courage as a pattern of moral habits, not a thirst for combat. The ideal figure learns from difficulty, controls anger, accepts responsibility, and keeps a generous spirit. Written after the death of naval commander Lord Nelson, the poem uses the public language of heroism. Yet its strongest qualities can apply far beyond war: honest self-command, thoughtful service, and resilience. Readers may also question any portrait of a perfect hero. Real leaders have flaws, and careful judgment should test admired qualities against actual choices.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "Original commentary on a public-domain poem and its demanding model of character.",
+    "vocabulary": [
+      "resilience: the ability to recover and continue",
+      "self-command: control over one's reactions"
+    ],
+    "source": "Original summary based on William Wordsworth, Character of the Happy Warrior, Poetry Foundation",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "William Wordsworth, Character of the Happy Warrior, Poetry Foundation",
+        "url": "https://www.poetryfoundation.org/poems/45512/character-of-the-happy-warrior"
+      }
+    ],
+    "category": "Poetry"
+  },
+  {
+    "id": "battle-hymn-marching-song",
+    "title": "A Song That Entered History",
+    "text": "Julia Ward Howe wrote “Battle-Hymn of the Republic” during the American Civil War, fitting new words to a tune already sung by Union soldiers. Biblical images give the song a sense of judgment and urgent purpose. That power helped it travel into churches, public ceremonies, and later civil-rights gatherings. A historical reading should hold two facts together: the song supported a Union cause increasingly tied to emancipation, and religious certainty can make political conflict sound absolute. Poetry set to memorable music can unite people, preserve hope, and also simplify complicated events.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "Original historical commentary on a public-domain Civil War poem and song.",
+    "vocabulary": [
+      "emancipation: liberation from slavery",
+      "absolute: presented as complete and beyond doubt"
+    ],
+    "source": "Original summary based on Julia Ward Howe, Battle-Hymn of the Republic, Poetry Foundation (public domain)",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Julia Ward Howe, Battle-Hymn of the Republic, Poetry Foundation (public domain)",
+        "url": "https://www.poetryfoundation.org/poems/44420/battle-hymn-of-the-republic"
+      }
+    ],
+    "category": "Poetry"
+  },
+  {
+    "id": "recessional-power-humility",
+    "title": "Power and Humility in Recessional",
+    "text": "Rudyard Kipling's “Recessional” was written for Queen Victoria's 1897 jubilee, when the British Empire displayed its global power. Instead of offering simple celebration, the poem repeatedly warns that armies, ships, and political glory will pass. Its biblical language calls for humility and remembrance. The warning is real, but readers should also notice what the poem leaves at the edge: people living under imperial rule had their own histories and judgments. Reading critically means hearing the poem's check on pride while placing it beside voices from colonized societies. Context changes analysis; it need not force only one response. A famous work can contain insight without providing a complete view.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "Original critical commentary on a public-domain poem in its imperial setting.",
+    "vocabulary": [
+      "jubilee: a special anniversary celebration",
+      "colonized: placed under the political control of an outside power"
+    ],
+    "source": "Original summary based on Rudyard Kipling, Recessional, Poetry Foundation",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Rudyard Kipling, Recessional, Poetry Foundation",
+        "url": "https://www.poetryfoundation.org/poems/46780/recessional"
+      }
+    ],
+    "category": "Poetry"
   }
 ]

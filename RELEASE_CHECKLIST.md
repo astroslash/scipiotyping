@@ -1,4 +1,15 @@
-# Release checklist — 1.3.0
+# Release checklist — 1.4.0
+
+## 1.4.0
+
+- [x] Pre-release database backup created and v1.3.0 baseline verified.
+- [x] Editorial gap analysis and source plan completed across ten subjects.
+- [x] Sixty reviewed passages added in three batches without changing v1.3 objects.
+- [x] Every subject now contains 12 passages and all 120 IDs are protected.
+- [x] Planned difficulty distribution and Level 2–5 word bands tested.
+- [x] Rights, references, age suitability, vocabulary, and uncertainty reviewed.
+- [x] Full release command and Microsoft Edge workflow completed.
+- [x] Version 1.4.0 committed, tagged, and pushed.
 
 ## 1.3.0
 

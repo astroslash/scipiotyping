@@ -190,5 +190,209 @@
         "citation": "Original synthesis of public-domain Greek myths"
       }
     ]
+  },
+  {
+    "id": "apollo-delphi-oracle",
+    "title": "Apollo and the Oracle at Delphi",
+    "text": "In Greek religion, Apollo was linked with music, healing, archery, and prophecy. At Delphi, a priestess called the Pythia delivered responses believed to come from him. The answers could be difficult to interpret. Leaders who asked for certainty still had to think carefully and accept responsibility for their choices.",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "accuracy",
+      "capital letters"
+    ],
+    "context": "A concise account of Apollo's roles and the Delphic oracle in Greek tradition.",
+    "vocabulary": [
+      "prophecy: a message about what may happen",
+      "interpret: explain the meaning of something"
+    ],
+    "source": "Original summary based on Theoi Greek Mythology, Apollo",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "capital letters"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Theoi Greek Mythology, Apollo",
+        "url": "https://www.theoi.com/Olympios/Apollon.html"
+      }
+    ],
+    "category": "Greek Mythology"
+  },
+  {
+    "id": "hermes-infant-trickster",
+    "title": "Hermes the Infant Trickster",
+    "text": "The Homeric Hymn to Hermes tells a playful myth about the god as a remarkable newborn. He invents the lyre from a tortoise shell, steals Apollo's cattle, and hides their trail. When confronted, he argues boldly and finally offers Apollo the lyre. The brothers are reconciled, and Hermes gains new duties as messenger and guide. The tale explains divine symbols while celebrating quick invention, but it does not present stealing as an ordinary rule for human behavior.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "A clearly labeled myth based on the Homeric Hymn to Hermes.",
+    "vocabulary": [
+      "reconciled: restored to friendly relations",
+      "symbol: something that represents a larger idea"
+    ],
+    "source": "Original summary based on Homeric Hymn 4 to Hermes, translated by Hugh G. Evelyn-White (public domain), Theoi Texts Library",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Homeric Hymn 4 to Hermes, translated by Hugh G. Evelyn-White (public domain), Theoi Texts Library",
+        "url": "https://www.theoi.com/Text/HomericHymns3.html#4"
+      }
+    ],
+    "category": "Greek Mythology"
+  },
+  {
+    "id": "demeter-persephone-seasons",
+    "title": "Demeter, Persephone, and Return",
+    "text": "In the Homeric Hymn to Demeter, Hades takes Persephone to the underworld, and her mother Demeter searches in grief. Crops fail while the goddess of grain refuses her gifts. Zeus finally arranges Persephone's return, but because she has eaten in the underworld, she must spend part of each year there. The myth became connected with seasonal change and the mysteries at Eleusis, although it is not a scientific account of seasons. Ancient worshippers could hear in it both the fear of separation and the hope of reunion.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "A non-graphic summary of a Greek myth, distinguished from scientific explanation.",
+    "vocabulary": [
+      "mysteries: secret religious rites for initiated worshippers",
+      "reunion: coming together after separation"
+    ],
+    "source": "Original summary based on Homeric Hymn 2 to Demeter, translated by Hugh G. Evelyn-White (public domain), Theoi Texts Library",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Homeric Hymn 2 to Demeter, translated by Hugh G. Evelyn-White (public domain), Theoi Texts Library",
+        "url": "https://www.theoi.com/Text/HomericHymns1.html#2"
+      }
+    ],
+    "category": "Greek Mythology"
+  },
+  {
+    "id": "orpheus-looking-back",
+    "title": "Why Orpheus Looked Back",
+    "text": "Greek and Roman authors told several versions of Orpheus and Eurydice. In a famous form, Orpheus enters the underworld and moves its rulers with his music. They allow Eurydice to follow him out on one condition: he must not look back before they reach the upper world. Near the end, he turns, and she is lost again. The story never gives one certain reason. Did he doubt, fear for her, forget the rule, or love too anxiously? That uncertainty gives the myth its power, because readers must examine how trust can fail under pressure.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "A version-aware presentation of the Orpheus myth that invites interpretation.",
+    "vocabulary": [
+      "condition: a requirement that must be met",
+      "uncertainty: a state of not knowing for sure"
+    ],
+    "source": "Original summary based on Ovid, Metamorphoses, Book 10, translated by Brookes More (public domain), Perseus Digital Library",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Ovid, Metamorphoses, Book 10, translated by Brookes More (public domain), Perseus Digital Library",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.02.0028:book=10"
+      }
+    ],
+    "category": "Greek Mythology"
+  },
+  {
+    "id": "furies-athena-jury",
+    "title": "The Furies Meet a Jury",
+    "text": "In Aeschylus's Eumenides, Orestes is pursued by the Furies after killing his mother in revenge for his father. The chain of retaliation seems endless: each punishment creates another claim for vengeance. At Athens, Athena establishes a jury to hear arguments from Apollo and the Furies. When the votes are tied, she decides for Orestes. Athena then persuades the angry Furies to accept an honored place in the city. Their anger is not dismissed; the new settlement gives its guardians respect and a continuing purpose. The play is myth, not a record of one historical trial, but it imagines a change from private revenge toward public judgment, negotiation, and rules.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "A non-graphic interpretation of justice and civic trial in Aeschylus's mythic drama.",
+    "vocabulary": [
+      "retaliation: harm returned for earlier harm",
+      "public judgment: a decision made through a community institution"
+    ],
+    "source": "Original summary based on Aeschylus, Eumenides, translated by Herbert Weir Smyth (public domain), Perseus Digital Library",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Aeschylus, Eumenides, translated by Herbert Weir Smyth (public domain), Perseus Digital Library",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0005"
+      }
+    ],
+    "category": "Greek Mythology"
+  },
+  {
+    "id": "hesiod-divine-succession",
+    "title": "Three Generations of Divine Rule",
+    "text": "Hesiod's Theogony describes a rough succession of rulers among the gods. Ouranos fears his children; Cronus overthrows him, then swallows his own children to prevent a similar defeat. Rhea saves Zeus, who eventually defeats Cronus and the Titans. After conflict, Zeus distributes honors and responsibilities among divine allies. This is a mythic genealogy, and later Greek authors told some details differently. The poem organizes many local traditions into one family story, but it does not erase every alternative. It can be read as more than a contest of strength: each ruler's attempt to freeze power creates resistance, while Zeus secures a more lasting order partly by sharing roles and recognizing alliances.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "A version-aware interpretation of divine succession in Hesiod's Theogony.",
+    "vocabulary": [
+      "succession: the order in which one ruler follows another",
+      "genealogy: an account of family descent"
+    ],
+    "source": "Original summary based on Hesiod, Theogony, translated by Hugh G. Evelyn-White (public domain), Theoi Texts Library",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Hesiod, Theogony, translated by Hugh G. Evelyn-White (public domain), Theoi Texts Library",
+        "url": "https://www.theoi.com/Text/HesiodTheogony.html"
+      }
+    ],
+    "category": "Greek Mythology"
   }
 ]

@@ -1,4 +1,4 @@
-# Version 1.3 acceptance checklist
+# Version 1.4 acceptance checklist
 
 - [x] Clean Windows setup succeeds using README commands.
 - [x] Server binds to localhost and opens the browser.
@@ -8,7 +8,7 @@
 - [x] Student data remains separated between profiles.
 - [x] Lessons unlock and recommendations explain their reason.
 - [x] Goals, streaks, achievements, trends, and error summaries are correct.
-- [x] All 60 built-in passages validate with complete rights metadata.
+- [x] All 120 built-in passages validate with complete rights metadata.
 - [x] Custom content rejects malformed or unsafe input.
 - [x] CSV/JSON export and full backup/restore round trips succeed.
 - [x] Reset and restore require explicit confirmation.
@@ -24,3 +24,7 @@
   profile-specific and keyboard accessible.
 - [x] Schema 7 preserves exact target text and passage revision for new attempts.
 - [x] A synthetic 500-passage library loads successfully.
+- [x] Every subject contains 12 passages, including six reviewed v1.4 additions.
+- [x] The 60 additions meet the planned difficulty mix and per-level word bands.
+- [x] New prose is original, age-appropriate, source-aware, and backed by a
+  structured HTTPS reference.

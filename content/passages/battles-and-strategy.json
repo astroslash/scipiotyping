@@ -190,5 +190,209 @@
         "citation": "Original historical summary"
       }
     ]
+  },
+  {
+    "id": "gaugamela-open-ground",
+    "title": "The Open Ground at Gaugamela",
+    "text": "In 331 BCE, Alexander met Darius III near Gaugamela. The Persian king chose and prepared broad ground for his larger army and chariots. Alexander advanced at an angle, drawing part of the Persian line away from its center. When a gap appeared, his cavalry drove toward it. The victory depended on trained units and coordination, not on one dramatic charge alone. It ended Darius's effective rule but did not end resistance to Alexander.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "A concise tactical account that avoids reducing Gaugamela to a lone hero's action.",
+    "vocabulary": [
+      "coordination: organized action by different groups",
+      "cavalry: soldiers who fight on horseback"
+    ],
+    "source": "Original summary based on Encyclopaedia Britannica, Battle of Gaugamela",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Encyclopaedia Britannica, Battle of Gaugamela",
+        "url": "https://www.britannica.com/event/Battle-of-Gaugamela"
+      }
+    ],
+    "category": "Battles and Strategy"
+  },
+  {
+    "id": "hastings-ridge-1066",
+    "title": "The Ridge at Hastings",
+    "text": "In 1066, Harold's English army formed a shield wall on high ground near Hastings. William of Normandy attacked with archers, foot soldiers, and cavalry. The long battle changed as some English fighters pursued retreating Normans and opened gaps. Harold was killed, although later stories disagree about exactly how. William's victory led to conquest, land seizures, and a new ruling elite. Terrain and discipline mattered, but so did the strain of a battle lasting most of a day.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "A source-aware overview of the Battle of Hastings and its consequences.",
+    "vocabulary": [
+      "shield wall: a close defensive line of overlapping shields",
+      "elite: a group holding unusual power or privilege"
+    ],
+    "source": "Original summary based on English Heritage, The Battle of Hastings",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "English Heritage, The Battle of Hastings",
+        "url": "https://www.english-heritage.org.uk/visit/places/1066-battle-of-hastings-abbey-and-battlefield/history-and-stories/history/"
+      }
+    ],
+    "category": "Battles and Strategy"
+  },
+  {
+    "id": "austerlitz-mist-heights",
+    "title": "Mist and Heights at Austerlitz",
+    "text": "At Austerlitz in 1805, Napoleon appeared to weaken his right side and encouraged a larger Allied army to attack there. Russian and Austrian forces moved down from the Pratzen Heights, thinning their center. French troops then emerged through morning mist and seized the heights, splitting the Allied position. The plan was daring, but its success also required accurate timing, experienced soldiers, and mistakes by opposing commanders. The victory reshaped European alliances for a time; it did not create permanent peace or make later campaigns inevitable.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "A tactical explanation of Austerlitz that includes uncertainty and longer consequences.",
+    "vocabulary": [
+      "alliance: an agreement to cooperate",
+      "inevitable: certain to happen"
+    ],
+    "source": "Original summary based on Encyclopaedia Britannica, Battle of Austerlitz",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Encyclopaedia Britannica, Battle of Austerlitz",
+        "url": "https://www.britannica.com/event/Battle-of-Austerlitz"
+      }
+    ],
+    "category": "Battles and Strategy"
+  },
+  {
+    "id": "gettysburg-three-days",
+    "title": "Three Days at Gettysburg",
+    "text": "The Battle of Gettysburg in July 1863 was not planned by either army at that exact place. Roads brought Union and Confederate forces together, and nearby ridges became crucial defensive ground. Fighting shifted from north of town to Cemetery Hill, Little Round Top, and finally the open field crossed during Pickett's Charge. Union lines held. The battle caused enormous loss on both sides and ended Lee's invasion of the North, but the Civil War continued for nearly two years. Gettysburg mattered through geography, command choices, endurance, and consequences—not through a single moment alone.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "A non-graphic overview of Gettysburg's sequence, terrain, and significance.",
+    "vocabulary": [
+      "defensive: intended to resist an attack",
+      "invasion: an armed entry into another region"
+    ],
+    "source": "Original summary based on U.S. National Park Service, Battle Detail: Gettysburg",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "U.S. National Park Service, Battle Detail: Gettysburg",
+        "url": "https://www.nps.gov/civilwar/search-battles-detail.htm?battleCode=pa002"
+      }
+    ],
+    "category": "Battles and Strategy"
+  },
+  {
+    "id": "tenochtitlan-siege-allies",
+    "title": "The Siege of Tenochtitlan",
+    "text": "In 1521, Spanish forces led by Hernán Cortés and tens of thousands of Indigenous allies besieged the Mexica capital of Tenochtitlan. Brigantines contested the lake while attackers advanced along causeways and cut supplies. Smallpox, introduced earlier from Europe, had badly weakened the city's population. Calling the struggle simply a Spanish victory hides the central role of Tlaxcalans and other peoples with their own reasons for opposing Mexica power. The city's fall brought destruction and colonial rule, but Indigenous communities continued to shape Mexico. Strategy, disease, alliances, and unequal consequences all belong in the explanation.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "A multi-causal account centered on Indigenous alliances as well as Spanish weapons and disease.",
+    "vocabulary": [
+      "besieged: surrounded to cut off supplies",
+      "causeway: a raised road across water or low ground"
+    ],
+    "source": "Original summary based on Smithsonian Institution, Mexican America: History",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Smithsonian Institution, Mexican America: History",
+        "url": "https://www.si.edu/spotlight/mexican-america/history"
+      }
+    ],
+    "category": "Battles and Strategy"
+  },
+  {
+    "id": "kohima-imphal-supply",
+    "title": "Supply and Resolve at Imphal and Kohima",
+    "text": "In 1944, Japanese forces advanced from Burma toward the British bases at Imphal and Kohima in northeast India. British, Indian, Gurkha, and African units defended the region while aircraft delivered food, ammunition, and reinforcements. Japanese troops had expected to capture Allied supplies, so the stalled offensive left them dangerously short of food and medicine during the monsoon. Fighting near Kohima was extremely close, but the larger campaign turned on roads, air supply, medical care, and the ability to replace losses. The Allied victory stopped the invasion and enabled a later advance into Burma. Remembering the campaign also means recognizing soldiers and civilians from many nations, not treating it as a story belonging to one country.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "A multinational and logistics-centered account of the 1944 Imphal-Kohima campaign.",
+    "vocabulary": [
+      "monsoon: a seasonal wind pattern bringing heavy rain",
+      "reinforcements: additional people or supplies sent to strengthen a force"
+    ],
+    "source": "Original summary based on Imperial War Museums, 10 Photos of the Battles of Imphal and Kohima",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Imperial War Museums, 10 Photos of the Battles of Imphal and Kohima",
+        "url": "https://www.iwm.org.uk/history/10-photos-of-the-battles-of-imphal-and-kohima"
+      }
+    ],
+    "category": "Battles and Strategy"
   }
 ]

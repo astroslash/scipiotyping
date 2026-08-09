@@ -190,5 +190,209 @@
         "citation": "Original historical summary"
       }
     ]
+  },
+  {
+    "id": "cyrus-cylinder-context",
+    "title": "Cyrus and the Meaning of a Cylinder",
+    "text": "After Cyrus captured Babylon in 539 BCE, a clay cylinder praised him for restoring temples and returning displaced divine images. Its language follows older Mesopotamian royal traditions. Modern people sometimes call it the first charter of human rights, but the British Museum warns that this description is misleading. The object is valuable because it shows how Cyrus presented legitimate rule to Babylonian audiences. Good history separates what an ancient source says from later hopes attached to it.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "A critical reading of royal propaganda and a common modern misconception.",
+    "vocabulary": [
+      "legitimate: accepted as lawful or proper",
+      "propaganda: communication designed to shape public opinion"
+    ],
+    "source": "Original summary based on British Museum, The Cyrus Cylinder",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "British Museum, The Cyrus Cylinder",
+        "url": "https://www.britishmuseum.org/collection/object/W_1880-0617-1941"
+      }
+    ],
+    "category": "Leaders"
+  },
+  {
+    "id": "ashoka-edicts-change",
+    "title": "Ashoka Speaks Through Stone",
+    "text": "The emperor Ashoka ruled much of South Asia in the third century BCE. His inscriptions describe regret after the costly conquest of Kalinga and promote dhamma: ethical conduct including restraint, generosity, and respect. Officials carved these messages on rocks and pillars across a diverse empire. The edicts reveal the ruler's aims, not every subject's experience, and Ashoka still governed with state power. His importance lies partly in using monuments to argue that a leader should be judged by care and self-control as well as victory.",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "accuracy",
+      "punctuation"
+    ],
+    "context": "A source-aware introduction to Ashoka's inscriptions and moral claims.",
+    "vocabulary": [
+      "edict: an official public order or statement",
+      "restraint: controlled behavior"
+    ],
+    "source": "Original summary based on Smarthistory, The Pillars of Ashoka",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "punctuation"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Smarthistory, The Pillars of Ashoka",
+        "url": "https://smarthistory.org/the-pillars-of-ashoka/"
+      }
+    ],
+    "category": "Leaders"
+  },
+  {
+    "id": "hatshepsut-punt-images",
+    "title": "Hatshepsut Records a Voyage to Punt",
+    "text": "Hatshepsut ruled Egypt as pharaoh during the fifteenth century BCE. Reliefs at her temple at Deir el-Bahri present an expedition to Punt, a trading region probably near the Red Sea. The carved scenes show ships, incense trees, goods, and people, turning commerce into a statement about prosperity and divine approval. Hatshepsut used traditional royal titles and images, sometimes appearing with a symbolic false beard. Rather than treating her reign as an odd exception, historians examine how she adapted the visual language of kingship to make her authority understandable and durable.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "How Hatshepsut used trade imagery and established symbols of pharaonic rule.",
+    "vocabulary": [
+      "relief: a carved image raised from a flat surface",
+      "kingship: the position and symbols of royal rule"
+    ],
+    "source": "Original summary based on The Metropolitan Museum of Art, Hatshepsut: From Queen to Pharaoh",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "The Metropolitan Museum of Art, Hatshepsut: From Queen to Pharaoh",
+        "url": "https://www.metmuseum.org/exhibitions/listings/2006/hatshepsut"
+      }
+    ],
+    "category": "Leaders"
+  },
+  {
+    "id": "wu-zetian-legitimacy",
+    "title": "Wu Zetian Builds Authority",
+    "text": "Wu Zetian was the only woman to rule China with the title of emperor, declaring her own Zhou dynasty in 690 CE. She gained authority through court alliances, administration, patronage of Buddhism, and careful use of symbols and prophecy. Later official histories often described her through hostile ideas about powerful women, while modern praise can become equally simple. Her government expanded examinations and employed talented officials, yet it also used punishment against rivals. Studying Wu requires comparing evidence and recognizing that effective statecraft and harsh political struggle can exist in the same reign.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "A balanced account that considers both gendered source bias and political coercion.",
+    "vocabulary": [
+      "patronage: support given to people, arts, or institutions",
+      "statecraft: skill in governing"
+    ],
+    "source": "Original summary based on Encyclopaedia Britannica, Wuhou",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Encyclopaedia Britannica, Wuhou",
+        "url": "https://www.britannica.com/biography/Wuhou"
+      }
+    ],
+    "category": "Leaders"
+  },
+  {
+    "id": "tokugawa-ieyasu-system",
+    "title": "Ieyasu's Victory and Political System",
+    "text": "Tokugawa Ieyasu won the Battle of Sekigahara in 1600 and became shogun three years later. Victory alone did not secure his family's rule. The Tokugawa government assigned domains to lords, controlled strategic roads and castles, and later required many lords to spend alternating years near the shogun's capital. Authority was shared unevenly between the shogunate and regional domains. This structure helped limit large civil wars while demanding taxes, labor, and obedience. Ieyasu's career shows that building institutions after a conflict can matter more than winning the conflict itself.",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "pacing",
+      "complex sentences"
+    ],
+    "context": "An institutional view of Ieyasu and the foundations of Tokugawa rule.",
+    "vocabulary": [
+      "shogun: Japan's leading military ruler",
+      "domain: a territory governed by a lord"
+    ],
+    "source": "Original summary based on Encyclopaedia Britannica, Tokugawa Ieyasu",
+    "rights": "original",
+    "typing_focus": [
+      "pacing",
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Encyclopaedia Britannica, Tokugawa Ieyasu",
+        "url": "https://www.britannica.com/biography/Tokugawa-Ieyasu"
+      }
+    ],
+    "category": "Leaders"
+  },
+  {
+    "id": "mandela-negotiated-democracy",
+    "title": "Mandela and a Negotiated Democracy",
+    "text": "Nelson Mandela spent twenty-seven years imprisoned for opposing South Africa's apartheid system. After his release in 1990, he helped negotiate a democratic transition with President F. W. de Klerk, other political organizations, and civic leaders. The talks occurred amid serious violence and mistrust; no one person controlled their outcome. Elected president in 1994, Mandela supported a constitution based on equal citizenship and limits on government. He also used symbolic acts to encourage reconciliation. Admiration should not erase debate about his party's policies or the economic inequalities that survived apartheid. His strongest leadership lesson is not that patience solves every conflict, but that courage can include bargaining with opponents while protecting principles through durable institutions.",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "context": "A collaborative, institution-centered account of South Africa's democratic transition.",
+    "vocabulary": [
+      "apartheid: South Africa's former system of enforced racial separation",
+      "reconciliation: rebuilding workable relations after conflict"
+    ],
+    "source": "Original summary based on Nelson Mandela Foundation, Democracy",
+    "rights": "original",
+    "typing_focus": [
+      "endurance",
+      "advanced punctuation"
+    ],
+    "reading_level": 8,
+    "revision": 1,
+    "added_in": "1.4.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-09",
+    "references": [
+      {
+        "citation": "Nelson Mandela Foundation, Democracy",
+        "url": "https://www.nelsonmandela.org/democracy"
+      }
+    ],
+    "category": "Leaders"
   }
 ]
