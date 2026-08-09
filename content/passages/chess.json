@@ -1,0 +1,194 @@
+[
+  {
+    "id": "chaturanga-origins",
+    "title": "From Chaturanga to Chess",
+    "text": "Most historians trace chess to an Indian game called chaturanga, played by about the sixth century. Forms of the game traveled through Persia and the Islamic world into Europe. Rules changed along the way. Chess history is therefore a history of exchange, adaptation, and many cultures adding ideas.",
+    "category": "Chess",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "names",
+      "chronology"
+    ],
+    "context": "A cautious summary of the leading scholarly account of chess origins.",
+    "vocabulary": [
+      "adaptation: change for a new use",
+      "trace: follow the development of"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "names"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "queen-becomes-powerful",
+    "title": "The Queen Changes the Game",
+    "text": "In late medieval Europe, chess rules changed so the queen and bishop could move much farther. The faster game rewarded development, king safety, and calculation. Historians sometimes call it mad queen chess. A small rule change transformed strategy, showing how systems can produce new behavior when one condition changes.",
+    "category": "Chess",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "strategy",
+      "sentence variety"
+    ],
+    "context": "A summary of major chess-rule changes around the late fifteenth century.",
+    "vocabulary": [
+      "development: bringing pieces into useful play",
+      "calculation: examining possible moves"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "philidor-pawns",
+    "title": "Pawns Are the Soul",
+    "text": "François-André Danican Philidor argued that pawns shape the plan of a chess game. Because pawns usually cannot move backward, each advance changes the position permanently. Strong players ask what squares a pawn move controls, what it weakens, and whether the resulting structure will help later pieces.",
+    "category": "Chess",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "proper names",
+      "analysis"
+    ],
+    "context": "An explanation of Philidor's influential eighteenth-century chess idea.",
+    "vocabulary": [
+      "structure: arrangement of connected parts",
+      "permanently: in a lasting way"
+    ],
+    "source": "Original chess-history summary",
+    "rights": "original",
+    "typing_focus": [
+      "proper names"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original chess-history summary"
+      }
+    ]
+  },
+  {
+    "id": "morphy-development",
+    "title": "Morphy's Open Lines",
+    "text": "Paul Morphy became famous for rapid development, open lines, and coordinated attacks. His best games look effortless because his pieces enter play with purpose. The deeper lesson is not to attack at random. First mobilize the whole force, protect the king, and act when the position supports action.",
+    "category": "Chess",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "apostrophes",
+      "imperatives"
+    ],
+    "context": "A strategic introduction to nineteenth-century master Paul Morphy.",
+    "vocabulary": [
+      "coordinate: make parts work together",
+      "mobilize: prepare and bring into action"
+    ],
+    "source": "Original chess-history summary",
+    "rights": "original",
+    "typing_focus": [
+      "apostrophes"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original chess-history summary"
+      }
+    ]
+  },
+  {
+    "id": "capablanca-simplicity",
+    "title": "Capablanca's Clarity",
+    "text": "José Raúl Capablanca was admired for clear positions and precise endgame play. His moves often seemed simple only because he understood which complications were unnecessary. Simplicity in chess does not mean shallow thought. It means finding a move that solves several problems without creating avoidable weaknesses.",
+    "category": "Chess",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "diacritics",
+      "strategy"
+    ],
+    "context": "A profile of the Cuban world chess champion.",
+    "vocabulary": [
+      "complication: a difficult combination of possibilities",
+      "precise: exact and accurate"
+    ],
+    "source": "Original chess-history summary",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original chess-history summary"
+      }
+    ]
+  },
+  {
+    "id": "computer-chess",
+    "title": "Machines Learn the Board",
+    "text": "Early chess programs relied heavily on human-written rules and searches through possible moves. Modern systems can also learn patterns from enormous sets of games or from playing themselves. Computers calculate brilliantly, but people still choose why to play: for competition, beauty, friendship, study, or delight.",
+    "category": "Chess",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "technology",
+      "colon"
+    ],
+    "context": "A simplified history of computer chess without product endorsements.",
+    "vocabulary": [
+      "pattern: a repeated arrangement",
+      "calculate: work through possible consequences"
+    ],
+    "source": "Original educational summary",
+    "rights": "original",
+    "typing_focus": [
+      "colon"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original educational summary"
+      }
+    ]
+  }
+]

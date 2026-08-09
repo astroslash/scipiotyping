@@ -1,0 +1,194 @@
+[
+  {
+    "id": "bronze-to-iron",
+    "title": "From Bronze to Iron",
+    "text": "Bronze weapons require copper and tin, metals that may come from distant regions. Iron ore is more widespread, but early smiths needed skill to produce useful tools from it. The spread of iron changed farming and war gradually. A new material matters only when knowledge and organization support it.",
+    "category": "History of Warfare",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "technical history",
+      "contrast"
+    ],
+    "context": "A simplified account of a long technological transition.",
+    "vocabulary": [
+      "ore: rock containing useful metal",
+      "smith: a craftsperson who works metal"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "fortress-design",
+    "title": "Walls and Angles",
+    "text": "Fortifications changed as attackers developed stronger siege engines and cannon. High stone walls gave way in some regions to lower, thicker defenses with angled bastions. The angles allowed defenders to cover neighboring walls. Military architecture demonstrates an endless contest between protection, attack, cost, and available technology.",
+    "category": "History of Warfare",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "plural nouns",
+      "cause and effect"
+    ],
+    "context": "A non-graphic introduction to early modern fortress design.",
+    "vocabulary": [
+      "bastion: a projecting part of a fortification",
+      "siege: an attempt to capture a defended place"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "logistics-armies",
+    "title": "An Army Must Eat",
+    "text": "A commander may design a clever campaign, but soldiers and animals require food, water, shelter, medicine, and replacement equipment. Roads and weather affect every delivery. Logistics rarely appears heroic in paintings, yet it limits what armies can do. Plans that ignore supply become wishes rather than strategies.",
+    "category": "History of Warfare",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "lists",
+      "reasoning"
+    ],
+    "context": "An explanation of logistics without focusing on violence.",
+    "vocabulary": [
+      "logistics: organizing movement and supply",
+      "campaign: a series of related operations"
+    ],
+    "source": "Original educational passage",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original educational passage"
+      }
+    ]
+  },
+  {
+    "id": "signals-to-radio",
+    "title": "Sending the Order",
+    "text": "Armies have communicated with runners, flags, drums, fires, telegraph wires, radios, satellites, and encrypted networks. Each method offers advantages and weaknesses. Faster communication can improve coordination, but it can also spread a mistaken order faster. Technology changes command without replacing careful judgment.",
+    "category": "History of Warfare",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "lists",
+      "technology"
+    ],
+    "context": "A broad, non-graphic history of military communication.",
+    "vocabulary": [
+      "encrypted: converted into a secret code",
+      "coordination: organized cooperation"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "medicine-and-war",
+    "title": "Medicine Under Pressure",
+    "text": "Warfare has often forced medical workers to treat many patients with limited time and supplies. Systems for sorting urgent cases, controlling infection, and transporting the injured developed under this pressure. These advances later influenced civilian care, though beneficial discoveries never erase the suffering that made them necessary.",
+    "category": "History of Warfare",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "ethical reasoning",
+      "complex sentences"
+    ],
+    "context": "A non-graphic look at connections between conflict and medical systems.",
+    "vocabulary": [
+      "infection: invasion of the body by harmful organisms",
+      "civilian: outside the armed forces"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "laws-of-war",
+    "title": "Rules During Conflict",
+    "text": "Societies have long tried to place limits on conduct during war. Modern international humanitarian law protects wounded people, prisoners, medical workers, and civilians, and restricts certain weapons and tactics. Rules are sometimes violated, but that failure does not make them meaningless; it makes accountability more necessary.",
+    "category": "History of Warfare",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "civics",
+      "semicolon"
+    ],
+    "context": "A simplified introduction to humanitarian law, not legal advice.",
+    "vocabulary": [
+      "humanitarian: concerned with human welfare",
+      "accountability: being answerable for actions"
+    ],
+    "source": "Original educational summary of longstanding humanitarian principles",
+    "rights": "original",
+    "typing_focus": [
+      "semicolon"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original educational summary of longstanding humanitarian principles"
+      }
+    ]
+  }
+]

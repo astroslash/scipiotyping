@@ -7,8 +7,12 @@
    private drill assembled locally from the student's recent results.
 4. Use **Parent** to change goals, add profiles, set an optional PIN, add an
    original passage, export results and practice time, or download a complete
-   backup.
-5. Press `Ctrl+C` in the PowerShell window when finished.
+backup.
+5. In the Library, use **Not yet practiced** to find fresh material or
+   **Completed** to repeat earlier work. Completion badges and best accuracy are
+   private to the selected profile. Sorting and page controls remain available
+   without an internet connection.
+6. Press `Ctrl+C` in the PowerShell window when finished.
 
 Accuracy matters more than a high early WPM. Encourage a relaxed pace and short,
 regular sessions. ScipioTyping's streak allows today to remain unfinished and

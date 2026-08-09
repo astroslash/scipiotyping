@@ -30,6 +30,11 @@ def main() -> None:
         options.add_argument("--window-size=1200,900")
         driver = webdriver.Edge(options=options)
         try:
+            driver.get("http://127.0.0.1:5001/library")
+            assert driver.find_element(By.NAME, "status").is_displayed()
+            assert driver.find_element(By.NAME, "sort").is_displayed()
+            assert "page 1 of 3" in driver.find_element(By.CLASS_NAME, "library-summary").text.lower()
+
             driver.get("http://127.0.0.1:5001/practice/drill-home-row?mode=lesson&lesson=home-row")
             daily_goal = driver.find_element(By.ID, "daily-goal")
             assert daily_goal.is_displayed() and "Today:" in daily_goal.text
@@ -49,6 +54,7 @@ def main() -> None:
             with app.app_context():
                 row = get_db().execute("SELECT * FROM attempts").fetchone()
                 assert row["completed"] == 1 and row["corrected_errors"] == 1
+                assert row["target_text"] == DRILL_TEXTS["home-row"] and row["passage_revision"] == 1
                 assert json.loads(row["error_map"]).get("a") == 1, row["error_map"]
                 weak = json.loads(row["key_stats"])
                 weak["a"] = {"expected": 20, "matched": 10, "errors": 10}
@@ -108,6 +114,8 @@ def main() -> None:
             assert "large-text" in driver.find_element(By.TAG_NAME, "html").get_attribute("class")
             assert "high-contrast" in driver.find_element(By.TAG_NAME, "html").get_attribute("class")
             driver.set_window_size(600, 900)
+            driver.get("http://127.0.0.1:5001/library")
+            assert driver.execute_script("return document.documentElement.scrollWidth <= window.innerWidth")
             driver.get("http://127.0.0.1:5001/lessons")
             assert driver.execute_script("return document.documentElement.scrollWidth <= window.innerWidth")
             print("Microsoft Edge end-to-end typing check passed.")

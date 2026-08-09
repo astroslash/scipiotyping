@@ -1,0 +1,194 @@
+[
+  {
+    "id": "mali-mansa-musa",
+    "title": "Mali and Mansa Musa",
+    "text": "In the fourteenth century, the Mali Empire controlled important routes carrying gold and salt across West Africa. Mansa Musa's pilgrimage to Mecca displayed enormous wealth and connected Mali to a wider scholarly world. Timbuktu became known for trade and learning, though its history reaches beyond any single ruler.",
+    "category": "World History",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "proper names",
+      "geography"
+    ],
+    "context": "An introduction to medieval Mali and trans-Saharan exchange.",
+    "vocabulary": [
+      "pilgrimage: a journey to a sacred place",
+      "scholarly: related to serious study"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "proper names"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "song-dynasty-invention",
+    "title": "Ideas in Song China",
+    "text": "During China's Song dynasty, printers produced books with carved blocks and movable type. Engineers improved clocks, ships, canals, and iron production. Merchants used paper money on a large scale. These developments did not appear all at once, but together they reveal a complex and inventive society.",
+    "category": "World History",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "lists",
+      "chronology"
+    ],
+    "context": "A broad overview of selected Song-era innovations.",
+    "vocabulary": [
+      "dynasty: a succession of rulers from one family",
+      "movable type: reusable characters for printing"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "inca-roads",
+    "title": "Roads Across the Andes",
+    "text": "The Inca governed a vast Andean realm without wheeled transport or a conventional written script. Roads, bridges, runners, storehouses, and knotted records called quipu helped connect high mountains and valleys. Their achievement depended on organized labor, while imperial rule also placed heavy demands on conquered communities.",
+    "category": "World History",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "balanced history",
+      "vocabulary"
+    ],
+    "context": "An introduction to Inca administration before Spanish conquest.",
+    "vocabulary": [
+      "Andean: relating to the Andes Mountains",
+      "quipu: knotted cords used for records"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "polynesian-navigation",
+    "title": "Reading an Ocean",
+    "text": "Polynesian navigators crossed immense stretches of the Pacific using stars, winds, currents, clouds, birds, and patterns of ocean swell. Their knowledge was learned through careful teaching and experience. Navigation joined observation with memory, proving that a map can exist in trained understanding as well as on paper.",
+    "category": "World History",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "lists",
+      "science history"
+    ],
+    "context": "A respectful overview of traditional Pacific wayfinding.",
+    "vocabulary": [
+      "swell: long rolling waves",
+      "wayfinding: determining and following a route"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "abbasid-translation",
+    "title": "The Translation Movement",
+    "text": "Scholars working in Abbasid Baghdad translated and studied writings from Greek, Persian, Indian, and other traditions. They did more than preserve old books: they criticized, extended, and reorganized knowledge in mathematics, medicine, astronomy, and philosophy. Later scholars in many regions built on this work.",
+    "category": "World History",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "colon",
+      "intellectual history"
+    ],
+    "context": "An overview of scholarship centered in Baghdad from the eighth to tenth centuries.",
+    "vocabulary": [
+      "Abbasid: relating to a major Islamic caliphate",
+      "astronomy: scientific study of space"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "colon"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "haitian-revolution",
+    "title": "Haiti Wins Independence",
+    "text": "Enslaved people in the French colony of Saint-Domingue began a revolution in 1791. After years of conflict, Haiti declared independence in 1804 and abolished slavery. The revolution challenged empires that proclaimed liberty while profiting from bondage. Its leaders and factions had complex aims and fierce disagreements.",
+    "category": "World History",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "dates",
+      "civic history"
+    ],
+    "context": "A non-graphic summary of the Haitian Revolution.",
+    "vocabulary": [
+      "colony: territory controlled by another country",
+      "abolished: formally ended"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "dates"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  }
+]

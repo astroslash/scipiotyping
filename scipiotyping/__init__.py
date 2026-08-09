@@ -8,12 +8,12 @@ from pathlib import Path
 from flask import Flask
 
 from . import db
-from .content import load_passages, validate_content_command
+from .content import content_report_command, load_passages, validate_content_command
 from .lessons import lesson_passages
 from .routes import bp
 from .security import csrf_token, protect_csrf
 
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 
 
 def create_app(test_config: dict | None = None) -> Flask:
@@ -29,21 +29,24 @@ def create_app(test_config: dict | None = None) -> Flask:
     app.config.from_mapping(
         SECRET_KEY=local_secret,
         DATABASE=os.environ.get("SCIPIO_DATABASE", str(Path(app.instance_path) / "scipiotyping.db")),
-        CONTENT_PATH=str(Path(app.root_path).parent / "content" / "passages.json"),
+        CONTENT_PATH=str(Path(app.root_path).parent / "content"),
         MAX_CONTENT_LENGTH=2 * 1024 * 1024,
     )
     if test_config:
         app.config.update(test_config)
     db.init_app(app)
     app.cli.add_command(validate_content_command)
+    app.cli.add_command(content_report_command)
     app.register_blueprint(bp)
     app.before_request(protect_csrf)
     app.jinja_env.globals["csrf_token"] = csrf_token
     with app.app_context():
         db.init_database()
-        lookup = {item["id"]: item["text"] for item in load_passages(app.config["CONTENT_PATH"])}
-        lookup.update({item["id"]: item["text"] for item in lesson_passages()})
-        lookup.update({row["id"]: row["text"] for row in db.get_db().execute("SELECT id,text FROM custom_passages")})
-        db.backfill_key_stats(db.get_db(), lookup)
+        lookup = {item["id"]: item for item in load_passages(app.config["CONTENT_PATH"])}
+        lookup.update({item["id"]: item for item in lesson_passages()})
+        lookup.update({row["id"]: {"text": row["text"], "revision": 1}
+                       for row in db.get_db().execute("SELECT id,text FROM custom_passages")})
+        db.backfill_key_stats(db.get_db(), {key: item["text"] for key, item in lookup.items()})
+        db.backfill_attempt_content(db.get_db(), lookup)
         db.backfill_practice_sessions(db.get_db())
     return app

@@ -30,8 +30,10 @@ def unlocked_lessons(level: int) -> list[dict]:
 def lesson_passages() -> list[dict]:
     return [{"id": f"drill-{lesson['id']}", "title": lesson["title"], "text": DRILL_TEXTS[lesson["id"]],
              "category": "Typing Fundamentals", "difficulty": lesson["level"], "age": 8,
-             "objectives": [lesson["focus"]], "context": lesson["description"], "vocabulary": [],
+             "objectives": [lesson["focus"]], "typing_focus": [lesson["focus"]],
+             "context": lesson["description"], "vocabulary": [],
              "source": "Original ScipioTyping drill", "rights": "original",
+             "revision": 1, "added_in": "1.0.0", "reading_level": 3,
              "word_count": len(DRILL_TEXTS[lesson["id"]].split()), "character_count": len(DRILL_TEXTS[lesson["id"]])}
             for lesson in LESSONS]
 

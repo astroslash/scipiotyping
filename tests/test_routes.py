@@ -10,7 +10,7 @@ def post_form(client, path, csrf, data=None, **kwargs):
 
 
 def test_health_and_primary_pages(client):
-    assert client.get("/health").get_json()["schema"] == 6
+    assert client.get("/health").get_json()["schema"] == 7
     for path in ["/", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
         response = client.get(path)
         assert response.status_code == 200
@@ -35,6 +35,12 @@ def test_library_filters(client):
     assert b"Pawns Are the Soul" in response.data and b"Hannibal" not in response.data
 
 
+def test_library_paginates_and_preserves_filters(client):
+    response = client.get("/library?sort=title")
+    assert b"page 1 of 3" in response.data and b">Next<" in response.data
+    assert b"sort=title" in response.data
+
+
 def test_csrf_blocks_post(client):
     assert client.post("/api/attempts",json={}).status_code == 400
 
@@ -51,6 +57,26 @@ def test_attempt_is_scored_by_server(client, csrf, app):
     with app.app_context():
         saved_session = get_db().execute("SELECT * FROM practice_sessions").fetchone()
         assert saved_session["attempt_id"] and saved_session["completed_at"]
+        saved_attempt = get_db().execute("SELECT * FROM attempts").fetchone()
+        assert saved_attempt["target_text"] == passage["text"] and saved_attempt["passage_revision"] == 1
+
+
+def test_library_completion_status_is_profile_specific(client, csrf, app):
+    with app.app_context():
+        from scipiotyping.content import load_passages
+        passage = next(p for p in load_passages(app.config["CONTENT_PATH"]) if p["id"] == "marathon-messenger")
+    response = client.post("/api/attempts", headers={"X-CSRF-Token": csrf}, json={
+        "passage_id": passage["id"], "duration_seconds": 60, "typed_text": passage["text"], "mode": "practice"})
+    assert response.status_code == 201
+    completed = client.get("/library?status=completed")
+    untried = client.get("/library?status=not-practiced&q=marathon")
+    assert b"The Plain of Marathon" in completed.data and b"Completed" in completed.data
+    assert b"The Plain of Marathon" not in untried.data
+    post_form(client, "/parent/profiles", csrf, {"name": "Alex"})
+    with app.app_context():
+        alex = get_db().execute("SELECT id FROM profiles WHERE name='Alex'").fetchone()[0]
+    post_form(client, f"/profiles/{alex}/select", csrf)
+    assert b"The Plain of Marathon" not in client.get("/library?status=completed").data
 
 
 def test_practice_session_heartbeats_are_idempotent_and_profile_owned(client, csrf, app):

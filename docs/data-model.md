@@ -35,3 +35,9 @@ only the positive delta becomes a timestamped segment. A session belongs to one
 profile and is linked to its completed attempt without counting time twice.
 Historical attempts are represented as completed sessions exactly once. Daily
 totals use UTC timestamps bounded by midnight in the computer's local timezone.
+
+Schema 7 adds `passage_revision` to attempts and stores `target_text` for every
+new result. On upgrade, historical attempts are backfilled only when their
+passage is still known. Unknown passage targets remain null rather than being
+guessed. This keeps scoring history reproducible when built-in content is later
+corrected or revised.

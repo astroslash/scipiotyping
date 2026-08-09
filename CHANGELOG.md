@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.3.0 — 2026-08-09
+
+- Split the built-in library into ten independently maintainable subject files.
+- Added content schema 2 with reading level, typing focus, revision, review, and
+  structured reference metadata.
+- Added strict release validation, legacy-ID protection, near-duplicate warnings,
+  content reports, and generated inventory documentation.
+- Added per-profile completed and unpracticed filters, completion badges, sorting,
+  estimated practice time, and 24-item library pagination.
+- Added schema migration 7 so every new result preserves its exact target text and
+  passage revision; known historical targets are backfilled without losing data.
+- Added multi-file, 500-passage, metadata, navigation, profile, revision, and
+  migration regression coverage.
+
 ## 1.2.0 — 2026-08-08
 
 - Added a persistent daily practice meter to every screen.

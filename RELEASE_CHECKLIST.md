@@ -1,4 +1,15 @@
-# Release checklist — 1.2.0
+# Release checklist — 1.3.0
+
+## 1.3.0
+
+- [x] Pre-release database backup created and v1.2.0 baseline verified.
+- [x] Content schema 2, manifest, and ten subject files implemented.
+- [x] All 60 legacy IDs preserved with reviewed metadata.
+- [x] Validation, reporting, inventory generation, and 500-item loading tested.
+- [x] Profile-specific completion filters, sorting, badges, and pagination added.
+- [x] Passage target and revision migration 7 implemented and tested.
+- [x] Full release command completed.
+- [x] Version 1.3.0 committed, tagged, and pushed.
 
 ## 1.2.0
 

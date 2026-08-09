@@ -2,15 +2,32 @@
 {% block title %}Library · ScipioTyping{% endblock %}
 {% block content %}
 <div class="page-heading"><p class="eyebrow">The library</p><h1>Choose an expedition</h1><p>Every passage teaches an idea while you practice.</p></div>
-<form class="filters" method="get">
+<form class="filters library-filters" method="get">
   <label>Search<input name="q" value="{{ query }}" placeholder="Title, subject, or word"></label>
   <label>Subject<select name="category"><option value="">All subjects</option>{% for category in categories %}<option {% if selected_category == category %}selected{% endif %}>{{ category }}</option>{% endfor %}</select></label>
   <label>Difficulty<select name="difficulty"><option value="">All levels</option>{% for level in range(1,6) %}<option value="{{ level }}" {% if selected_difficulty == level %}selected{% endif %}>Level {{ level }}</option>{% endfor %}</select></label>
-  <button class="button small">Filter</button>
+  <label>Status<select name="status"><option value="">All passages</option><option value="not-practiced" {% if selected_status == 'not-practiced' %}selected{% endif %}>Not yet practiced</option><option value="completed" {% if selected_status == 'completed' %}selected{% endif %}>Completed</option></select></label>
+  <label>Sort<select name="sort"><option value="recommended" {% if selected_sort == 'recommended' %}selected{% endif %}>Recommended</option><option value="recent" {% if selected_sort == 'recent' %}selected{% endif %}>Recently added</option><option value="title" {% if selected_sort == 'title' %}selected{% endif %}>Title</option><option value="difficulty" {% if selected_sort == 'difficulty' %}selected{% endif %}>Difficulty</option><option value="shortest" {% if selected_sort == 'shortest' %}selected{% endif %}>Shortest</option><option value="longest" {% if selected_sort == 'longest' %}selected{% endif %}>Longest</option></select></label>
+  <button class="button small">Apply</button>
+  <a class="text-button filter-reset" href="{{ url_for('main.library') }}">Reset filters</a>
 </form>
+<p class="library-summary" aria-live="polite">{{ result_count }} passage{% if result_count != 1 %}s{% endif %}{% if page_count > 1 %} · page {{ page }} of {{ page_count }}{% endif %}</p>
 <div class="card-grid">
 {% for passage in passages %}
-  <article class="passage-card"><div><span class="tag">{{ passage.category }}</span><span class="level">Level {{ passage.difficulty }}</span></div><h2>{{ passage.title }}</h2><p>{{ passage.context }}</p><small>{{ passage.word_count }} words · Age {{ passage.age }}+</small><a class="button secondary" href="{{ url_for('main.practice', passage_id=passage.id) }}">Begin</a></article>
-{% else %}<p>No passages match those filters.</p>{% endfor %}
+  <article class="passage-card">
+    <div><span class="tag">{{ passage.category }}</span><span class="level">Level {{ passage.difficulty }}</span></div>
+    {% if passage.completed_before %}<span class="completion-badge">Completed · {{ passage.best_accuracy|round(1) }}% best accuracy</span>{% endif %}
+    <h2>{{ passage.title }}</h2><p>{{ passage.context }}</p>
+    <small>{{ passage.word_count }} words · about {{ passage.estimated_minutes }} min · Grade {{ passage.reading_level }}+</small>
+    <a class="button secondary" href="{{ url_for('main.practice', passage_id=passage.id) }}">{{ 'Practice again' if passage.completed_before else 'Begin' }}</a>
+  </article>
+{% else %}<p>No passages match those filters. <a href="{{ url_for('main.library') }}">Reset the library</a>.</p>{% endfor %}
 </div>
+{% if page_count > 1 %}
+<nav class="pagination" aria-label="Library pages">
+  {% if page > 1 %}<a class="button secondary" href="{{ url_for('main.library', q=query, category=selected_category, difficulty=selected_difficulty or '', status=selected_status, sort=selected_sort, page=page-1) }}">Previous</a>{% endif %}
+  <span>Page {{ page }} of {{ page_count }}</span>
+  {% if page < page_count %}<a class="button secondary" href="{{ url_for('main.library', q=query, category=selected_category, difficulty=selected_difficulty or '', status=selected_status, sort=selected_sort, page=page+1) }}">Next</a>{% endif %}
+</nav>
+{% endif %}
 {% endblock %}

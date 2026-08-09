@@ -1,0 +1,196 @@
+[
+  {
+    "id": "marathon-messenger",
+    "title": "The Plain of Marathon",
+    "text": "In 490 BCE, Athenian soldiers met a Persian force on the plain of Marathon. The Greeks used disciplined ranks and knowledge of the ground. Their victory did not end the conflict, but it showed how preparation, courage, and a clear plan can change the course of a difficult day.",
+    "category": "Classical History",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "accuracy",
+      "dates"
+    ],
+    "context": "A concise account of the Battle of Marathon; ancient reports contain uncertain details.",
+    "vocabulary": [
+      "disciplined: trained to act with control",
+      "ranks: rows of soldiers"
+    ],
+    "source": "Original summary based on standard histories of the Greco-Persian Wars",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy",
+      "dates"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original summary based on standard histories of the Greco-Persian Wars"
+      }
+    ]
+  },
+  {
+    "id": "athens-and-sparta",
+    "title": "Two Greek City-States",
+    "text": "Athens valued public debate, sea power, drama, and philosophy. Sparta organized much of its society around military discipline and service. Neither city represented all Greeks, and neither was simple. Their rivalry reveals how neighboring communities can develop sharply different ideas about citizenship and strength.",
+    "category": "Classical History",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "contrast",
+      "punctuation"
+    ],
+    "context": "An introduction to two influential Greek poleis, or city-states.",
+    "vocabulary": [
+      "rivalry: long competition",
+      "citizenship: membership in a political community"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "punctuation"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "roman-roads",
+    "title": "The Roads of Rome",
+    "text": "Roman surveyors planned roads with firm foundations, drainage, and durable surfaces. Milestones marked distances, while bridges crossed difficult ground. The roads moved armies, officials, letters, and trade. They strengthened Roman rule, yet they also connected distant peoples who exchanged languages, customs, and ideas.",
+    "category": "Classical History",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "commas",
+      "vocabulary"
+    ],
+    "context": "Roman roads served military, political, and civilian purposes.",
+    "vocabulary": [
+      "surveyor: one who measures land",
+      "durable: able to last"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "commas"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "republican-cincinnatus",
+    "title": "The Legend of Cincinnatus",
+    "text": "Roman tradition says that Cincinnatus left his farm to command Rome in a crisis. After victory, he surrendered extraordinary power and returned to his fields. Historians cannot verify every part of the tale. Romans preserved it as an example of duty, restraint, and service above personal ambition.",
+    "category": "Classical History",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "capitalization",
+      "critical reading"
+    ],
+    "context": "This is a traditional Roman story rather than a fully documented biography.",
+    "vocabulary": [
+      "restraint: self-control",
+      "ambition: strong desire for advancement"
+    ],
+    "source": "Original adaptation of a public-domain Roman tradition recorded by Livy",
+    "rights": "adapted-public-domain",
+    "typing_focus": [
+      "capitalization"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original adaptation of a public-domain Roman tradition recorded by Livy"
+      }
+    ]
+  },
+  {
+    "id": "library-of-alexandria",
+    "title": "A Harbor for Knowledge",
+    "text": "The ancient Library of Alexandria sought writings from many lands. Scholars compared manuscripts, studied geometry, mapped the heavens, and argued about language. Much about the library's destruction remains uncertain. Its lasting symbol is not a vanished building alone, but the human effort to gather and test knowledge.",
+    "category": "Classical History",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "apostrophes",
+      "critical reading"
+    ],
+    "context": "The library developed under the Ptolemaic rulers of Egypt.",
+    "vocabulary": [
+      "manuscript: a text written by hand",
+      "Ptolemaic: relating to Egypt's Greek-speaking dynasty"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "apostrophes"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "hannibal-alps",
+    "title": "Hannibal Crosses the Alps",
+    "text": "During the Second Punic War, Hannibal led a Carthaginian army from Spain toward Italy. The Alpine crossing cost men, animals, and supplies, but it surprised Rome. Hannibal's achievement joined bold planning with enormous risk. It also reminds us that brilliant campaigns can bring terrible hardship.",
+    "category": "Classical History",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "proper names",
+      "accuracy"
+    ],
+    "context": "A non-graphic overview of Hannibal's 218 BCE Alpine campaign.",
+    "vocabulary": [
+      "campaign: connected military operations",
+      "Carthaginian: from ancient Carthage"
+    ],
+    "source": "Original historical summary based on Polybius and modern scholarship",
+    "rights": "original",
+    "typing_focus": [
+      "proper names",
+      "accuracy"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary based on Polybius and modern scholarship"
+      }
+    ]
+  }
+]

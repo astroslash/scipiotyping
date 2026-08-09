@@ -1,28 +1,100 @@
 import json
+from pathlib import Path
 
-from scipiotyping.content import load_passages, validate_passages
+import pytest
+
+from scipiotyping.content import (content_report, load_passages,
+                                   render_inventory, validate_passages)
 
 
-def test_builtin_library_has_sixty_balanced_passages(app):
+def _passage(identifier: str, title: str | None = None) -> dict:
+    return {
+        "id": identifier,
+        "title": title or identifier.replace("-", " ").title(),
+        "text": (f"{identifier} offers a careful educational explanation for typing practice. "
+                 "It includes enough words to test the scalable content loader without using external services. "
+                 "Students can work accurately and learn from the passage at the same time."),
+        "category": "Test",
+        "difficulty": 2,
+        "age": 10,
+        "objectives": ["clear explanation"],
+        "context": "Synthetic test content.",
+        "vocabulary": [],
+        "source": "Original test passage",
+        "rights": "original",
+        "typing_focus": ["accuracy"],
+        "reading_level": 5,
+        "revision": 1,
+        "added_in": "1.3.0",
+        "review_status": "reviewed",
+        "reviewed_on": "2026-08-09",
+        "references": [{"citation": "Original test passage"}],
+    }
+
+
+def test_builtin_library_preserves_the_sixty_legacy_passages(app):
     items = load_passages(app.config["CONTENT_PATH"])
+    manifest = json.loads((Path(app.config["CONTENT_PATH"]) / "manifest.json").read_text(encoding="utf-8"))
     counts = {}
-    for item in items: counts[item["category"]] = counts.get(item["category"], 0) + 1
-    assert len(items) == 60 and len(counts) == 10 and set(counts.values()) == {6}
+    for item in items:
+        counts[item["category"]] = counts.get(item["category"], 0) + 1
+    assert len(items) >= 60 and len(counts) >= 10
+    assert set(manifest["legacy_ids"]).issubset({item["id"] for item in items})
 
 
-def test_all_content_has_context_and_vocabulary(app):
+def test_all_builtin_content_has_schema_two_metadata(app):
     for item in load_passages(app.config["CONTENT_PATH"]):
-        assert item["context"] and isinstance(item["vocabulary"], list) and item["source"]
+        assert item["context"] and item["source"] and item["typing_focus"]
+        assert isinstance(item["vocabulary"], list) and item["review_status"] == "reviewed"
+        assert item["references"] and item["revision"] >= 1
+        assert 3 <= item["reading_level"] <= 10 and item["estimated_minutes"] >= 1
 
 
 def test_duplicate_and_short_content_rejected():
-    item = {"id":"same-id","title":"T","text":"short","category":"Test","difficulty":1,"age":10,"objectives":[],"source":"Original","rights":"original"}
+    item = _passage("same-id")
+    item["text"] = "short"
     errors = validate_passages([item, dict(item)])
     assert any("Duplicate" in error for error in errors)
     assert any("80" in error for error in errors)
 
 
-def test_bad_rights_rejected():
-    item={"id":"valid-id","title":"Title","text":"x"*100,"category":"Test","difficulty":1,"age":10,"objectives":[],"source":"Unknown","rights":"copyrighted"}
-    assert any("rights" in error for error in validate_passages([item]))
+def test_bad_rights_and_unreviewed_builtin_rejected():
+    item = _passage("valid-id")
+    item["rights"] = "copyrighted"
+    item["review_status"] = "draft"
+    errors = validate_passages([item], strict=True)
+    assert any("rights" in error for error in errors)
+    assert any("reviewed" in error for error in errors)
 
+
+def test_directory_loader_detects_cross_file_duplicates(tmp_path):
+    (tmp_path / "passages").mkdir()
+    for name in ("one", "two"):
+        (tmp_path / "passages" / f"{name}.json").write_text(
+            json.dumps([_passage("same-id")]), encoding="utf-8")
+    (tmp_path / "manifest.json").write_text(json.dumps({
+        "schema_version": 2,
+        "files": ["passages/one.json", "passages/two.json"],
+        "legacy_ids": ["same-id"],
+    }), encoding="utf-8")
+    load_passages.cache_clear()
+    with pytest.raises(ValueError, match="Duplicate id"):
+        load_passages(str(tmp_path))
+    load_passages.cache_clear()
+
+
+def test_loader_handles_five_hundred_passages(tmp_path):
+    path = tmp_path / "large.json"
+    path.write_text(json.dumps([_passage(f"item-{number}") for number in range(500)]), encoding="utf-8")
+    load_passages.cache_clear()
+    assert len(load_passages(str(path))) == 500
+    load_passages.cache_clear()
+
+
+def test_content_report_and_inventory_are_deterministic(app):
+    items = load_passages(app.config["CONTENT_PATH"])
+    report = content_report(items)
+    inventory = render_inventory(items)
+    assert report["total"] == len(items)
+    assert sum(report["categories"].values()) == len(items)
+    assert "# Content inventory" in inventory and "| Chess | 6 |" in inventory

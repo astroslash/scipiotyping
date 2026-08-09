@@ -8,6 +8,7 @@ import json
 import click
 from flask import current_app, g
 
+SCHEMA_VERSION = 7
 
 SCHEMA_V1 = """
 PRAGMA foreign_keys = ON;
@@ -137,6 +138,11 @@ def migrate(connection: sqlite3.Connection) -> None:
     """)
     if version < 6:
         connection.execute("UPDATE schema_version SET version=6")
+        version = 6
+    if version < 7:
+        if not _has_column(connection, "attempts", "passage_revision"):
+            connection.execute("ALTER TABLE attempts ADD COLUMN passage_revision INTEGER")
+        connection.execute("UPDATE schema_version SET version=7")
     connection.commit()
 
 
@@ -174,6 +180,24 @@ def backfill_key_stats(connection: sqlite3.Connection, passage_lookup: dict[str,
             values["errors"] = count
             values["matched"] = values["expected"] - count
         connection.execute("UPDATE attempts SET key_stats=? WHERE id=?", (json.dumps(statistics), row["id"]))
+    connection.commit()
+
+
+def backfill_attempt_content(connection: sqlite3.Connection, passage_lookup: dict[str, dict]) -> None:
+    """Preserve the exact target and revision for historical attempts when known."""
+    rows = connection.execute(
+        "SELECT id, passage_id, target_text, passage_revision FROM attempts "
+        "WHERE target_text IS NULL OR passage_revision IS NULL"
+    ).fetchall()
+    for row in rows:
+        passage = passage_lookup.get(row["passage_id"])
+        if not passage:
+            continue
+        connection.execute(
+            "UPDATE attempts SET target_text=COALESCE(target_text, ?), "
+            "passage_revision=COALESCE(passage_revision, ?) WHERE id=?",
+            (passage["text"], int(passage.get("revision", passage.get("generator_version", 1))), row["id"]),
+        )
     connection.commit()
 
 

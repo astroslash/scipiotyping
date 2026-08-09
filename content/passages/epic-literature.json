@@ -1,0 +1,195 @@
+[
+  {
+    "id": "odysseus-homeward",
+    "title": "The Long Road Home",
+    "text": "In the Odyssey, Odysseus struggles for years to return to Ithaca after the Trojan War. Storms, monsters, temptations, and his own choices delay him. The poem asks whether cleverness is enough for a good leader, or whether patience, loyalty, humility, and self-command matter just as much.",
+    "category": "Epic Literature",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "names",
+      "literary ideas"
+    ],
+    "context": "An original summary of Homer's epic; the story is mythology, not documented history.",
+    "vocabulary": [
+      "epic: a long narrative poem",
+      "humility: freedom from excessive pride"
+    ],
+    "source": "Original summary of the public-domain ancient Greek epic",
+    "rights": "original",
+    "typing_focus": [
+      "names"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original summary of the public-domain ancient Greek epic"
+      }
+    ]
+  },
+  {
+    "id": "achilles-choice",
+    "title": "The Choice of Achilles",
+    "text": "The Iliad presents Achilles with a terrible choice: a short life with lasting fame, or a long and quiet life without glory. His decision drives the poem, but the story does not offer easy praise. It examines anger, honor, friendship, grief, and the heavy price paid when pride rules judgment.",
+    "category": "Epic Literature",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "colon",
+      "themes"
+    ],
+    "context": "An age-appropriate thematic summary of the Iliad.",
+    "vocabulary": [
+      "glory: high renown",
+      "judgment: the ability to decide wisely"
+    ],
+    "source": "Original summary of the public-domain ancient Greek epic",
+    "rights": "original",
+    "typing_focus": [
+      "colon"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original summary of the public-domain ancient Greek epic"
+      }
+    ]
+  },
+  {
+    "id": "hector-at-the-gates",
+    "title": "Hector's Duty",
+    "text": "Hector knows that Troy is in danger, yet he returns to defend the city. In the Iliad he is a warrior, a prince, a husband, a father, and a son. These roles pull him in different directions. His story makes courage complicated: devotion to duty may coexist with fear and sorrow.",
+    "category": "Epic Literature",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "apostrophes",
+      "character study"
+    ],
+    "context": "A thematic account of Hector in the Iliad, not a historical report.",
+    "vocabulary": [
+      "devotion: loyal commitment",
+      "coexist: be present together"
+    ],
+    "source": "Original summary of the public-domain ancient Greek epic",
+    "rights": "original",
+    "typing_focus": [
+      "apostrophes"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original summary of the public-domain ancient Greek epic"
+      }
+    ]
+  },
+  {
+    "id": "penelopes-patience",
+    "title": "Penelope's Patient Strategy",
+    "text": "While Odysseus is absent, Penelope faces men who demand that she choose a new husband. She promises to decide after finishing a woven cloth, then secretly undoes her work at night. Her plan cannot last forever, but it shows intelligence working through patience rather than force.",
+    "category": "Epic Literature",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "possessives",
+      "sequence"
+    ],
+    "context": "A famous episode from the Odyssey; it belongs to epic legend.",
+    "vocabulary": [
+      "woven: made by crossing threads",
+      "strategy: a plan for reaching a goal"
+    ],
+    "source": "Original summary of the public-domain ancient Greek epic",
+    "rights": "original",
+    "typing_focus": [
+      "possessives"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original summary of the public-domain ancient Greek epic"
+      }
+    ]
+  },
+  {
+    "id": "telemachus-grows",
+    "title": "Telemachus Sets Out",
+    "text": "At the beginning of the Odyssey, Telemachus is uncertain how to protect his household. Athena urges him to seek news of his father. By traveling, asking questions, and meeting experienced leaders, he begins to speak with confidence. His education comes through responsibility rather than a sudden magical change.",
+    "category": "Epic Literature",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "names",
+      "sentence rhythm"
+    ],
+    "context": "An original summary of Telemachus's growth in the Odyssey.",
+    "vocabulary": [
+      "household: a family and those living with it",
+      "responsibility: a duty one must manage"
+    ],
+    "source": "Original summary of the public-domain ancient Greek epic",
+    "rights": "original",
+    "typing_focus": [
+      "names",
+      "sentence rhythm"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original summary of the public-domain ancient Greek epic"
+      }
+    ]
+  },
+  {
+    "id": "epic-similes",
+    "title": "A Picture Inside a Poem",
+    "text": "Homeric epics often pause for long comparisons called epic similes. A charging warrior may be compared to a lion, a storm, or a fire moving through dry grass. The comparison slows the action but enlarges its meaning, joining a battlefield moment to nature and ordinary human life.",
+    "category": "Epic Literature",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "complex sentences",
+      "literary terms"
+    ],
+    "context": "A guide to a common poetic technique in the Iliad and Odyssey.",
+    "vocabulary": [
+      "simile: a comparison using like or as",
+      "enlarge: make greater in scope"
+    ],
+    "source": "Original literary explanation",
+    "rights": "original",
+    "typing_focus": [
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original literary explanation"
+      }
+    ]
+  }
+]

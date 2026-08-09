@@ -1,0 +1,194 @@
+[
+  {
+    "id": "thermopylae-ground",
+    "title": "The Narrow Ground",
+    "text": "At Thermopylae in 480 BCE, a small Greek force defended a narrow route against a much larger Persian army. The position reduced the advantage of numbers, but it could not guarantee victory. The battle became legendary; careful history separates later patriotic storytelling from evidence about the campaign.",
+    "category": "Battles and Strategy",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "dates",
+      "critical history"
+    ],
+    "context": "A non-graphic summary emphasizing terrain and source criticism.",
+    "vocabulary": [
+      "terrain: the physical features of land",
+      "patriotic: expressing devotion to one's country"
+    ],
+    "source": "Original summary based on Herodotus and modern scholarship",
+    "rights": "original",
+    "typing_focus": [
+      "dates"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original summary based on Herodotus and modern scholarship"
+      }
+    ]
+  },
+  {
+    "id": "cannae-encirclement",
+    "title": "The Double Envelopment",
+    "text": "At Cannae, Hannibal arranged his troops so the Roman advance pressed into the Carthaginian center. Stronger wings then moved around the crowded formation. The result became a famous study in encirclement. Strategy students also remember its human warning: elegant diagrams represent real fear, loss, and consequence.",
+    "category": "Battles and Strategy",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "complex sentences",
+      "ethical history"
+    ],
+    "context": "A non-graphic explanation of the Battle of Cannae in 216 BCE.",
+    "vocabulary": [
+      "encirclement: surrounding from all sides",
+      "formation: an organized arrangement"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "complex sentences"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "agincourt-mud",
+    "title": "Mud, Distance, and Discipline",
+    "text": "At Agincourt in 1415, English archers faced a larger French force on constricted, muddy ground. Long-range arrows disrupted the advance, while crowding reduced movement. Historians debate exact numbers and causes. The battle shows why weather, terrain, equipment, and command must be studied together.",
+    "category": "Battles and Strategy",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "commas",
+      "multiple causes"
+    ],
+    "context": "A concise and non-graphic analysis of a medieval battle.",
+    "vocabulary": [
+      "constricted: made narrow",
+      "disrupted: interrupted the order of"
+    ],
+    "source": "Original historical summary based on modern scholarship",
+    "rights": "original",
+    "typing_focus": [
+      "commas"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary based on modern scholarship"
+      }
+    ]
+  },
+  {
+    "id": "salamis-sea",
+    "title": "The Straits of Salamis",
+    "text": "Themistocles persuaded the Greek alliance to fight the Persian fleet in the narrow waters near Salamis. Restricted space made the larger fleet harder to coordinate. Victory depended on ships and rowers, but also on intelligence, persuasion, and choosing the place of decision before the enemy did.",
+    "category": "Battles and Strategy",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "names",
+      "cause and effect"
+    ],
+    "context": "A strategic overview of the naval battle of 480 BCE.",
+    "vocabulary": [
+      "strait: a narrow water passage",
+      "coordinate: organize parts to work together"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "names"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "waterloo-coalitions",
+    "title": "Waterloo and the Coalition",
+    "text": "Waterloo was not simply a duel between two famous commanders. Wellington's allied army held its position while Prussian forces approached, and Napoleon struggled to defeat them separately. The campaign shows how timing and cooperation shape outcomes. Leadership matters, but armies, logistics, allies, and chance matter too.",
+    "category": "Battles and Strategy",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "apostrophes",
+      "multiple causes"
+    ],
+    "context": "A balanced, non-graphic account of the 1815 campaign.",
+    "vocabulary": [
+      "coalition: a temporary alliance",
+      "logistics: movement and supply of forces"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "apostrophes"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  },
+  {
+    "id": "midway-information",
+    "title": "Information at Midway",
+    "text": "Before the Battle of Midway, American codebreakers helped identify the Japanese objective. Commanders used incomplete intelligence to position their carriers. The victory changed the Pacific War, but uncertainty remained throughout the battle. Good information improves decisions; it never removes risk or guarantees a result.",
+    "category": "Battles and Strategy",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "modern history",
+      "semicolon"
+    ],
+    "context": "A non-graphic summary of intelligence and decision-making in 1942.",
+    "vocabulary": [
+      "intelligence: analyzed information",
+      "objective: a goal or target"
+    ],
+    "source": "Original historical summary",
+    "rights": "original",
+    "typing_focus": [
+      "semicolon"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original historical summary"
+      }
+    ]
+  }
+]

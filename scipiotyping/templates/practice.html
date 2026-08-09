@@ -13,6 +13,6 @@
   <button id="finish-button" class="button secondary" type="button" hidden>Finish and score</button>
   <div id="results" class="results" hidden aria-live="polite"></div>
 </section>
-<details class="context"><summary>What you are learning</summary><p>{{ passage.context }}</p><p><strong>Vocabulary:</strong> {{ passage.vocabulary|join('; ') }}</p><p><strong>Source:</strong> {{ passage.source }} ({{ passage.rights }})</p></details>
+<details class="context"><summary>What you are learning</summary><p>{{ passage.context }}</p><p><strong>Vocabulary:</strong> {{ passage.vocabulary|join('; ') }}</p><p><strong>Typing focus:</strong> {{ passage.typing_focus|join(', ') }}</p><p><strong>Source:</strong> {{ passage.source }} ({{ passage.rights }})</p></details>
 {% endblock %}
 {% block scripts %}<script src="{{ url_for('static', filename='typing.js') }}"></script>{% endblock %}

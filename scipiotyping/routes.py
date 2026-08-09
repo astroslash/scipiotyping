@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import io
 import json
+import math
 import secrets
 import shutil
 import sqlite3
@@ -14,8 +15,8 @@ from flask import (Blueprint, Response, abort, current_app, flash, jsonify,
                    redirect, render_template, request, send_file, session, url_for)
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from .content import load_passages, validate_passages
-from .db import get_db, init_database
+from .content import enrich_passage, load_passages, validate_passages
+from .db import SCHEMA_VERSION, get_db, init_database
 from .lessons import LESSONS, lesson_passages, placement_level, progression_level, unlocked_lessons
 from .progress import (ACHIEVEMENTS, KEYBOARD_ROWS, award_achievements,
                        focus_keys, key_report, recommend, streak_days, weak_keys)
@@ -33,16 +34,12 @@ def _custom_passages() -> list[dict]:
         item = dict(row)
         item["objectives"] = json.loads(item["objectives"])
         item["vocabulary"] = json.loads(item["vocabulary"])
-        items.append(item)
+        items.append(enrich_passage(item, custom=True))
     return items
 
 
 def passages() -> list[dict]:
-    items = [dict(item) for item in load_passages(current_app.config["CONTENT_PATH"])] + _custom_passages()
-    for item in items:
-        item["word_count"] = len(item["text"].split())
-        item["character_count"] = len(item["text"])
-    return items
+    return [dict(item) for item in load_passages(current_app.config["CONTENT_PATH"])] + _custom_passages()
 
 
 def practice_items() -> list[dict]:
@@ -117,7 +114,7 @@ def _require_parent() -> None:
 @bp.get("/health")
 def health():
     get_db().execute("SELECT 1").fetchone()
-    return jsonify(status="ok", application="ScipioTyping", schema=6)
+    return jsonify(status="ok", application="ScipioTyping", schema=SCHEMA_VERSION)
 
 
 @bp.get("/")
@@ -134,11 +131,61 @@ def index():
 def library():
     category, query = request.args.get("category", ""), request.args.get("q", "").strip().lower()
     difficulty = request.args.get("difficulty", type=int)
+    status = request.args.get("status", "")
+    sort = request.args.get("sort", "recommended")
+    if status not in {"", "not-practiced", "completed"}:
+        status = ""
+    if sort not in {"recommended", "recent", "title", "difficulty", "shortest", "longest"}:
+        sort = "recommended"
+    profile = selected_profile()
+    progress_rows = get_db().execute(
+        """SELECT passage_id, COUNT(*) attempt_count, MAX(adjusted_wpm) best_wpm,
+                  MAX(accuracy) best_accuracy
+           FROM attempts WHERE profile_id=? AND completed=1 GROUP BY passage_id""",
+        (profile["id"],),
+    ).fetchall()
+    history = {row["passage_id"]: dict(row) for row in progress_rows}
     items = passages()
+    for item in items:
+        record = history.get(item["id"], {})
+        item["attempt_count"] = record.get("attempt_count", 0)
+        item["completed_before"] = bool(item["attempt_count"])
+        item["best_wpm"] = record.get("best_wpm")
+        item["best_accuracy"] = record.get("best_accuracy")
     if category: items = [p for p in items if p["category"] == category]
     if difficulty: items = [p for p in items if p["difficulty"] == difficulty]
     if query: items = [p for p in items if query in (p["title"] + " " + p["text"] + " " + p["category"]).lower()]
-    return render_template("library.html", passages=items, categories=sorted({p["category"] for p in passages()}), selected_category=category, selected_difficulty=difficulty, query=query)
+    if status == "not-practiced": items = [p for p in items if not p["completed_before"]]
+    if status == "completed": items = [p for p in items if p["completed_before"]]
+
+    def version_key(item):
+        value = item.get("added_in", "0.0.0")
+        return tuple(int(part) for part in value.split(".")) if value.count(".") == 2 and value.replace(".", "").isdigit() else (0, 0, 0)
+
+    if sort == "title": items.sort(key=lambda item: item["title"].casefold())
+    elif sort == "difficulty": items.sort(key=lambda item: (item["difficulty"], item["title"].casefold()))
+    elif sort == "shortest": items.sort(key=lambda item: (item["word_count"], item["title"].casefold()))
+    elif sort == "longest": items.sort(key=lambda item: (-item["word_count"], item["title"].casefold()))
+    elif sort == "recent":
+        items.sort(key=lambda item: item["title"].casefold())
+        items.sort(key=version_key, reverse=True)
+    else:
+        preferred = profile["placement_level"] or profile["preferred_difficulty"] or 1
+        items.sort(key=lambda item: (item["completed_before"], abs(item["difficulty"] - preferred),
+                                     item["difficulty"], item["title"].casefold()))
+
+    result_count = len(items)
+    per_page = 24
+    page_count = max(1, math.ceil(result_count / per_page))
+    page = max(1, min(request.args.get("page", 1, type=int), page_count))
+    items = items[(page - 1) * per_page:page * per_page]
+    return render_template(
+        "library.html", passages=items,
+        categories=sorted({p["category"] for p in passages()}),
+        selected_category=category, selected_difficulty=difficulty, query=query,
+        selected_status=status, selected_sort=sort, page=page, page_count=page_count,
+        result_count=result_count,
+    )
 
 
 @bp.get("/practice/<passage_id>")
@@ -256,15 +303,15 @@ def save_attempt():
         """INSERT INTO attempts(profile_id, passage_id, started_at, completed_at, duration_seconds,
         typed_characters, correct_characters, errors, corrected_errors, gross_wpm, net_wpm, accuracy,
         completed, error_map, mode, lesson_id, adjusted_wpm, substitutions, insertions, deletions,
-        transpositions, key_stats, target_text, focus_keys, generator_version)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+        transpositions, key_stats, target_text, focus_keys, generator_version, passage_revision)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
         (profile["id"], passage["id"], (now-timedelta(seconds=duration)).isoformat(), now.isoformat(), duration,
          score["typed_characters"], score["correct_characters"], score["errors"], corrected_errors,
          score["gross_wpm"], score["net_wpm"], score["accuracy"], int(score["completed"]),
          json.dumps(_combined_error_map(data.get("error_map"), score["error_map"])), mode, lesson_id,
          score["adjusted_wpm"], score["substitutions"], score["insertions"], score["deletions"], score["transpositions"],
-         json.dumps(score["key_stats"]), passage["text"] if mode == "targeted" else None,
-         json.dumps(focus), generator_version))
+         json.dumps(score["key_stats"]), passage["text"], json.dumps(focus), generator_version,
+         int(passage.get("revision", passage.get("generator_version", 1)))))
     if mode == "placement" and score["completed"]:
         level = placement_level(score["net_wpm"], score["accuracy"])
         connection.execute("UPDATE profiles SET placement_level=?, placement_complete=1, preferred_difficulty=? WHERE id=?", (level, level, profile["id"]))

@@ -1,0 +1,194 @@
+[
+  {
+    "id": "negative-numbers",
+    "title": "Numbers Below Zero",
+    "text": "Negative numbers describe values below a chosen zero. A temperature of minus five degrees is five degrees below zero; a debt of five dollars can also be represented by negative five. Multiplying two negative numbers gives a positive because reversing direction twice restores the original direction.",
+    "category": "Mathematics",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "numbers",
+      "minus signs"
+    ],
+    "context": "A conceptual introduction to negative numbers.",
+    "vocabulary": [
+      "represented: shown in another form",
+      "direction: the course along which something moves"
+    ],
+    "source": "Original mathematics explanation",
+    "rights": "original",
+    "typing_focus": [
+      "numbers"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original mathematics explanation"
+      }
+    ]
+  },
+  {
+    "id": "pi-circles",
+    "title": "Why Pi Appears",
+    "text": "Divide the circumference of any circle by its diameter and the result is always pi, approximately 3.14159. A large circle and a tiny circle share this ratio. Pi's decimal digits never settle into a repeating pattern, yet the number lets us calculate circular lengths, areas, waves, and rotations.",
+    "category": "Mathematics",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "decimals",
+      "mathematical terms"
+    ],
+    "context": "A simplified introduction to the constant pi.",
+    "vocabulary": [
+      "circumference: distance around a circle",
+      "diameter: line through a circle's center"
+    ],
+    "source": "Original mathematics explanation",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original mathematics explanation"
+      }
+    ]
+  },
+  {
+    "id": "pythagorean-distance",
+    "title": "A Square on Every Side",
+    "text": "For a right triangle, the square of the longest side equals the sum of the squares of the other two sides. Written compactly, a² + b² = c². The relationship helps calculate distances that are difficult to measure directly, from a diagonal across a room to a point on a coordinate grid.",
+    "category": "Mathematics",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "symbols",
+      "geometry"
+    ],
+    "context": "A conceptual explanation of the Pythagorean theorem.",
+    "vocabulary": [
+      "diagonal: a line joining nonadjacent corners",
+      "coordinate: a number locating a point"
+    ],
+    "source": "Original mathematics explanation",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original mathematics explanation"
+      }
+    ]
+  },
+  {
+    "id": "probability-evidence",
+    "title": "Chance and Evidence",
+    "text": "Probability measures uncertainty from zero, meaning impossible, to one, meaning certain. If a fair coin is tossed many times, heads should approach one half of the results, but a short run may look uneven. Probability predicts long-run patterns; it does not promise a tidy sequence today.",
+    "category": "Mathematics",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "decimals",
+      "semicolon"
+    ],
+    "context": "An introduction to theoretical and experimental probability.",
+    "vocabulary": [
+      "uncertainty: lack of certainty",
+      "long-run: considered over many repetitions"
+    ],
+    "source": "Original mathematics explanation",
+    "rights": "original",
+    "typing_focus": [
+      "semicolon"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original mathematics explanation"
+      }
+    ]
+  },
+  {
+    "id": "infinity-sizes",
+    "title": "More Than One Infinity",
+    "text": "Infinity is not an ordinary number waiting at the end of counting. Georg Cantor compared infinite sets by pairing their members. Every whole number can be paired with an even number, yet real numbers cannot be paired with whole numbers in the same way. This reveals different sizes of infinity.",
+    "category": "Mathematics",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "abstract concepts",
+      "names"
+    ],
+    "context": "A simplified glimpse of Cantor's set theory.",
+    "vocabulary": [
+      "set: a collection of distinct objects",
+      "paired: matched one-to-one"
+    ],
+    "source": "Original mathematics explanation",
+    "rights": "original",
+    "typing_focus": [
+      "names"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original mathematics explanation"
+      }
+    ]
+  },
+  {
+    "id": "derivative-change",
+    "title": "Measuring Change Now",
+    "text": "Average speed compares a whole distance with a whole time. Calculus asks for speed at a single instant. A derivative answers by examining average changes over smaller and smaller intervals. The intervals approach zero without becoming a division by zero, allowing a curve's changing slope to be described precisely.",
+    "category": "Mathematics",
+    "difficulty": 5,
+    "age": 12,
+    "objectives": [
+      "calculus",
+      "apostrophes"
+    ],
+    "context": "A conceptual introduction to derivatives and limits.",
+    "vocabulary": [
+      "derivative: a measure of instantaneous change",
+      "interval: the space between two values"
+    ],
+    "source": "Original mathematics explanation",
+    "rights": "original",
+    "typing_focus": [
+      "apostrophes"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original mathematics explanation"
+      }
+    ]
+  }
+]

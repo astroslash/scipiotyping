@@ -71,3 +71,8 @@ Version 1.0 includes local profiles, placement, lesson tracks, adaptive passage
 recommendations, 60 curated passages, goals, streaks, achievements, trend and
 error reports, parent controls, import/export, backup/restore, accessible themes,
 offline assets, a Windows launcher, tests, and household documentation.
+
+Version 1.3 adds a multi-file reviewed content system designed for hundreds of
+passages, separate typing and reading levels, stable revisions and references,
+completion-aware library navigation, and reproducible target storage for every
+new result.

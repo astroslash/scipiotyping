@@ -1,0 +1,194 @@
+[
+  {
+    "id": "athena-wisdom",
+    "title": "Athena and Practical Wisdom",
+    "text": "Greek myth associates Athena with wisdom, skilled craft, and disciplined warfare. She often helps heroes by offering a plan rather than removing every danger. Myths about gods were told in many versions, so Athena's character changes from story to story. She is a figure of legend, not history.",
+    "category": "Greek Mythology",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "apostrophes",
+      "fact and myth"
+    ],
+    "context": "A mythological profile with an explicit distinction from history.",
+    "vocabulary": [
+      "associates: connects in thought",
+      "disciplined: controlled and trained"
+    ],
+    "source": "Original synthesis of public-domain Greek myths",
+    "rights": "original",
+    "typing_focus": [
+      "apostrophes"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original synthesis of public-domain Greek myths"
+      }
+    ]
+  },
+  {
+    "id": "theseus-labyrinth",
+    "title": "Theseus and the Thread",
+    "text": "In one Greek myth, Theseus enters the Labyrinth to face the Minotaur. Ariadne gives him a thread so he can mark the path back. The monster and maze belong to legend, yet the story preserves a practical idea: when entering a confusing problem, plan the return before rushing forward.",
+    "category": "Greek Mythology",
+    "difficulty": 2,
+    "age": 10,
+    "objectives": [
+      "capitalization",
+      "lesson"
+    ],
+    "context": "A non-graphic retelling of a Greek myth with several ancient variants.",
+    "vocabulary": [
+      "labyrinth: a complicated maze",
+      "variant: a different form of a story"
+    ],
+    "source": "Original adaptation of public-domain mythology",
+    "rights": "adapted-public-domain",
+    "typing_focus": [
+      "capitalization"
+    ],
+    "reading_level": 5,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original adaptation of public-domain mythology"
+      }
+    ]
+  },
+  {
+    "id": "prometheus-fire",
+    "title": "The Gift of Fire",
+    "text": "The myth of Prometheus tells of a Titan who brings fire to humanity against Zeus's command. Fire stands for warmth and cooking, but also for technology and dangerous power. The story asks whether knowledge can be separated from responsibility. It is a mythic question that remains useful today.",
+    "category": "Greek Mythology",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "apostrophes",
+      "symbolism"
+    ],
+    "context": "An interpretation of a Greek creation myth, not a factual origin of fire.",
+    "vocabulary": [
+      "Titan: an elder divine being in Greek myth",
+      "symbolism: using one thing to represent another"
+    ],
+    "source": "Original synthesis of public-domain Greek myths",
+    "rights": "original",
+    "typing_focus": [
+      "apostrophes"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original synthesis of public-domain Greek myths"
+      }
+    ]
+  },
+  {
+    "id": "perseus-reflection",
+    "title": "Perseus Uses a Reflection",
+    "text": "According to myth, Medusa's gaze turned observers to stone. Perseus avoided looking directly at her by using a polished shield as a mirror. The adventure is fantastic rather than historical. Its enduring image celebrates indirect thinking: a problem may become manageable when viewed from a safer angle.",
+    "category": "Greek Mythology",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "possessives",
+      "inference"
+    ],
+    "context": "A deliberately non-graphic summary of the Perseus legend.",
+    "vocabulary": [
+      "fantastic: belonging to fantasy",
+      "indirect: not following the most direct course"
+    ],
+    "source": "Original adaptation of public-domain mythology",
+    "rights": "adapted-public-domain",
+    "typing_focus": [
+      "possessives"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original adaptation of public-domain mythology"
+      }
+    ]
+  },
+  {
+    "id": "daedalus-design",
+    "title": "Daedalus the Inventor",
+    "text": "Daedalus appears in Greek legend as a master designer. Stories credit him with the Labyrinth and with wings made for escape. His inventions solve one problem but create new dangers when judgment fails. The myths treat technical brilliance as powerful, while warning that skill without wisdom is incomplete.",
+    "category": "Greek Mythology",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "complex sentences",
+      "ethics"
+    ],
+    "context": "A thematic synthesis of several myths about Daedalus.",
+    "vocabulary": [
+      "technical: relating to practical skill",
+      "brilliance: exceptional talent"
+    ],
+    "source": "Original synthesis of public-domain Greek myths",
+    "rights": "original",
+    "typing_focus": [
+      "complex sentences"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original synthesis of public-domain Greek myths"
+      }
+    ]
+  },
+  {
+    "id": "heracles-labors",
+    "title": "The Labors of Heracles",
+    "text": "Greek storytellers gave Heracles a series of seemingly impossible labors. He sometimes succeeded through strength, but at other times through patience, tools, or help. Details vary among ancient sources. The cycle suggests that endurance means changing one's approach, not merely repeating the same effort harder.",
+    "category": "Greek Mythology",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "apostrophes",
+      "theme"
+    ],
+    "context": "A non-graphic overview of a varied mythic tradition.",
+    "vocabulary": [
+      "endurance: the power to continue",
+      "cycle: a group of connected stories"
+    ],
+    "source": "Original synthesis of public-domain Greek myths",
+    "rights": "original",
+    "typing_focus": [
+      "apostrophes"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original synthesis of public-domain Greek myths"
+      }
+    ]
+  }
+]

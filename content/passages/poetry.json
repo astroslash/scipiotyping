@@ -1,0 +1,194 @@
+[
+  {
+    "id": "invictus-lesson",
+    "title": "Master of My Fate",
+    "text": "William Ernest Henley's poem Invictus describes courage under suffering. Its speaker cannot control every event, but claims responsibility for his response. The poem's confidence can inspire perseverance, though real strength also includes seeking help. Courage is not the same as facing every hardship alone.",
+    "category": "Poetry",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "possessives",
+      "interpretation"
+    ],
+    "context": "A discussion of an 1875 public-domain poem rather than its full text.",
+    "vocabulary": [
+      "perseverance: continued effort",
+      "fate: events believed to be beyond control"
+    ],
+    "source": "Original commentary on William Ernest Henley's public-domain poem Invictus",
+    "rights": "original",
+    "typing_focus": [
+      "possessives"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original commentary on William Ernest Henley's public-domain poem Invictus"
+      }
+    ]
+  },
+  {
+    "id": "if-poem-balance",
+    "title": "Keeping Your Head",
+    "text": "Rudyard Kipling's poem If gives advice about patience, courage, risk, and humility. It praises remaining steady when others panic or praise too freely. Some of its ideals reflect the era in which it was written, so a thoughtful reader can admire its discipline while still questioning its assumptions.",
+    "category": "Poetry",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "apostrophes",
+      "critical reading"
+    ],
+    "context": "Commentary on a public-domain poem first published in 1910.",
+    "vocabulary": [
+      "assumption: an idea accepted without proof",
+      "era: a period of history"
+    ],
+    "source": "Original commentary on Rudyard Kipling's public-domain poem If",
+    "rights": "original",
+    "typing_focus": [
+      "apostrophes"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original commentary on Rudyard Kipling's public-domain poem If"
+      }
+    ]
+  },
+  {
+    "id": "psalm-sun-course",
+    "title": "A Sun That Runs Its Course",
+    "text": "Ancient Hebrew poetry often uses parallel lines and vivid natural images. In Psalm 19, the heavens communicate through their order, and the sun crosses the sky like a strong runner. The image joins wonder with discipline: reliable movement can be both beautiful and powerful.",
+    "category": "Poetry",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "imagery",
+      "colon"
+    ],
+    "context": "Literary commentary on a public-domain biblical poem; families may interpret it differently.",
+    "vocabulary": [
+      "parallel: arranged in corresponding parts",
+      "vivid: producing a strong image"
+    ],
+    "source": "Original commentary on Psalm 19",
+    "rights": "original",
+    "typing_focus": [
+      "colon"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original commentary on Psalm 19"
+      }
+    ]
+  },
+  {
+    "id": "ulysses-striving",
+    "title": "To Seek and Not to Yield",
+    "text": "Tennyson's Ulysses imagines the old voyager longing for one more journey. The poem values curiosity and determined effort, but its hero also leaves duties behind. That tension makes the poem worth discussing. Persistence is admirable, yet wisdom asks what our ambitions cost other people.",
+    "category": "Poetry",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "apostrophes",
+      "balanced argument"
+    ],
+    "context": "Commentary on Alfred Tennyson's public-domain poem Ulysses.",
+    "vocabulary": [
+      "tension: conflict between ideas",
+      "ambition: strong desire to achieve"
+    ],
+    "source": "Original commentary on Tennyson's public-domain poem Ulysses",
+    "rights": "original",
+    "typing_focus": [
+      "apostrophes"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original commentary on Tennyson's public-domain poem Ulysses"
+      }
+    ]
+  },
+  {
+    "id": "o-captain-context",
+    "title": "A Ship Reaches Harbor",
+    "text": "Walt Whitman's O Captain! My Captain! uses a ship returning from a dangerous voyage as a metaphor for the United States after the Civil War. Celebration is mixed with mourning for President Lincoln. Knowing the historical context reveals why victory and grief occupy the same poem.",
+    "category": "Poetry",
+    "difficulty": 4,
+    "age": 12,
+    "objectives": [
+      "punctuation",
+      "metaphor"
+    ],
+    "context": "Literary and historical explanation of an 1865 public-domain poem.",
+    "vocabulary": [
+      "metaphor: a direct imaginative comparison",
+      "mourning: sorrow after a death"
+    ],
+    "source": "Original commentary on Walt Whitman's public-domain poem",
+    "rights": "original",
+    "typing_focus": [
+      "punctuation"
+    ],
+    "reading_level": 7,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original commentary on Walt Whitman's public-domain poem"
+      }
+    ]
+  },
+  {
+    "id": "newbolt-lamp",
+    "title": "Passing the Lamp",
+    "text": "Many poems compare teaching to passing a flame or lamp from one generation to another. The image suggests that knowledge does not shrink when shared. A good student receives an inheritance, tests it carefully, and then carries what is true and useful into circumstances the teacher could not foresee.",
+    "category": "Poetry",
+    "difficulty": 3,
+    "age": 11,
+    "objectives": [
+      "metaphor",
+      "accuracy"
+    ],
+    "context": "An original prose reflection inspired by traditional poetic imagery.",
+    "vocabulary": [
+      "inheritance: something received from earlier generations",
+      "circumstances: conditions surrounding an event"
+    ],
+    "source": "Original educational passage",
+    "rights": "original",
+    "typing_focus": [
+      "accuracy"
+    ],
+    "reading_level": 6,
+    "revision": 1,
+    "added_in": "1.0.0",
+    "review_status": "reviewed",
+    "reviewed_on": "2026-08-08",
+    "references": [
+      {
+        "citation": "Original educational passage"
+      }
+    ]
+  }
+]

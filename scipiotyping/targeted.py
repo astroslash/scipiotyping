@@ -55,6 +55,7 @@ def targeted_passage(profile_id: int, focus_keys: list[str], source_texts: list[
         "difficulty": 1,
         "age": 8,
         "objectives": [f"Improve {display_key(key)}" for key in keys],
+        "typing_focus": [f"Improve {display_key(key)}" for key in keys],
         "context": "This private drill was assembled locally from ScipioTyping content using your recent results.",
         "vocabulary": [],
         "source": "Locally generated from ScipioTyping passages",
@@ -63,5 +64,6 @@ def targeted_passage(profile_id: int, focus_keys: list[str], source_texts: list[
         "character_count": len(text),
         "focus_keys": keys,
         "generator_version": GENERATOR_VERSION,
+        "revision": GENERATOR_VERSION,
         "seed": seed_text,
     }
