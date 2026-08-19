@@ -32,8 +32,9 @@ Marketplace area is one option). Save its pooled connection string, including
 
 In Vercel, choose **Add New → Project**, import
 `astroslash/scipiotyping`, and leave the framework preset on **Other**. The root
-directory is the repository root. Add all seven environment variables listed
-above plus `DATABASE_URL` for Production, Preview, and Development. Deploy.
+directory is the repository root. Add the six credential variables from step 1
+plus `DATABASE_URL`—seven values total—for Production, Preview, and Development.
+Deploy.
 
 `api/index.py` is the serverless WSGI entry point, and `vercel.json` sends every
 route to it. A successful deployment's `/health` endpoint reports version
