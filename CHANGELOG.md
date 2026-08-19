@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.5.0 — 2026-08-19
+
+- Added William and Alice alongside Kenneth as idempotently seeded learners.
+- Added optional learner PINs, a family password gate, and a separate parent
+  password for private hosted use without child accounts or email addresses.
+- Added dual database support: SQLite remains the offline default while hosted
+  deployments use PostgreSQL through `DATABASE_URL`.
+- Added Vercel packaging, secure hosted configuration validation, and a guarded
+  SQLite-to-PostgreSQL migration utility for existing progress.
+- Added hosted JSON backups while retaining complete SQLite backup and restore
+  in offline mode; credential hashes are excluded from hosted exports.
+- Added hosted-mode, profile isolation, deployment configuration, migration,
+  and offline regression coverage.
+
 ## 1.4.1 — 2026-08-09
 
 - Added the running application version to the local health check.

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Family Sign In · ScipioTyping{% endblock %}
+{% block content %}
+<section class="hero narrow">
+  <p class="eyebrow">Private family app</p>
+  <h1>Welcome to ScipioTyping</h1>
+  <p>Enter the shared family password, then choose a learner and enter that learner’s PIN.</p>
+  {% for category, message in get_flashed_messages(with_categories=true) %}<p class="notice {{ category }}" role="status">{{ message }}</p>{% endfor %}
+  <form method="post" action="{{ url_for('main.family_access') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Family password<input type="password" name="password" autocomplete="current-password" required autofocus></label>
+    <button class="button">Continue</button>
+  </form>
+</section>
+{% endblock %}

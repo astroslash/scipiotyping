@@ -8,4 +8,6 @@ if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 & ".\.venv\Scripts\python.exe" -m scripts.release_check
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 & ".\.venv\Scripts\python.exe" -m scripts.browser_smoke
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+& ".\.venv\Scripts\python.exe" -m scripts.hosted_browser_smoke
 exit $LASTEXITCODE

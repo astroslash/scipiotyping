@@ -1,0 +1,12 @@
+.git
+.github
+.venv
+.pytest_cache
+instance
+tests
+docs
+scripts
+*.lnk
+*.ps1
+*.db
+.coverage

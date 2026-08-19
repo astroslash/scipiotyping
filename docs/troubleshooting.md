@@ -28,3 +28,24 @@ browser page left open after the server stops cannot write to the database.
 Do not delete it. Copy the entire `instance` directory somewhere safe, then use
 a known-good backup through Parent → Restore. Automatic pre-restore copies are
 kept under `instance/backups`.
+
+## A Vercel deployment fails during startup
+
+Open the deployment log and confirm all required environment values exist:
+`DATABASE_URL`, `SECRET_KEY`, both family/parent passwords, and all three learner
+PINs. The database URL must be PostgreSQL, the secret must be at least 32
+characters, the two passwords must be different and at least 12 characters,
+and the three numeric PINs must be distinct. Redeploy after correcting a value.
+
+## Hosted sign-in keeps returning to the password page
+
+Use the HTTPS Vercel URL rather than an HTTP address; hosted session cookies are
+intentionally marked Secure. If credentials were just changed, redeploy and use
+a new private browser window. The local shortcut does not use hosted passwords.
+
+## Local progress is missing from the hosted app
+
+Deploying creates a new database; it does not silently upload the local SQLite
+file. Follow the one-time migration section in `docs/vercel-deployment.md` before
+anyone records progress in the hosted copy. The utility stops rather than merge
+two databases that already contain results.

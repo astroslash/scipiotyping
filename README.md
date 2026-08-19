@@ -1,8 +1,9 @@
 # ScipioTyping
 
-ScipioTyping is a private, offline-first typing tutor made for Kenneth. It runs
-in a browser, stores progress in a local SQLite database, and uses no cloud
-account, advertisement, analytics service, CDN, or subscription.
+ScipioTyping is a private, offline-first typing tutor for Kenneth, William, and
+Alice. It runs in a browser with no advertisements, analytics, CDN, or paid
+subscription. Local mode stores progress in SQLite; hosted mode uses PostgreSQL
+so the family can share one private Vercel deployment.
 
 ## Start on Windows
 
@@ -13,7 +14,7 @@ PowerShell in this folder and run:
 .\start-scipiotyping.ps1
 ```
 
-The first run creates `.venv` and installs the two required Python packages.
+The first run creates `.venv` and installs the required Python packages.
 Later launches work offline. The browser opens to `http://127.0.0.1:5000`.
 Leave the PowerShell window open while using the app; press `Ctrl+C` there to
 stop it.
@@ -41,8 +42,12 @@ The Parent dashboard downloads CSV/JSON reports and complete SQLite backups.
 Restore automatically preserves the previous database under `instance/backups`.
 
 The server binds only to `127.0.0.1` unless a knowledgeable user deliberately
-changes `SCIPIO_HOST`. See [Parent guide](docs/parent-guide.md), [Developer
-guide](docs/developer-guide.md), and [Troubleshooting](docs/troubleshooting.md).
+changes `SCIPIO_HOST`. Hosted mode requires a family password, separate learner
+PINs, a separate parent password, HTTPS cookies, and a PostgreSQL `DATABASE_URL`.
+No child email addresses or third-party sign-ins are needed. See the [Vercel
+deployment guide](docs/vercel-deployment.md), [Parent guide](docs/parent-guide.md),
+[Developer guide](docs/developer-guide.md), and
+[Troubleshooting](docs/troubleshooting.md).
 
 The 120 built-in passages are organized into ten subjects under
 `content/passages` and remain available offline. The Library can filter

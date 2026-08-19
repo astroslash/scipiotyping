@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import hmac
 import io
 import json
 import math
@@ -16,7 +17,7 @@ from flask import (Blueprint, Response, abort, current_app, flash, jsonify,
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .content import enrich_passage, load_passages, validate_passages
-from .db import SCHEMA_VERSION, get_db, init_database
+from .db import SCHEMA_VERSION, get_db, init_database, integrity_errors
 from .lessons import LESSONS, lesson_passages, placement_level, progression_level, unlocked_lessons
 from .progress import (ACHIEVEMENTS, KEYBOARD_ROWS, award_achievements,
                        focus_keys, key_report, recommend, streak_days, weak_keys)
@@ -75,23 +76,29 @@ def _combined_error_map(client_value: object, final_value: object) -> dict[str, 
     return combined
 
 
-def selected_profile():
+def selected_profile(required: bool = True):
     connection = get_db()
     profile_id = session.get("profile_id")
+    if current_app.config.get("HOSTED_MODE") and not session.get("profile_authenticated"):
+        if required:
+            abort(403, description="Choose and unlock a learner profile first.")
+        return None
     profile = connection.execute("SELECT * FROM profiles WHERE id=? AND active=1", (profile_id,)).fetchone() if profile_id else None
-    if profile is None:
+    if profile is None and not current_app.config.get("HOSTED_MODE"):
         profile = connection.execute("SELECT * FROM profiles WHERE active=1 ORDER BY id LIMIT 1").fetchone()
         if profile: session["profile_id"] = profile["id"]
-    if profile is None:
+    if profile is None and required:
         abort(500, description="No active student profile exists.")
     return profile
 
 
 @bp.app_context_processor
 def daily_goal_context():
-    profile = selected_profile()
-    summary = daily_practice_summary(get_db(), profile["id"], profile["daily_goal_minutes"])
-    return {"daily_practice": summary, "format_duration": format_duration}
+    profile = selected_profile(required=False)
+    summary = (daily_practice_summary(get_db(), profile["id"], profile["daily_goal_minutes"])
+               if profile else {"active_seconds": 0, "goal_seconds": 900, "goal_reached": False})
+    return {"daily_practice": summary, "format_duration": format_duration,
+            "hosted_mode": current_app.config.get("HOSTED_MODE", False), "current_profile": profile}
 
 
 def _setting(key: str, default: str = "") -> str:
@@ -104,6 +111,8 @@ def _set_setting(key: str, value: str) -> None:
 
 
 def _parent_unlocked() -> bool:
+    if current_app.config.get("HOSTED_MODE"):
+        return bool(session.get("parent_unlocked"))
     return not _setting("parent_pin_hash") or bool(session.get("parent_unlocked"))
 
 
@@ -120,11 +129,33 @@ def health():
     )
 
 
+@bp.route("/access", methods=["GET", "POST"])
+def family_access():
+    if not current_app.config.get("HOSTED_MODE"):
+        return redirect(url_for("main.index"))
+    if request.method == "POST":
+        supplied = request.form.get("password", "")
+        if hmac.compare_digest(supplied, current_app.config["FAMILY_PASSWORD"]):
+            csrf = session.get("csrf_token")
+            session.clear()
+            session["csrf_token"] = csrf or secrets.token_urlsafe(24)
+            session["family_unlocked"] = True
+            return redirect(url_for("main.profiles_page"))
+        flash("That family password did not match.", "error")
+    return render_template("family_access.html")
+
+
+@bp.post("/access/logout")
+def family_logout():
+    session.clear()
+    return redirect(url_for("main.family_access"))
+
+
 @bp.get("/")
 def index():
     profile = selected_profile()
     rows = get_db().execute("SELECT * FROM attempts WHERE profile_id=? ORDER BY completed_at DESC", (profile["id"],)).fetchall()
-    stats = get_db().execute("SELECT COUNT(*) attempts, COALESCE(ROUND(AVG(adjusted_wpm),1),0) wpm, COALESCE(ROUND(AVG(accuracy),1),0) accuracy FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
+    stats = get_db().execute("SELECT COUNT(*) attempts, COALESCE(CAST(ROUND(CAST(AVG(adjusted_wpm) AS NUMERIC),1) AS REAL),0) wpm, COALESCE(CAST(ROUND(CAST(AVG(accuracy) AS NUMERIC),1) AS REAL),0) accuracy FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
     suggestion, reason = recommend(profile, rows, passages())
     focus = focus_keys(rows)
     return render_template("index.html", profile=profile, stats=stats, passage_count=len(passages()), suggestion=suggestion, reason=reason, streak=streak_days(rows), focus=focus)
@@ -307,7 +338,7 @@ def save_attempt():
         typed_characters, correct_characters, errors, corrected_errors, gross_wpm, net_wpm, accuracy,
         completed, error_map, mode, lesson_id, adjusted_wpm, substitutions, insertions, deletions,
         transpositions, key_stats, target_text, focus_keys, generator_version, passage_revision)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id""",
         (profile["id"], passage["id"], (now-timedelta(seconds=duration)).isoformat(), now.isoformat(), duration,
          score["typed_characters"], score["correct_characters"], score["errors"], corrected_errors,
          score["gross_wpm"], score["net_wpm"], score["accuracy"], int(score["completed"]),
@@ -315,6 +346,7 @@ def save_attempt():
          score["adjusted_wpm"], score["substitutions"], score["insertions"], score["deletions"], score["transpositions"],
          json.dumps(score["key_stats"]), passage["text"], json.dumps(focus), generator_version,
          int(passage.get("revision", passage.get("generator_version", 1)))))
+    attempt_id = cursor.fetchone()[0]
     if mode == "placement" and score["completed"]:
         level = placement_level(score["net_wpm"], score["accuracy"])
         connection.execute("UPDATE profiles SET placement_level=?, placement_complete=1, preferred_difficulty=? WHERE id=?", (level, level, profile["id"]))
@@ -324,7 +356,7 @@ def save_attempt():
         connection.execute("""UPDATE practice_sessions SET active_seconds=?,updated_at=?,completed_at=?,attempt_id=?
                               WHERE id=?""",
                            (final_active, now.isoformat(), now.isoformat(),
-                            cursor.lastrowid, practice_session["id"]))
+                            attempt_id, practice_session["id"]))
         if final_active > practice_session["active_seconds"]:
             connection.execute("INSERT INTO practice_time_segments(session_id,recorded_at,active_seconds) VALUES(?,?,?)",
                                (practice_session["id"], now.isoformat(), final_active-practice_session["active_seconds"]))
@@ -335,7 +367,7 @@ def save_attempt():
             VALUES(?,?,?,?,?,?,?,?,?)""",
             (implicit_id, profile["id"], passage["id"], mode,
              (now-timedelta(seconds=duration)).isoformat(), now.isoformat(), now.isoformat(), duration,
-             cursor.lastrowid))
+             attempt_id))
         connection.execute("INSERT INTO practice_time_segments(session_id,recorded_at,active_seconds) VALUES(?,?,?)",
                            (implicit_id, now.isoformat(), duration))
     new_awards = award_achievements(connection, profile["id"], {p["id"]:p for p in practice_items()})
@@ -357,7 +389,7 @@ def save_attempt():
                                "change": round(recent_accuracy - baseline, 1) if baseline is not None and recent_accuracy is not None else None,
                                **stats})
     daily = daily_practice_summary(connection, profile["id"], profile["daily_goal_minutes"])
-    return jsonify(id=cursor.lastrowid, corrected_errors=corrected_errors,
+    return jsonify(id=attempt_id, corrected_errors=corrected_errors,
                    session_seconds=round(duration, 1), daily=daily,
                    achievements=[ACHIEVEMENTS[c][0] for c in new_awards], focus_feedback=focus_feedback, **score), 201
 
@@ -394,12 +426,27 @@ def progress():
 
 @bp.get("/profiles")
 def profiles_page():
-    return render_template("profiles.html", profiles=get_db().execute("SELECT * FROM profiles WHERE active=1 ORDER BY name").fetchall(), selected=selected_profile())
+    return render_template(
+        "profiles.html",
+        profiles=get_db().execute("SELECT * FROM profiles WHERE active=1 ORDER BY name").fetchall(),
+        selected=selected_profile(required=False),
+    )
 
 
 @bp.post("/profiles/<int:profile_id>/select")
 def select_profile(profile_id: int):
-    if not get_db().execute("SELECT 1 FROM profiles WHERE id=? AND active=1", (profile_id,)).fetchone(): abort(404)
+    profile = get_db().execute(
+        "SELECT * FROM profiles WHERE id=? AND active=1", (profile_id,)
+    ).fetchone()
+    if not profile:
+        abort(404)
+    if current_app.config.get("HOSTED_MODE"):
+        stored = profile["pin_hash"]
+        if not stored or not check_password_hash(stored, request.form.get("pin", "")):
+            flash(f"That PIN did not match {profile['name']}’s profile.", "error")
+            return redirect(url_for("main.profiles_page"))
+        session["profile_authenticated"] = True
+        session.pop("parent_unlocked", None)
     session["profile_id"] = profile_id
     return redirect(url_for("main.index"))
 
@@ -414,21 +461,30 @@ def parent():
             connection.execute("UPDATE profiles SET daily_goal_minutes=?, preferred_difficulty=? WHERE id=?", (goal,difficulty,profile["id"])); connection.commit(); flash("Settings saved.", "success")
         else: flash("Use a goal from 5 to 120 minutes and difficulty from 1 to 5.", "error")
         return redirect(url_for("main.parent"))
-    stats = connection.execute("SELECT COUNT(*) attempts, COALESCE(ROUND(AVG(adjusted_wpm),1),0) wpm, COALESCE(ROUND(AVG(accuracy),1),0) accuracy FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
+    stats = connection.execute("SELECT COUNT(*) attempts, COALESCE(CAST(ROUND(CAST(AVG(adjusted_wpm) AS NUMERIC),1) AS REAL),0) wpm, COALESCE(CAST(ROUND(CAST(AVG(accuracy) AS NUMERIC),1) AS REAL),0) accuracy FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
     return render_template("parent.html", profile=profile, stats=stats, profiles=connection.execute("SELECT * FROM profiles WHERE active=1 ORDER BY name").fetchall(), custom=_custom_passages(), pin_enabled=bool(_setting("parent_pin_hash")))
 
 
 @bp.post("/parent/unlock")
 def parent_unlock():
-    stored = _setting("parent_pin_hash")
-    if not stored or check_password_hash(stored, request.form.get("pin", "")):
+    if current_app.config.get("HOSTED_MODE"):
+        matched = hmac.compare_digest(
+            request.form.get("password", ""), current_app.config["PARENT_PASSWORD"]
+        )
+    else:
+        stored = _setting("parent_pin_hash")
+        matched = not stored or check_password_hash(stored, request.form.get("pin", ""))
+    if matched:
         session["parent_unlocked"] = True; return redirect(url_for("main.parent"))
-    flash("That PIN did not match.", "error"); return redirect(url_for("main.parent"))
+    flash("That parent credential did not match.", "error"); return redirect(url_for("main.parent"))
 
 
 @bp.post("/parent/pin")
 def parent_pin():
-    _require_parent(); pin = request.form.get("pin", "")
+    _require_parent()
+    if current_app.config.get("HOSTED_MODE"):
+        abort(404)
+    pin = request.form.get("pin", "")
     if pin and (not pin.isdigit() or not 4 <= len(pin) <= 10): flash("PIN must contain 4–10 digits.", "error")
     else:
         _set_setting("parent_pin_hash", generate_password_hash(pin) if pin else ""); get_db().commit(); session["parent_unlocked"] = True; flash("Parent PIN updated.", "success")
@@ -438,10 +494,20 @@ def parent_pin():
 @bp.post("/parent/profiles")
 def add_profile():
     _require_parent(); name = " ".join(request.form.get("name", "").split())
+    pin = request.form.get("pin", "")
     if not 1 <= len(name) <= 40: flash("Profile name must contain 1–40 characters.", "error")
+    elif current_app.config.get("HOSTED_MODE") and (not pin.isdigit() or not 4 <= len(pin) <= 10):
+        flash("Hosted learner PINs must contain 4–10 digits.", "error")
     else:
-        try: get_db().execute("INSERT INTO profiles(name,created_at) VALUES(?,?)", (name,datetime.now(UTC).isoformat())); get_db().commit(); flash("Profile created.", "success")
-        except sqlite3.IntegrityError: flash("That profile name already exists.", "error")
+        connection = get_db()
+        try:
+            connection.execute(
+                "INSERT INTO profiles(name,created_at,pin_hash) VALUES(?,?,?)",
+                (name, datetime.now(UTC).isoformat(), generate_password_hash(pin) if pin else None),
+            )
+            connection.commit(); flash("Profile created.", "success")
+        except integrity_errors():
+            connection.rollback(); flash("That profile name already exists.", "error")
     return redirect(url_for("main.parent"))
 
 
@@ -457,7 +523,7 @@ def delete_profile(profile_id: int):
     elif request.form.get("confirmation") != f"DELETE {target['name']}":
         flash(f"Type DELETE {target['name']} exactly.", "error")
     else:
-        connection.execute("UPDATE profiles SET active=0 WHERE id=?", (profile_id,)); connection.commit(); flash("Profile removed from selection. Its records remain in the local database and backups.", "success")
+        connection.execute("UPDATE profiles SET active=0 WHERE id=?", (profile_id,)); connection.commit(); flash("Profile removed from selection. Its records remain in the database and backups.", "success")
     return redirect(url_for("main.parent"))
 
 
@@ -499,7 +565,24 @@ def export_data(format_name: str):
 
 @bp.get("/parent/backup")
 def backup():
-    _require_parent(); temporary=tempfile.NamedTemporaryFile(suffix=".db",delete=False); temporary.close()
+    _require_parent()
+    if current_app.config.get("HOSTED_MODE"):
+        tables = ("profiles", "attempts", "achievements", "custom_passages",
+                  "practice_sessions", "practice_time_segments")
+        payload = {
+            "format": "scipiotyping-cloud-backup",
+            "version": current_app.config["APPLICATION_VERSION"],
+            "created_at": datetime.now(UTC).isoformat(),
+            "tables": {table: [dict(row) for row in get_db().execute(f"SELECT * FROM {table}")]
+                       for table in tables},
+        }
+        for profile_row in payload["tables"]["profiles"]:
+            profile_row.pop("pin_hash", None)
+        return Response(
+            json.dumps(payload, indent=2), mimetype="application/json",
+            headers={"Content-Disposition": f"attachment; filename=scipiotyping-cloud-backup-{datetime.now():%Y%m%d}.json"},
+        )
+    temporary=tempfile.NamedTemporaryFile(suffix=".db",delete=False); temporary.close()
     destination=sqlite3.connect(temporary.name); get_db().backup(destination); destination.close()
     response = send_file(temporary.name,as_attachment=True,download_name=f"scipiotyping-backup-{datetime.now():%Y%m%d}.db")
     response.call_on_close(lambda: Path(temporary.name).unlink(missing_ok=True))
@@ -509,6 +592,9 @@ def backup():
 @bp.post("/parent/restore")
 def restore():
     _require_parent()
+    if current_app.config.get("HOSTED_MODE"):
+        flash("Cloud restores are performed through the database provider so they cannot overwrite the live family database by accident.", "error")
+        return redirect(url_for("main.parent"))
     if request.form.get("confirmation") != "RESTORE" or "backup" not in request.files: flash("Type RESTORE and choose a backup file.","error"); return redirect(url_for("main.parent"))
     upload=request.files["backup"]
     temporary = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
@@ -545,7 +631,7 @@ def help_page(): return render_template("help.html")
 @bp.app_errorhandler(400)
 def bad_request(error): return render_template("error.html",title="Request expired",message=getattr(error,"description","Return and try again.")),400
 @bp.app_errorhandler(403)
-def forbidden(_error): return render_template("error.html",title="Parent area locked",message="Return to Parent and enter the local PIN."),403
+def forbidden(error): return render_template("error.html",title="Access locked",message=getattr(error, "description", "Return and unlock the required access.")),403
 @bp.app_errorhandler(404)
 def not_found(_error): return render_template("error.html",title="Page not found",message="That page is not part of the lesson map."),404
 @bp.app_errorhandler(500)

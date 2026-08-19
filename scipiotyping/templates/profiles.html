@@ -1,3 +1,37 @@
-{% extends 'base.html' %}{% block title %}Profiles · ScipioTyping{% endblock %}
-{% block content %}<div class="page-heading"><p class="eyebrow">Local learners</p><h1>Who is practicing?</h1></div><div class="card-grid">{% for profile in profiles %}<article class="passage-card"><h2>{{ profile.name }}</h2><p>Daily goal: {{ profile.daily_goal_minutes }} minutes</p>{% if profile.id == selected.id %}<strong>Current profile</strong>{% else %}<form method="post" action="{{ url_for('main.select_profile', profile_id=profile.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="button">Use this profile</button></form>{% endif %}</article>{% endfor %}</div>{% endblock %}
-
+{% extends 'base.html' %}
+{% block title %}Profiles · ScipioTyping{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <p class="eyebrow">{% if hosted_mode %}Family learners{% else %}Local learners{% endif %}</p>
+  <h1>Who is practicing?</h1>
+  {% if hosted_mode %}<p>Each learner has a private PIN so progress stays with the right person.</p>{% endif %}
+</div>
+{% for category, message in get_flashed_messages(with_categories=true) %}<p class="notice {{ category }}" role="status">{{ message }}</p>{% endfor %}
+<div class="card-grid">
+  {% for profile in profiles %}
+  <article class="passage-card">
+    <h2>{{ profile.name }}</h2>
+    <p>Daily goal: {{ profile.daily_goal_minutes }} minutes</p>
+    {% if selected and profile.id == selected.id %}
+      <strong>Current profile</strong>
+    {% else %}
+      <form method="post" action="{{ url_for('main.select_profile', profile_id=profile.id) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {% if hosted_mode %}
+        <label>{{ profile.name }}’s PIN
+          <input type="password" inputmode="numeric" pattern="[0-9]{4,10}" name="pin" autocomplete="current-password" required>
+        </label>
+        {% endif %}
+        <button class="button">{% if hosted_mode %}Unlock {{ profile.name }}{% else %}Use this profile{% endif %}</button>
+      </form>
+    {% endif %}
+  </article>
+  {% endfor %}
+</div>
+{% if hosted_mode %}
+<form class="section-action" method="post" action="{{ url_for('main.family_logout') }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <button class="text-button">Sign out this device</button>
+</form>
+{% endif %}
+{% endblock %}

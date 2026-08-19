@@ -10,7 +10,7 @@ if (-not (Test-Path $pythonPath)) {
     py -m venv .venv
 }
 
-& $pythonPath -c "import flask, waitress" 2>$null
+& $pythonPath -c "import flask, waitress, psycopg" 2>$null
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Installing ScipioTyping's local components..."
     & $pythonPath -m pip install -r $requirementsPath

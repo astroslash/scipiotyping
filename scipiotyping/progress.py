@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from collections import Counter
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 
 ACHIEVEMENTS = {
     "first-passage": ("First Expedition", "Complete your first passage."),
@@ -34,8 +34,8 @@ def award_achievements(connection, profile_id: int, passage_lookup: dict[str, di
     existing = {row[0] for row in connection.execute("SELECT code FROM achievements WHERE profile_id=?", (profile_id,))}
     new = sorted(codes - existing)
     connection.executemany(
-        "INSERT INTO achievements(profile_id, code, earned_at) VALUES(?,?,datetime('now'))",
-        [(profile_id, code) for code in new],
+        "INSERT INTO achievements(profile_id, code, earned_at) VALUES(?,?,?)",
+        [(profile_id, code, datetime.now(UTC).isoformat()) for code in new],
     )
     return new
 

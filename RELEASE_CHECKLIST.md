@@ -1,4 +1,15 @@
-# Release checklist — 1.4.1
+# Release checklist — 1.5.0
+
+## 1.5.0
+
+- [x] Preserved a pre-migration copy of Kenneth's local database.
+- [x] Migrated the live local database to schema 8 with all 67 attempts intact.
+- [x] Seeded Kenneth, William, and Alice while preserving offline profile behavior.
+- [x] Added private hosted family, learner, and parent access layers.
+- [x] Added PostgreSQL, Vercel, JSON archive, and guarded migration support.
+- [x] Added deployment and parent documentation without committing credentials.
+- [x] Full unit, content, release, offline Edge, and hosted Edge checks completed.
+- [x] Version 1.5.0 commit, tag, and GitHub push completed.
 
 ## 1.4.1
 

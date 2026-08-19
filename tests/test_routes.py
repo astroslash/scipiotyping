@@ -11,7 +11,7 @@ def post_form(client, path, csrf, data=None, **kwargs):
 
 def test_health_and_primary_pages(client):
     health = client.get("/health").get_json()
-    assert health["schema"] == 7 and health["version"] == "1.4.1"
+    assert health["schema"] == 8 and health["version"] == "1.5.0"
     for path in ["/", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
         response = client.get(path)
         assert response.status_code == 200
@@ -154,6 +154,12 @@ def test_profile_create_and_select(client, csrf, app):
     with app.app_context(): profile=get_db().execute("SELECT * FROM profiles WHERE name='Alex'").fetchone()
     assert post_form(client,f"/profiles/{profile['id']}/select",csrf).status_code==302
     assert b"Salve, Alex" in client.get("/").data
+
+
+def test_three_family_profiles_are_seeded(app):
+    with app.app_context():
+        names = [row[0] for row in get_db().execute("SELECT name FROM profiles ORDER BY id")]
+    assert names == ["Kenneth", "William", "Alice"]
 
 
 def test_profile_delete_requires_confirmation(client, csrf, app):
