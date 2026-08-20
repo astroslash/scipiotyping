@@ -4,10 +4,18 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scipiotyping"
-version = "1.5.0"
+version = "1.5.1"
 description = "A private, offline-first educational typing tutor"
 requires-python = ">=3.11"
 dependencies = ["Flask>=3.1,<4", "waitress>=3.0,<4", "psycopg[binary]>=3.3,<4"]
+
+[tool.setuptools]
+packages = ["scipiotyping", "content"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+scipiotyping = ["templates/*.html", "static/*"]
+content = ["manifest.json", "passages/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

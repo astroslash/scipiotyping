@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.1 — 2026-08-19
+
+- Declared the application and content packages explicitly so Vercel's locked
+  `uv` build no longer rejects the repository's flat layout.
+- Included the Jinja templates, browser assets, manifest, and all passage JSON
+  files in the built wheel so hosted installs retain the complete application.
+
 ## 1.5.0 — 2026-08-19
 
 - Added William and Alice alongside Kenneth as idempotently seeded learners.

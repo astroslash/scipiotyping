@@ -1,4 +1,11 @@
-# Release checklist — 1.5.0
+# Release checklist — 1.5.1
+
+## 1.5.1
+
+- [x] Reproduced Vercel's setuptools flat-layout package discovery failure.
+- [x] Explicitly packaged only the application and offline content library.
+- [x] Inspected a clean wheel for Python code, templates, static assets, and all content files.
+- [x] Full release suite, version commit, tag, and GitHub push completed.
 
 ## 1.5.0
 

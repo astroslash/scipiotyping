@@ -1,6 +1,6 @@
 # Deploying ScipioTyping to Vercel
 
-ScipioTyping v1.5.0 keeps the Windows shortcut and local SQLite data unchanged.
+ScipioTyping v1.5 keeps the Windows shortcut and local SQLite data unchanged.
 The hosted copy uses PostgreSQL because Vercel functions do not provide a
 persistent SQLite filesystem. A free Vercel Hobby project plus a free PostgreSQL
 provider such as Neon is sufficient for normal family use; no paid subscription
@@ -38,7 +38,7 @@ Deploy.
 
 `api/index.py` is the serverless WSGI entry point, and `vercel.json` sends every
 route to it. A successful deployment's `/health` endpoint reports version
-`1.5.0` and schema `8`.
+`1.5.1` (or later) and schema `8`.
 
 ## 4. Copy existing local progress once
 

@@ -52,7 +52,7 @@ def migrate(source_path: Path) -> dict[str, int]:
                     "practice_sessions", "practice_time_segments"}
         available = {row[0] for row in source.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         if not required.issubset(available):
-            raise RuntimeError("The source is not a current ScipioTyping database. Start v1.5.0 locally once first.")
+            raise RuntimeError("The source is not a current ScipioTyping database. Start v1.5 or later locally once first.")
 
         app = create_app()
         with app.app_context():
