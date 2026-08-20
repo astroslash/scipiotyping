@@ -129,26 +129,17 @@ def health():
     )
 
 
-@bp.route("/access", methods=["GET", "POST"])
-def family_access():
-    if not current_app.config.get("HOSTED_MODE"):
-        return redirect(url_for("main.index"))
-    if request.method == "POST":
-        supplied = request.form.get("password", "")
-        if hmac.compare_digest(supplied, current_app.config["FAMILY_PASSWORD"]):
-            csrf = session.get("csrf_token")
-            session.clear()
-            session["csrf_token"] = csrf or secrets.token_urlsafe(24)
-            session["family_unlocked"] = True
-            return redirect(url_for("main.profiles_page"))
-        flash("That family password did not match.", "error")
-    return render_template("family_access.html")
+@bp.get("/access")
+def legacy_access_redirect():
+    """Keep old hosted bookmarks useful after removing the family password."""
+    return redirect(url_for("main.profiles_page") if current_app.config.get("HOSTED_MODE")
+                    else url_for("main.index"))
 
 
-@bp.post("/access/logout")
-def family_logout():
+@bp.post("/profiles/logout")
+def profile_logout():
     session.clear()
-    return redirect(url_for("main.family_access"))
+    return redirect(url_for("main.profiles_page"))
 
 
 @bp.get("/")

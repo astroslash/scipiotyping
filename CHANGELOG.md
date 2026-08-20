@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.6.0 — 2026-08-19
+
+- Removed the shared family password so hosted visitors arrive directly at the
+  learner chooser; learner PINs and the separate Parent password remain.
+- Made welcome headings responsive and resistant to word clipping through 200%
+  browser zoom.
+
 ## 1.5.4 — 2026-08-19
 
 - Removed the obsolete catch-all Vercel rewrite that changed every incoming

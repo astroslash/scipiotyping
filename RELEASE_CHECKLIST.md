@@ -1,4 +1,10 @@
-# Release checklist — 1.5.4
+# Release checklist — 1.6.0
+
+## 1.6.0
+
+- [x] Removed the shared family password and retained learner PIN protection.
+- [x] Made welcome headings wrap without clipping at browser zoom up to 200%.
+- [x] Full release suite, browser checks, commit, tag, and GitHub push completed.
 
 ## 1.5.4
 

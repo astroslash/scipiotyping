@@ -3,8 +3,8 @@
 {% block content %}
 <div class="page-heading">
   <p class="eyebrow">{% if hosted_mode %}Family learners{% else %}Local learners{% endif %}</p>
-  <h1>Who is practicing?</h1>
-  {% if hosted_mode %}<p>Each learner has a private PIN so progress stays with the right person.</p>{% endif %}
+  <h1>{% if hosted_mode %}Welcome to ScipioTyping{% else %}Who is practicing?{% endif %}</h1>
+  {% if hosted_mode %}<p>Who is practicing? Each learner has a private PIN so progress stays with the right person.</p>{% endif %}
 </div>
 {% for category, message in get_flashed_messages(with_categories=true) %}<p class="notice {{ category }}" role="status">{{ message }}</p>{% endfor %}
 <div class="card-grid">
@@ -29,9 +29,9 @@
   {% endfor %}
 </div>
 {% if hosted_mode %}
-<form class="section-action" method="post" action="{{ url_for('main.family_logout') }}">
+<form class="section-action" method="post" action="{{ url_for('main.profile_logout') }}">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-  <button class="text-button">Sign out this device</button>
+  <button class="text-button">Lock learner profile</button>
 </form>
 {% endif %}
 {% endblock %}

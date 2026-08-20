@@ -8,7 +8,7 @@ from pathlib import Path
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-__version__ = "1.5.4"
+__version__ = "1.6.0"
 
 from . import db
 from .content import content_report_command, load_passages, validate_content_command
@@ -17,14 +17,13 @@ from .routes import bp
 from .security import csrf_token, protect_csrf, require_hosted_access
 
 
-def _hosted_secrets() -> tuple[str, str, dict[str, str]]:
-    family_password = os.environ.get("SCIPIO_FAMILY_PASSWORD", "")
+def _hosted_secrets() -> tuple[str, dict[str, str]]:
     parent_password = os.environ.get("SCIPIO_PARENT_PASSWORD", "")
     pins = {
         name: os.environ.get(f"SCIPIO_{name.upper()}_PIN", "")
         for name in db.SEEDED_PROFILES
     }
-    return family_password, parent_password, pins
+    return parent_password, pins
 
 
 def _validate_hosted_config(app: Flask) -> None:
@@ -34,12 +33,8 @@ def _validate_hosted_config(app: Flask) -> None:
         raise RuntimeError("Hosted ScipioTyping requires a PostgreSQL DATABASE_URL.")
     if len(app.config["SECRET_KEY"]) < 32:
         raise RuntimeError("Hosted ScipioTyping requires a SECRET_KEY of at least 32 characters.")
-    if len(app.config["FAMILY_PASSWORD"]) < 12:
-        raise RuntimeError("SCIPIO_FAMILY_PASSWORD must contain at least 12 characters.")
     if len(app.config["PARENT_PASSWORD"]) < 12:
         raise RuntimeError("SCIPIO_PARENT_PASSWORD must contain at least 12 characters.")
-    if app.config["FAMILY_PASSWORD"] == app.config["PARENT_PASSWORD"]:
-        raise RuntimeError("The family and parent passwords must be different.")
     pins = app.config["SEED_PROFILE_PINS"]
     if set(pins) != set(db.SEEDED_PROFILES) or any(
         not pin.isdigit() or not 4 <= len(pin) <= 10 for pin in pins.values()
@@ -65,13 +60,12 @@ def create_app(test_config: dict | None = None) -> Flask:
         local_secret = secret_file.read_text(encoding="ascii").strip()
     else:
         local_secret = os.environ.get("SECRET_KEY", "testing-only")
-    family_password, parent_password, seed_pins = _hosted_secrets()
+    parent_password, seed_pins = _hosted_secrets()
     app.config.from_mapping(
         SECRET_KEY=local_secret,
         DATABASE=os.environ.get("SCIPIO_DATABASE", str(Path(app.instance_path) / "scipiotyping.db")),
         DATABASE_URL=database_url,
         HOSTED_MODE=hosted_environment,
-        FAMILY_PASSWORD=family_password,
         PARENT_PASSWORD=parent_password,
         SEED_PROFILE_PINS={name: pin for name, pin in seed_pins.items() if pin},
         CONTENT_PATH=str(Path(app.root_path).parent / "content"),

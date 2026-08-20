@@ -46,4 +46,4 @@ corrected or revised.
 Schema 8 adds `profiles.pin_hash`. The SQLite migration leaves it empty because
 local profiles remain frictionless. Hosted startup stores Werkzeug password
 hashes for the three learner PINs supplied through environment variables. Plain
-PINs and family/parent passwords are never stored in the database or exports.
+PINs and the parent password are never stored in the database or exports.

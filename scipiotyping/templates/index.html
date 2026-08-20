@@ -3,7 +3,7 @@
 {% block content %}
 <section class="hero">
   <p class="eyebrow">Salve, {{ profile.name }}</p>
-  <h1>Train your hands.<br><em>Explore great ideas.</em></h1>
+  <h1 class="hero-title"><span>Train your hands.</span><em>Explore great ideas.</em></h1>
   <p>Build speed and accuracy through history, mythology, chess, poetry, and mathematics.</p>
   <a class="button" href="{{ url_for('main.library') }}">Choose a passage</a>
   <a class="button secondary" href="{{ url_for('main.lessons') }}">Follow a lesson</a>

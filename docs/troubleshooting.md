@@ -32,16 +32,17 @@ kept under `instance/backups`.
 ## A Vercel deployment fails during startup
 
 Open the deployment log and confirm all required environment values exist:
-`DATABASE_URL`, `SECRET_KEY`, both family/parent passwords, and all three learner
-PINs. The database URL must be PostgreSQL, the secret must be at least 32
-characters, the two passwords must be different and at least 12 characters,
-and the three numeric PINs must be distinct. Redeploy after correcting a value.
+`DATABASE_URL`, `SECRET_KEY`, the parent password, and all three learner PINs.
+The database URL must be PostgreSQL, the secret must be at least 32 characters,
+the parent password must be at least 12 characters, and the three numeric PINs
+must be distinct. Redeploy after correcting a value.
 
-## Hosted sign-in keeps returning to the password page
+## Hosted sign-in keeps returning to the profile page
 
 Use the HTTPS Vercel URL rather than an HTTP address; hosted session cookies are
-intentionally marked Secure. If credentials were just changed, redeploy and use
-a new private browser window. The local shortcut does not use hosted passwords.
+intentionally marked Secure. Enter the selected learner's PIN. If credentials
+were just changed, redeploy and use a new private browser window. The local
+shortcut does not use hosted learner PINs.
 
 ## Local progress is missing from the hosted app
 

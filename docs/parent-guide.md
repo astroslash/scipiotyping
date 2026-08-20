@@ -28,5 +28,5 @@ not count time spent reading menus.
 Before restoring or resetting, download a complete backup. Restore requires the
 word `RESTORE`; reset requires `RESET` followed by the active student's name.
 The local parent PIN is household protection, not an online security boundary.
-Hosted mode instead uses a separate parent password configured in Vercel. The
-family password and learner PINs should be shared only with intended relatives.
+Hosted mode instead uses a separate parent password configured in Vercel.
+Learner PINs should be shared only with their intended relatives.

@@ -17,7 +17,8 @@ def test_hosted_dependencies_and_secret_template_are_documented():
     requirements = (ROOT / "requirements.txt").read_text(encoding="utf-8")
     environment = (ROOT / ".env.example").read_text(encoding="utf-8")
     assert "psycopg[binary]" in requirements
-    for name in ("DATABASE_URL", "SCIPIO_FAMILY_PASSWORD", "SCIPIO_PARENT_PASSWORD",
+    assert "SCIPIO_FAMILY_PASSWORD" not in environment
+    for name in ("DATABASE_URL", "SCIPIO_PARENT_PASSWORD",
                  "SCIPIO_KENNETH_PIN", "SCIPIO_WILLIAM_PIN", "SCIPIO_ALICE_PIN"):
         assert name in environment
 

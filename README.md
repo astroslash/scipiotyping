@@ -42,8 +42,8 @@ The Parent dashboard downloads CSV/JSON reports and complete SQLite backups.
 Restore automatically preserves the previous database under `instance/backups`.
 
 The server binds only to `127.0.0.1` unless a knowledgeable user deliberately
-changes `SCIPIO_HOST`. Hosted mode requires a family password, separate learner
-PINs, a separate parent password, HTTPS cookies, and a PostgreSQL `DATABASE_URL`.
+changes `SCIPIO_HOST`. Hosted mode requires separate learner PINs, a separate
+parent password, HTTPS cookies, and a PostgreSQL `DATABASE_URL`.
 No child email addresses or third-party sign-ins are needed. See the [Vercel
 deployment guide](docs/vercel-deployment.md), [Parent guide](docs/parent-guide.md),
 [Developer guide](docs/developer-guide.md), and

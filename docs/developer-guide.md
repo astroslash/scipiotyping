@@ -24,6 +24,6 @@ The local Git identity is repository-only: `ScipioTyping Builder` at an invalid
 local address. Replace it with your own repository or global identity if desired.
 
 The Vercel WSGI entry point is `api/index.py`. Hosted startup rejects missing or
-weak configuration: PostgreSQL, a 32-character secret key, distinct 12-character
-family and parent passwords, and distinct 4–10 digit PINs for all three seeded
-learners are mandatory. Do not commit any of those values.
+weak configuration: PostgreSQL, a 32-character secret key, a 12-character
+parent password, and distinct 4–10 digit PINs for all three seeded learners are
+mandatory. Do not commit any of those values.

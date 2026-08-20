@@ -15,7 +15,6 @@ def hosted_app(tmp_path):
         "DATABASE": str(tmp_path / "hosted-test.db"),
         "DATABASE_URL": "",
         "HOSTED_MODE": True,
-        "FAMILY_PASSWORD": "family-password",
         "PARENT_PASSWORD": "parent-password",
         "SEED_PROFILE_PINS": {"Kenneth": "1111", "William": "2222", "Alice": "3333"},
     })
@@ -29,19 +28,18 @@ def post(client, path, csrf, data=None, **kwargs):
     return client.post(path, data={"csrf_token": csrf, **(data or {})}, **kwargs)
 
 
-def test_hosted_family_and_learner_access(tmp_path):
+def test_hosted_learner_access(tmp_path):
     app = hosted_app(tmp_path)
     assert app.config["SESSION_COOKIE_SECURE"] is True
+    assert "FAMILY_PASSWORD" not in app.config
     client = app.test_client()
     assert client.get("/health").status_code == 200
-    access = client.get("/")
-    assert access.status_code == 302 and access.headers["Location"].endswith("/access")
-    access = client.get("/access")
-    csrf = csrf_from(access)
-    wrong = post(client, "/access", csrf, {"password": "wrong"}, follow_redirects=True)
-    assert b"did not match" in wrong.data
-    profiles = post(client, "/access", csrf, {"password": "family-password"}, follow_redirects=True)
+    profiles = client.get("/", follow_redirects=True)
+    assert profiles.request.path == "/profiles"
+    assert b"Welcome to ScipioTyping" in profiles.data
     assert b"Kenneth" in profiles.data and b"William" in profiles.data and b"Alice" in profiles.data
+    csrf = csrf_from(profiles)
+    assert client.get("/access").headers["Location"].endswith("/profiles")
     assert client.get("/").headers["Location"].endswith("/profiles")
 
     wrong_pin = post(client, "/profiles/1/select", csrf, {"pin": "9999"}, follow_redirects=True)
@@ -55,8 +53,7 @@ def test_hosted_family_and_learner_access(tmp_path):
 def test_hosted_parent_password_and_json_backup(tmp_path):
     app = hosted_app(tmp_path)
     client = app.test_client()
-    csrf = csrf_from(client.get("/access"))
-    post(client, "/access", csrf, {"password": "family-password"})
+    csrf = csrf_from(client.get("/profiles"))
     post(client, "/profiles/3/select", csrf, {"pin": "3333"})
     locked = client.get("/parent")
     assert b"Parent area locked" in locked.data and b"Parent password" in locked.data
@@ -74,8 +71,7 @@ def test_hosted_parent_password_and_json_backup(tmp_path):
 def test_hosted_profile_creation_requires_pin(tmp_path):
     app = hosted_app(tmp_path)
     client = app.test_client()
-    csrf = csrf_from(client.get("/access"))
-    post(client, "/access", csrf, {"password": "family-password"})
+    csrf = csrf_from(client.get("/profiles"))
     post(client, "/profiles/1/select", csrf, {"pin": "1111"})
     post(client, "/parent/unlock", csrf, {"password": "parent-password"})
     response = post(client, "/parent/profiles", csrf, {"name": "No Pin"}, follow_redirects=True)
@@ -106,15 +102,14 @@ def test_hosted_startup_rejects_missing_or_weak_secrets():
         TESTING=False,
         DATABASE_URL="postgresql://example.invalid/database",
         SECRET_KEY="short",
-        FAMILY_PASSWORD="family-password",
         PARENT_PASSWORD="parent-password",
         SEED_PROFILE_PINS={"Kenneth": "1111", "William": "2222", "Alice": "3333"},
     )
     with pytest.raises(RuntimeError, match="SECRET_KEY"):
         _validate_hosted_config(app)
     app.config["SECRET_KEY"] = "a" * 32
-    app.config["FAMILY_PASSWORD"] = app.config["PARENT_PASSWORD"] = "same-password-value"
-    with pytest.raises(RuntimeError, match="different"):
+    app.config["PARENT_PASSWORD"] = "short"
+    with pytest.raises(RuntimeError, match="PARENT_PASSWORD"):
         _validate_hosted_config(app)
     app.config["PARENT_PASSWORD"] = "different-parent-password"
     app.config["SEED_PROFILE_PINS"]["Alice"] = "2222"
