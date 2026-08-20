@@ -38,7 +38,7 @@ Deploy.
 
 `api/index.py` is the serverless WSGI entry point, and `vercel.json` sends every
 route to it. A successful deployment's `/health` endpoint reports version
-`1.5.1` (or later) and schema `8`.
+`1.5.2` (or later) and schema `8`.
 
 ## 4. Copy existing local progress once
 

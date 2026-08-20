@@ -135,7 +135,7 @@ class HybridRow(Mapping[str, Any]):
 
 
 def _hybrid_row_factory(cursor):
-    columns = tuple(column.name for column in cursor.description)
+    columns = tuple(column.name for column in (cursor.description or ()))
     return lambda values: HybridRow(columns, values)
 
 

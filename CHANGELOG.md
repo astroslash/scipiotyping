@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.2 — 2026-08-19
+
+- Fixed PostgreSQL startup when schema-creation commands return no result-column
+  description, which previously crashed the first Vercel function invocation.
+- Added regression coverage for PostgreSQL commands that do not return rows.
+
 ## 1.5.1 — 2026-08-19
 
 - Declared the application and content packages explicitly so Vercel's locked

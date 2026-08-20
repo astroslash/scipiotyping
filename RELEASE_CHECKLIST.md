@@ -1,4 +1,10 @@
-# Release checklist — 1.5.1
+# Release checklist — 1.5.2
+
+## 1.5.2
+
+- [x] Traced the post-build function crash into PostgreSQL DDL row handling.
+- [x] Made the PostgreSQL row factory accept commands without result columns.
+- [x] Full release suite, version commit, tag, and GitHub push completed.
 
 ## 1.5.1
 

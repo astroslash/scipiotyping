@@ -5,7 +5,7 @@ import pytest
 from flask import Flask
 
 from scipiotyping import _validate_hosted_config, create_app
-from scipiotyping.db import HybridRow, PostgresConnection, get_db
+from scipiotyping.db import HybridRow, PostgresConnection, _hybrid_row_factory, get_db
 
 
 def hosted_app(tmp_path):
@@ -90,6 +90,13 @@ def test_postgres_compatibility_helpers():
     assert row[0] == row["id"] == 7 and dict(row)["name"] == "Kenneth"
     assert PostgresConnection._sql("SELECT * FROM profiles WHERE id=?") == \
         "SELECT * FROM profiles WHERE id=%s"
+
+    class CommandCursor:
+        description = None
+
+    # PostgreSQL DDL such as CREATE TABLE has no result columns. Startup must
+    # still be able to construct the cursor without crashing the row factory.
+    assert dict(_hybrid_row_factory(CommandCursor())(())) == {}
 
 
 def test_hosted_startup_rejects_missing_or_weak_secrets():

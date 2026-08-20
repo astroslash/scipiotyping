@@ -7,7 +7,7 @@ import time
 from pathlib import Path
 
 from selenium import webdriver
-from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from waitress.server import create_server
@@ -18,7 +18,7 @@ from scipiotyping import create_app
 def main_contains(page, text: str) -> bool:
     try:
         return text.casefold() in page.find_element(By.TAG_NAME, "main").text.casefold()
-    except StaleElementReferenceException:
+    except WebDriverException:
         return False
 
 
