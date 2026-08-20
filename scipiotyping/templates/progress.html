@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Progress · ScipioTyping{% endblock %}
 {% block content %}
+{% if guest_mode %}<p class="notice"><strong>Guest mode does not save progress.</strong> Choose Kenneth, William, or Alice to build a practice history.</p>{% endif %}
 <div class="page-heading"><p class="eyebrow">{{ profile.name }}’s record</p><h1>Progress</h1><button class="text-button no-print" onclick="window.print()">Print report</button></div>
 <div class="stat-grid"><article><strong>{{ '%.1f'|format(best.best_wpm) }}</strong><span>best adjusted WPM</span></article><article><strong>{{ '%.1f'|format(best.best_accuracy) }}%</strong><span>best accuracy</span></article><article><strong>{{ streak }}</strong><span>day streak</span></article><article><strong>{{ '%.0f'|format(best.minutes) }}</strong><span>minutes practiced</span></article></div>
 {% if chart %}<section class="panel"><h2>Recent WPM</h2><div class="bar-chart" role="img" aria-label="Recent net words per minute: {% for point in chart %}{{ point.date }} {{ point.wpm|round(1) }} WPM; {% endfor %}">{% for point in chart %}<div class="bar-column"><div class="bar" style="height:{{ [point.wpm * 3, 8]|max }}px"><span>{{ point.wpm|round|int }}</span></div><small>{{ point.date[5:] }}</small></div>{% endfor %}</div></section>{% endif %}

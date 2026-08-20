@@ -247,9 +247,10 @@
       if (window.ScipioDaily) window.ScipioDaily.setAbsolute(score.daily.active_seconds);
       results.replaceChildren();
       addText('h2', 'Expedition complete');
+      if (score.tracked === false) addText('p', 'Guest result: this score and practice activity were not saved.', 'notice');
       addText('p', `Raw speed: ${score.gross_wpm} WPM · Adjusted speed: ${score.adjusted_wpm} WPM · Accuracy: ${score.accuracy}%`);
       addText('p', `Corrected errors: ${score.corrected_errors} · Remaining errors: ${score.errors} (${score.substitutions} substitutions, ${score.insertions} insertions, ${score.deletions} deletions, ${score.transpositions} transpositions)`);
-      addText('p', `You practiced for ${window.ScipioDaily ? window.ScipioDaily.format(score.session_seconds) : Math.round(score.session_seconds) + ' seconds'} this session. Today: ${window.ScipioDaily ? window.ScipioDaily.format(score.daily.active_seconds) : Math.round(score.daily.active_seconds) + ' seconds'} of your ${window.ScipioDaily ? window.ScipioDaily.format(score.daily.goal_seconds) : Math.round(score.daily.goal_seconds / 60) + ' minute'} goal.${score.daily.goal_reached ? ' Daily goal reached!' : ''}`);
+      if (score.tracked !== false) addText('p', `You practiced for ${window.ScipioDaily ? window.ScipioDaily.format(score.session_seconds) : Math.round(score.session_seconds) + ' seconds'} this session. Today: ${window.ScipioDaily ? window.ScipioDaily.format(score.daily.active_seconds) : Math.round(score.daily.active_seconds) + ' seconds'} of your ${window.ScipioDaily ? window.ScipioDaily.format(score.daily.goal_seconds) : Math.round(score.daily.goal_seconds / 60) + ' minute'} goal.${score.daily.goal_reached ? ' Daily goal reached!' : ''}`);
       if (score.focus_feedback.length) {
         addText('h3', 'Focus-key results');
         score.focus_feedback.forEach(item => {

@@ -5,6 +5,7 @@
   <p class="eyebrow">Salve, {{ profile.name }}</p>
   <h1 class="hero-title"><span>Train your hands.</span><em>Explore great ideas.</em></h1>
   <p>Build speed and accuracy through history, mythology, chess, poetry, and mathematics.</p>
+  {% if guest_mode %}<p class="notice"><strong>Guest practice:</strong> scores appear after each exercise, but no results or activity are saved.</p>{% endif %}
   <a class="button" href="{{ url_for('main.library') }}">Choose a passage</a>
   <a class="button secondary" href="{{ url_for('main.lessons') }}">Follow a lesson</a>
   {% if focus %}<a class="button secondary" href="{{ url_for('main.targeted_practice') }}">Practice weak keys</a>{% endif %}
@@ -17,5 +18,5 @@
 </section>
 <section class="callout"><p class="eyebrow">Recommended next</p><h2>{{ suggestion.title }}</h2><p>{{ reason }}</p><a class="button" href="{{ url_for('main.practice', passage_id=suggestion.id) }}">Practice this passage</a></section>
 {% if focus %}<section class="callout"><p class="eyebrow">Focused training</p><h2>Strengthen {% for item in focus %}{{ item.label }}{% if not loop.last %}, {% endif %}{% endfor %}</h2><p>A private drill can concentrate on the keys that need the most recent practice.</p><a class="button" href="{{ url_for('main.targeted_practice') }}">Start weak-key workshop</a></section>{% endif %}
-<section class="callout"><h2>Today’s campaign</h2><p>Aim for {{ profile.daily_goal_minutes }} careful minutes. Your current streak is {{ streak }} day{% if streak != 1 %}s{% endif %}. Accuracy builds speed.</p></section>
+{% if not guest_mode %}<section class="callout"><h2>Today’s campaign</h2><p>Aim for {{ profile.daily_goal_minutes }} careful minutes. Your current streak is {{ streak }} day{% if streak != 1 %}s{% endif %}. Accuracy builds speed.</p></section>{% endif %}
 {% endblock %}

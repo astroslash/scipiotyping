@@ -1,3 +1,23 @@
 {% extends 'base.html' %}
 {% block title %}Help · ScipioTyping{% endblock %}
-{% block content %}<div class="page-heading"><p class="eyebrow">Field guide</p><h1>Help</h1></div><section class="prose"><h2>How to practice</h2><p>Choose a passage, place your fingers comfortably, and begin. Look at the passage rather than your hands. Slow down when accuracy falls.</p>{% if hosted_mode %}<h2>Choose a learner</h2><p>Choose your own profile and enter its PIN. Parents use a separate password for settings, backups, and profile management.</p>{% endif %}<h2>Daily practice time</h2><p>The header always shows active typing today against your daily goal. Time begins with the first typed character, pauses after 15 seconds without typing, and is saved periodically even if an exercise is left unfinished. Each profile has a separate total, and the meter resets at local midnight.</p><h2>Scores</h2><p>Raw WPM counts every five typed characters as one word. Adjusted WPM counts only characters that align correctly with the passage. Accuracy uses aligned matches, substitutions, insertions, deletions, and reversed pairs, so one missing letter or space does not make the rest of the passage wrong.</p><h2>Weak-key workshops</h2><p>The Progress keyboard compares each key across your last 10 completed attempts. After a key has appeared at least 10 times, ScipioTyping can recommend a private focused drill. Keys become mastered after at least 30 recent uses, 97% accuracy, and no more than two errors. Workshops are assembled privately and never shared with advertisers.</p><h2>Finishing</h2><p>ScipioTyping detects when the ending has been reached, even if an earlier character was missed. A Finish and score button appears after most of the passage has been typed as a fallback.</p><h2>Troubleshooting</h2><p>{% if hosted_mode %}If the app does not open, try reloading it and check the Vercel deployment status. Your progress remains in the hosted database.{% else %}If the page does not open, confirm the ScipioTyping PowerShell window is still running. Your progress remains in the local database after the browser closes.{% endif %}</p></section>{% endblock %}
+{% block content %}
+<div class="page-heading"><p class="eyebrow">Field guide</p><h1>Help</h1></div>
+<section class="prose">
+  <h2>How to practice</h2>
+  <p>Choose a passage, place your fingers comfortably, and begin. Look at the passage rather than your hands. Slow down when accuracy falls.</p>
+  {% if hosted_mode %}
+  <h2>Choose a learner</h2>
+  <p>Choose your own profile and enter its PIN. Parents use a separate password for settings, backups, and profile management. Guest can complete and score exercises, but its results and activity are never saved.</p>
+  {% endif %}
+  <h2>Daily practice time</h2>
+  <p>The header always shows active typing today against your daily goal. Time begins with the first typed character, pauses after 15 seconds without typing, and is saved periodically even if an exercise is left unfinished. Each saved profile has a separate total, and the meter resets at local midnight. Guest activity is not recorded.</p>
+  <h2>Scores</h2>
+  <p>Raw WPM counts every five typed characters as one word. Adjusted WPM counts only characters that align correctly with the passage. Accuracy uses aligned matches, substitutions, insertions, deletions, and reversed pairs, so one missing letter or space does not make the rest of the passage wrong.</p>
+  <h2>Weak-key workshops</h2>
+  <p>The Progress keyboard compares each key across your last 10 completed attempts. After a key has appeared at least 10 times, ScipioTyping can recommend a private focused drill. Keys become mastered after at least 30 recent uses, 97% accuracy, and no more than two errors. Workshops are assembled privately and never shared with advertisers.</p>
+  <h2>Finishing</h2>
+  <p>ScipioTyping detects when the ending has been reached, even if an earlier character was missed. A Finish and score button appears after most of the passage has been typed as a fallback.</p>
+  <h2>Troubleshooting</h2>
+  <p>{% if hosted_mode %}If the app does not open, try reloading it and check the Vercel deployment status. Your progress remains in the hosted database.{% else %}If the page does not open, confirm the ScipioTyping PowerShell window is still running. Your progress remains in the local database after the browser closes.{% endif %}</p>
+</section>
+{% endblock %}

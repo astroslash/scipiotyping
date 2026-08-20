@@ -11,7 +11,7 @@ def post_form(client, path, csrf, data=None, **kwargs):
 
 def test_health_and_primary_pages(client):
     health = client.get("/health").get_json()
-    assert health["schema"] == 8 and health["version"] == "1.6.1"
+    assert health["schema"] == 8 and health["version"] == "1.7.0"
     assert client.get("/").headers["Location"].endswith("/profiles")
     for path in ["/home", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
         response = client.get(path)
@@ -164,6 +164,17 @@ def test_three_family_profiles_are_seeded(app):
     with app.app_context():
         names = [row[0] for row in get_db().execute("SELECT name FROM profiles ORDER BY id")]
     assert names == ["Kenneth", "William", "Alice"]
+
+
+def test_guest_pin_is_available_offline_without_a_database_profile(client, csrf, app):
+    chooser = client.get("/profiles")
+    assert b"Guest" in chooser.data and b"Guest PIN" in chooser.data
+    wrong = post_form(client, "/profiles/guest/select", csrf, {"pin": "1234567"}, follow_redirects=True)
+    assert b"did not match the Guest profile" in wrong.data
+    home = post_form(client, "/profiles/guest/select", csrf, {"pin": "8675309"}, follow_redirects=True)
+    assert b"Salve, Guest" in home.data
+    with app.app_context():
+        assert get_db().execute("SELECT 1 FROM profiles WHERE name='Guest'").fetchone() is None
 
 
 def test_profile_delete_requires_confirmation(client, csrf, app):

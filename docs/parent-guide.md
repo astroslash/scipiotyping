@@ -4,6 +4,7 @@
    private family Vercel address.
 2. Kenneth, William, or Alice can choose their profile, then use **Placement**
    under Lessons or begin with any Library item. Hosted profiles require their PIN.
+   Guest can score exercises without adding any data to progress or backups.
 3. Use **Progress** for WPM, accuracy, time, streaks, achievements, and the
    keyboard heatmap. After enough practice, **Practice weak keys** opens a
    private drill assembled locally from the student's recent results.

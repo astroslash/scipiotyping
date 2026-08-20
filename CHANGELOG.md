@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.7.0 — 2026-08-20
+
+- Added a PIN-protected Guest practice option without creating a database
+  profile or saving attempts, practice time, achievements, or placement.
+- Kept exercise scoring available in Guest mode and clearly labeled results as
+  temporary throughout the interface.
+
 ## 1.6.1 — 2026-08-19
 
 - Made the public app address clear any remembered learner and open the learner

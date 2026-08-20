@@ -27,6 +27,28 @@ from .timing import daily_practice_summary, format_duration
 
 bp = Blueprint("main", __name__)
 
+GUEST_PIN = "8675309"
+GUEST_PROFILE = {
+    "id": 0,
+    "name": "Guest",
+    "daily_goal_minutes": 15,
+    "preferred_difficulty": 1,
+    "placement_level": None,
+    "placement_complete": 0,
+}
+
+
+def _guest_mode() -> bool:
+    return bool(session.get("guest_mode"))
+
+
+def _guest_daily(active_seconds: float = 0) -> dict:
+    """Return display-only timing without reading or writing learner records."""
+    active = max(0, min(14400, float(active_seconds)))
+    goal = GUEST_PROFILE["daily_goal_minutes"] * 60
+    return {"active_seconds": round(active, 1), "goal_seconds": goal,
+            "goal_reached": active >= goal}
+
 
 def _custom_passages() -> list[dict]:
     rows = get_db().execute("SELECT * FROM custom_passages ORDER BY title").fetchall()
@@ -77,6 +99,8 @@ def _combined_error_map(client_value: object, final_value: object) -> dict[str, 
 
 
 def selected_profile(required: bool = True):
+    if _guest_mode():
+        return GUEST_PROFILE.copy()
     connection = get_db()
     profile_id = session.get("profile_id")
     if current_app.config.get("HOSTED_MODE") and not session.get("profile_authenticated"):
@@ -95,10 +119,12 @@ def selected_profile(required: bool = True):
 @bp.app_context_processor
 def daily_goal_context():
     profile = selected_profile(required=False)
-    summary = (daily_practice_summary(get_db(), profile["id"], profile["daily_goal_minutes"])
+    summary = (_guest_daily() if _guest_mode() else
+               daily_practice_summary(get_db(), profile["id"], profile["daily_goal_minutes"])
                if profile else {"active_seconds": 0, "goal_seconds": 900, "goal_reached": False})
     return {"daily_practice": summary, "format_duration": format_duration,
-            "hosted_mode": current_app.config.get("HOSTED_MODE", False), "current_profile": profile}
+            "hosted_mode": current_app.config.get("HOSTED_MODE", False),
+            "current_profile": profile, "guest_mode": _guest_mode()}
 
 
 def _setting(key: str, default: str = "") -> str:
@@ -148,6 +174,7 @@ def landing():
     session.pop("profile_id", None)
     session.pop("profile_authenticated", None)
     session.pop("parent_unlocked", None)
+    session.pop("guest_mode", None)
     return redirect(url_for("main.profiles_page"))
 
 
@@ -259,6 +286,8 @@ def start_practice_session():
     if not passage or (mode == "targeted" and (not targeted or passage["id"] != targeted["id"])):
         return jsonify(error="Invalid practice session."), 400
     profile = selected_profile()
+    if _guest_mode():
+        return jsonify(id=f"guest-{secrets.token_urlsafe(18)}", daily=_guest_daily()), 201
     now = datetime.now(UTC).isoformat()
     identifier = secrets.token_urlsafe(18)
     connection = get_db()
@@ -274,12 +303,16 @@ def start_practice_session():
 def update_practice_session(session_id: str):
     data = request.get_json(silent=True) or {}
     profile = selected_profile()
-    connection = get_db()
-    row = connection.execute("SELECT * FROM practice_sessions WHERE id=? AND profile_id=?", (session_id, profile["id"])).fetchone()
     try:
         active = float(data.get("active_seconds"))
     except (TypeError, ValueError):
         return jsonify(error="Invalid active time."), 400
+    if _guest_mode():
+        if not session_id.startswith("guest-") or active < 0 or active > 14400:
+            return jsonify(error="Invalid practice session update."), 400
+        return jsonify(session_seconds=round(active, 1), daily=_guest_daily(active))
+    connection = get_db()
+    row = connection.execute("SELECT * FROM practice_sessions WHERE id=? AND profile_id=?", (session_id, profile["id"])).fetchone()
     if not row or row["completed_at"] or active < row["active_seconds"] or active > 14400:
         return jsonify(error="Invalid practice session update."), 400
     now = datetime.now(UTC)
@@ -313,8 +346,22 @@ def save_attempt():
         score = score_text(passage["text"], typed, duration)
     except (TypeError, ValueError):
         return jsonify(error="Invalid attempt data."), 400
-    profile = selected_profile(); now = datetime.now(UTC); connection = get_db()
+    profile = selected_profile()
     practice_session_id = data.get("practice_session_id")
+    mode = data.get("mode") if data.get("mode") in {"practice", "lesson", "placement", "targeted"} else "practice"
+    if _guest_mode():
+        if practice_session_id and not str(practice_session_id).startswith("guest-"):
+            return jsonify(error="Invalid practice session."), 400
+        if mode == "targeted":
+            return jsonify(error="Guest practice does not create targeted drills."), 400
+        if mode == "placement" and score["completed"]:
+            score["placement_level"] = placement_level(score["net_wpm"], score["accuracy"])
+        return jsonify(
+            id=None, tracked=False, corrected_errors=corrected_errors,
+            session_seconds=round(duration, 1), daily=_guest_daily(duration),
+            achievements=[], focus_feedback=[], **score,
+        )
+    now = datetime.now(UTC); connection = get_db()
     practice_session = None
     if practice_session_id:
         practice_session = connection.execute(
@@ -323,7 +370,6 @@ def save_attempt():
         ).fetchone()
         if practice_session is None or practice_session["completed_at"]:
             return jsonify(error="Invalid practice session."), 400
-    mode = data.get("mode") if data.get("mode") in {"practice", "lesson", "placement", "targeted"} else "practice"
     if practice_session and practice_session["mode"] != mode:
         return jsonify(error="Practice session mode does not match."), 400
     if mode == "targeted" and (not targeted or passage["id"] != targeted["id"]):
@@ -389,7 +435,7 @@ def save_attempt():
                                "change": round(recent_accuracy - baseline, 1) if baseline is not None and recent_accuracy is not None else None,
                                **stats})
     daily = daily_practice_summary(connection, profile["id"], profile["daily_goal_minutes"])
-    return jsonify(id=attempt_id, corrected_errors=corrected_errors,
+    return jsonify(id=attempt_id, tracked=True, corrected_errors=corrected_errors,
                    session_seconds=round(duration, 1), daily=daily,
                    achievements=[ACHIEVEMENTS[c][0] for c in new_awards], focus_feedback=focus_feedback, **score), 201
 
@@ -430,6 +476,7 @@ def profiles_page():
         "profiles.html",
         profiles=get_db().execute("SELECT * FROM profiles WHERE active=1 ORDER BY name").fetchall(),
         selected=(selected_profile(required=False) if session.get("profile_id") else None),
+        guest_selected=_guest_mode(),
     )
 
 
@@ -447,12 +494,30 @@ def select_profile(profile_id: int):
             return redirect(url_for("main.profiles_page"))
         session["profile_authenticated"] = True
         session.pop("parent_unlocked", None)
+    session.pop("guest_mode", None)
     session["profile_id"] = profile_id
+    return redirect(url_for("main.index"))
+
+
+@bp.post("/profiles/guest/select")
+def select_guest():
+    if not hmac.compare_digest(request.form.get("pin", ""), GUEST_PIN):
+        flash("That PIN did not match the Guest profile.", "error")
+        return redirect(url_for("main.profiles_page"))
+    csrf = session.get("csrf_token")
+    session.clear()
+    session["csrf_token"] = csrf or secrets.token_urlsafe(24)
+    session["guest_mode"] = True
+    if current_app.config.get("HOSTED_MODE"):
+        session["profile_authenticated"] = True
     return redirect(url_for("main.index"))
 
 
 @bp.route("/parent", methods=["GET", "POST"])
 def parent():
+    if _guest_mode():
+        flash("Choose a saved learner before opening Parent tools.", "error")
+        return redirect(url_for("main.profiles_page"))
     if not _parent_unlocked(): return render_template("parent_unlock.html")
     profile = selected_profile(); connection = get_db()
     if request.method == "POST":
@@ -467,6 +532,8 @@ def parent():
 
 @bp.post("/parent/unlock")
 def parent_unlock():
+    if _guest_mode():
+        abort(403)
     if current_app.config.get("HOSTED_MODE"):
         matched = hmac.compare_digest(
             request.form.get("password", ""), current_app.config["PARENT_PASSWORD"]

@@ -13,6 +13,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from waitress.server import create_server
 
 from scipiotyping import create_app
+from scipiotyping.db import get_db
+from scipiotyping.lessons import DRILL_TEXTS
 
 
 def main_contains(page, text: str) -> bool:
@@ -86,6 +88,23 @@ def main() -> None:
             WebDriverWait(driver, 10).until(lambda page: page.current_url.endswith("/profiles"))
             chooser = driver.find_element(By.TAG_NAME, "main").text
             assert "Welcome to ScipioTyping" in chooser and "Current profile" not in chooser
+            guest_form = driver.find_element(By.CSS_SELECTOR, "form[action$='/profiles/guest/select']")
+            guest_form.find_element(By.NAME, "pin").send_keys("8675309")
+            guest_form.find_element(By.TAG_NAME, "button").click()
+            WebDriverWait(driver, 10).until(lambda page: main_contains(page, "Salve, Guest"))
+            assert main_contains(driver, "no results or activity are saved")
+            assert not driver.find_elements(By.ID, "daily-goal")
+
+            driver.get("http://127.0.0.1:5002/practice/drill-home-row?mode=lesson&lesson=home-row")
+            field = driver.find_element(By.ID, "typing-input")
+            field.send_keys(DRILL_TEXTS["home-row"][0])
+            time.sleep(0.6)
+            field.send_keys(DRILL_TEXTS["home-row"][1:])
+            WebDriverWait(driver, 10).until(lambda page: page.find_element(By.ID, "results").is_displayed())
+            assert "not saved" in driver.find_element(By.ID, "results").text.lower()
+            with app.app_context():
+                assert get_db().execute("SELECT COUNT(*) FROM attempts").fetchone()[0] == 0
+                assert get_db().execute("SELECT COUNT(*) FROM practice_sessions").fetchone()[0] == 0
             errors = [entry for entry in driver.get_log("browser") if entry["level"] in {"SEVERE", "ERROR"}]
             assert not errors, errors
             print("Microsoft Edge hosted-access check passed.")

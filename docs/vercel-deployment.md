@@ -37,7 +37,7 @@ Deploy.
 
 `api/index.py` is the serverless WSGI entry point. Vercel's native Flask routing
 sends each original URL to it without a catch-all rewrite. A successful
-deployment's `/health` endpoint reports version `1.6.1` (or later) and schema `8`.
+deployment's `/health` endpoint reports version `1.7.0` (or later) and schema `8`.
 
 ## 4. Copy existing local progress once
 
@@ -63,8 +63,9 @@ Remove the temporary environment values by closing that PowerShell window.
 ## 5. Verify and operate
 
 Visit the Vercel URL in a private browser window. Confirm the welcome screen,
-all three learner PINs, the separate Parent password, Kenneth's historical
-results, and one new completed lesson. Download an occasional hosted JSON archive
+all three saved-learner PINs, Guest PIN `8675309`, the separate Parent password,
+Kenneth's historical results, and one new completed lesson. Confirm a Guest
+exercise is scored and labeled as not saved. Download an occasional hosted JSON archive
 from Parent. Use the database provider's restore/snapshot tools for a full cloud
 restore. The local shortcut continues to work offline against the original
 SQLite database.

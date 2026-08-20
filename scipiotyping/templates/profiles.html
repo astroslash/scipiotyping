@@ -4,7 +4,7 @@
 <div class="page-heading">
   <p class="eyebrow">{% if hosted_mode %}Family learners{% else %}Local learners{% endif %}</p>
   <h1>{% if hosted_mode %}Welcome to ScipioTyping{% else %}Who is practicing?{% endif %}</h1>
-  {% if hosted_mode %}<p>Who is practicing? Each learner has a private PIN so progress stays with the right person.</p>{% endif %}
+  {% if hosted_mode %}<p>Who is practicing? Saved learners have private PINs; Guest practice is never recorded.</p>{% endif %}
 </div>
 {% for category, message in get_flashed_messages(with_categories=true) %}<p class="notice {{ category }}" role="status">{{ message }}</p>{% endfor %}
 <div class="card-grid">
@@ -27,6 +27,21 @@
     {% endif %}
   </article>
   {% endfor %}
+  <article class="passage-card">
+    <h2>Guest</h2>
+    <p>Practice and receive a score without saving progress or activity.</p>
+    {% if guest_selected %}
+      <strong>Current profile</strong>
+    {% else %}
+      <form method="post" action="{{ url_for('main.select_guest') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label>Guest PIN
+          <input type="password" inputmode="numeric" pattern="[0-9]{7}" name="pin" autocomplete="current-password" required>
+        </label>
+        <button class="button">Unlock Guest</button>
+      </form>
+    {% endif %}
+  </article>
 </div>
 {% if hosted_mode %}
 <form class="section-action" method="post" action="{{ url_for('main.profile_logout') }}">

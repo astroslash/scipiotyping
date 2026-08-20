@@ -1,4 +1,10 @@
-# Release checklist — 1.6.1
+# Release checklist — 1.7.0
+
+## 1.7.0
+
+- [x] Added the hardcoded Guest PIN and a session-only Guest learner.
+- [x] Confirmed Guest scoring writes no profile, attempt, time, or achievement data.
+- [x] Full release suite, browser checks, commit, tag, and GitHub push completed.
 
 ## 1.6.1
 

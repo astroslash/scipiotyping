@@ -6,6 +6,8 @@ from flask import Flask
 
 from scipiotyping import _prepare_instance_path, _validate_hosted_config, create_app
 from scipiotyping.db import HybridRow, PostgresConnection, _hybrid_row_factory, get_db
+from scipiotyping.lessons import DRILL_TEXTS
+from scipiotyping.routes import GUEST_PIN
 
 
 def hosted_app(tmp_path):
@@ -82,6 +84,55 @@ def test_hosted_profile_creation_requires_pin(tmp_path):
     post(client, "/parent/profiles", csrf, {"name": "Cousin", "pin": "4444"})
     with app.app_context():
         assert get_db().execute("SELECT pin_hash FROM profiles WHERE name='Cousin'").fetchone()[0]
+
+
+def test_guest_pin_scores_without_storing_any_activity(tmp_path):
+    app = hosted_app(tmp_path)
+    client = app.test_client()
+    profiles = client.get("/profiles")
+    csrf = csrf_from(profiles)
+    assert GUEST_PIN == "8675309" and b"Guest" in profiles.data
+    wrong = post(client, "/profiles/guest/select", csrf, {"pin": "1111111"}, follow_redirects=True)
+    assert b"did not match the Guest profile" in wrong.data
+    home = post(client, "/profiles/guest/select", csrf, {"pin": GUEST_PIN}, follow_redirects=True)
+    assert b"Salve, Guest" in home.data and b"results or activity are saved" in home.data
+
+    started = client.post(
+        "/api/practice-sessions", headers={"X-CSRF-Token": csrf},
+        json={"passage_id": "drill-home-row", "mode": "lesson"},
+    )
+    assert started.status_code == 201 and started.get_json()["id"].startswith("guest-")
+    heartbeat = client.patch(
+        f"/api/practice-sessions/{started.get_json()['id']}",
+        headers={"X-CSRF-Token": csrf}, json={"active_seconds": 10},
+    )
+    assert heartbeat.status_code == 200 and heartbeat.get_json()["session_seconds"] == 10
+    result = client.post(
+        "/api/attempts", headers={"X-CSRF-Token": csrf},
+        json={"passage_id": "drill-home-row", "mode": "lesson",
+              "duration_seconds": 60, "typed_text": DRILL_TEXTS["home-row"],
+              "practice_session_id": started.get_json()["id"]},
+    )
+    payload = result.get_json()
+    assert result.status_code == 200 and payload["tracked"] is False
+    assert payload["id"] is None and payload["accuracy"] == 100
+    placement = client.post(
+        "/api/attempts", headers={"X-CSRF-Token": csrf},
+        json={"passage_id": "drill-home-row", "mode": "placement",
+              "duration_seconds": 60, "typed_text": DRILL_TEXTS["home-row"]},
+    ).get_json()
+    assert placement["tracked"] is False and placement["placement_level"] in range(1, 6)
+    with app.app_context():
+        connection = get_db()
+        assert connection.execute("SELECT COUNT(*) FROM profiles").fetchone()[0] == 3
+        assert connection.execute("SELECT COUNT(*) FROM attempts").fetchone()[0] == 0
+        assert connection.execute("SELECT COUNT(*) FROM practice_sessions").fetchone()[0] == 0
+        assert connection.execute("SELECT COUNT(*) FROM achievements").fetchone()[0] == 0
+    parent = client.get("/parent", follow_redirects=True)
+    assert parent.request.path == "/profiles" and b"saved learner" in parent.data
+    reopened = client.get("/", follow_redirects=True)
+    assert b"Current profile" not in reopened.data
+    assert client.get("/home").headers["Location"].endswith("/profiles")
 
 
 def test_postgres_compatibility_helpers():

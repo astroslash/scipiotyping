@@ -5,6 +5,9 @@ Alice. It runs in a browser with no advertisements, analytics, CDN, or paid
 subscription. Local mode stores progress in SQLite; hosted mode uses PostgreSQL
 so the family can share one private Vercel deployment.
 
+A PIN-protected Guest option scores exercises without storing attempts,
+practice time, achievements, or a database profile.
+
 ## Start on Windows
 
 Right-click `start-scipiotyping.ps1` and choose **Run with PowerShell**, or open
