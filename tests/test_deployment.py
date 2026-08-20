@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 import tomllib
 
@@ -6,9 +5,10 @@ import tomllib
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_vercel_entry_and_rewrite_are_present():
-    configuration = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
-    assert configuration["rewrites"] == [{"source": "/(.*)", "destination": "/api/index"}]
+def test_vercel_uses_native_flask_routing_without_a_path_destroying_rewrite():
+    assert not (ROOT / "vercel.json").exists()
+    configuration = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    assert configuration["tool"]["vercel"]["entrypoint"] == "api.index:app"
     entry = (ROOT / "api" / "index.py").read_text(encoding="utf-8")
     assert "app = create_app()" in entry
 

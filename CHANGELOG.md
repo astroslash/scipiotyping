@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.4 — 2026-08-19
+
+- Removed the obsolete catch-all Vercel rewrite that changed every incoming
+  Flask path to `/api/index` and caused `/access` to redirect to itself.
+- Declared the WSGI entry point through Vercel's native Flask configuration so
+  `/access`, `/health`, and all application routes preserve their original paths.
+
 ## 1.5.3 — 2026-08-19
 
 - Stopped hosted startup from creating the offline SQLite instance directory on

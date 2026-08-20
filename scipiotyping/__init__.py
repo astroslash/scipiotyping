@@ -8,7 +8,7 @@ from pathlib import Path
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-__version__ = "1.5.3"
+__version__ = "1.5.4"
 
 from . import db
 from .content import content_report_command, load_passages, validate_content_command

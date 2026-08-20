@@ -1,4 +1,10 @@
-# Release checklist — 1.5.3
+# Release checklist — 1.5.4
+
+## 1.5.4
+
+- [x] Reproduced the redirect loop against `/access` and `/health` in production.
+- [x] Removed the path-destroying catch-all rewrite and selected native Flask routing.
+- [x] Full release suite, wheel inspection, commit, tag, and GitHub push completed.
 
 ## 1.5.3
 
