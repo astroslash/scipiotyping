@@ -48,6 +48,9 @@ def test_hosted_learner_access(tmp_path):
     assert b"Salve, Kenneth" in home.data
     switch = post(client, "/profiles/2/select", csrf, {"pin": "2222"}, follow_redirects=True)
     assert b"Salve, William" in switch.data
+    reopened = client.get("/", follow_redirects=True)
+    assert reopened.request.path == "/profiles" and b"Current profile" not in reopened.data
+    assert client.get("/home").headers["Location"].endswith("/profiles")
 
 
 def test_hosted_parent_password_and_json_backup(tmp_path):

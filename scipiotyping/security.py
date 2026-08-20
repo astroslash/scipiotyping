@@ -25,7 +25,7 @@ def require_hosted_access():
         return None
     endpoint = request.endpoint or ""
     profile_public = {
-        "static", "main.health", "main.legacy_access_redirect", "main.profiles_page",
+        "static", "main.health", "main.landing", "main.legacy_access_redirect", "main.profiles_page",
         "main.select_profile", "main.profile_logout",
         "main.help_page",
     }

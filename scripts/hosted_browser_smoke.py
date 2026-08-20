@@ -82,6 +82,10 @@ def main() -> None:
             dashboard = driver.find_element(By.TAG_NAME, "main").text.lower()
             assert "private hosted database" in dashboard and "new learner pin" in dashboard
             assert driver.execute_script("return document.documentElement.scrollWidth <= window.innerWidth")
+            driver.get("http://127.0.0.1:5002/")
+            WebDriverWait(driver, 10).until(lambda page: page.current_url.endswith("/profiles"))
+            chooser = driver.find_element(By.TAG_NAME, "main").text
+            assert "Welcome to ScipioTyping" in chooser and "Current profile" not in chooser
             errors = [entry for entry in driver.get_log("browser") if entry["level"] in {"SEVERE", "ERROR"}]
             assert not errors, errors
             print("Microsoft Edge hosted-access check passed.")

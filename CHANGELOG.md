@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.6.1 — 2026-08-19
+
+- Made the public app address clear any remembered learner and open the learner
+  chooser every time, while keeping ordinary in-app Home navigation signed in.
+
 ## 1.6.0 — 2026-08-19
 
 - Removed the shared family password so hosted visitors arrive directly at the

@@ -143,6 +143,15 @@ def profile_logout():
 
 
 @bp.get("/")
+def landing():
+    """Start every new visit at an unselected learner chooser."""
+    session.pop("profile_id", None)
+    session.pop("profile_authenticated", None)
+    session.pop("parent_unlocked", None)
+    return redirect(url_for("main.profiles_page"))
+
+
+@bp.get("/home")
 def index():
     profile = selected_profile()
     rows = get_db().execute("SELECT * FROM attempts WHERE profile_id=? ORDER BY completed_at DESC", (profile["id"],)).fetchall()
@@ -420,7 +429,7 @@ def profiles_page():
     return render_template(
         "profiles.html",
         profiles=get_db().execute("SELECT * FROM profiles WHERE active=1 ORDER BY name").fetchall(),
-        selected=selected_profile(required=False),
+        selected=(selected_profile(required=False) if session.get("profile_id") else None),
     )
 
 

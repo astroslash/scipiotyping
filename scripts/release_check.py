@@ -22,7 +22,7 @@ def main() -> None:
         assert set(manifest["legacy_ids"]).issubset({item["id"] for item in items})
         assert (root / "docs" / "content-inventory.md").read_text(encoding="utf-8") == render_inventory(items)
         with app.test_client() as client:
-            for route in ("/", "/health", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help"):
+            for route in ("/home", "/health", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help"):
                 response = client.get(route)
                 assert response.status_code == 200, f"{route}: {response.status_code}"
         with app.app_context():

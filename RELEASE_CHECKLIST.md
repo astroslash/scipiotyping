@@ -1,4 +1,10 @@
-# Release checklist — 1.6.0
+# Release checklist — 1.6.1
+
+## 1.6.1
+
+- [x] Made every visit to the public root URL start with no selected learner.
+- [x] Kept the signed-in learner dashboard at a separate in-app Home URL.
+- [x] Full release suite, browser checks, commit, tag, and GitHub push completed.
 
 ## 1.6.0
 

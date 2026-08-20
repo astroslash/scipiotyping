@@ -11,8 +11,9 @@ def post_form(client, path, csrf, data=None, **kwargs):
 
 def test_health_and_primary_pages(client):
     health = client.get("/health").get_json()
-    assert health["schema"] == 8 and health["version"] == "1.6.0"
-    for path in ["/", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
+    assert health["schema"] == 8 and health["version"] == "1.6.1"
+    assert client.get("/").headers["Location"].endswith("/profiles")
+    for path in ["/home", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
         response = client.get(path)
         assert response.status_code == 200
         assert b'id="daily-goal"' in response.data
@@ -96,7 +97,7 @@ def test_practice_session_heartbeats_are_idempotent_and_profile_owned(client, cs
         alex = get_db().execute("SELECT id FROM profiles WHERE name='Alex'").fetchone()[0]
     post_form(client, f"/profiles/{alex}/select", csrf)
     assert client.patch(f"/api/practice-sessions/{session_id}", headers=headers, json={"active_seconds": .2}).status_code == 400
-    assert b'data-base-seconds="0.0"' in client.get("/").data
+    assert b'data-base-seconds="0.0"' in client.get("/home").data
 
 
 def test_attempt_with_substitution_completes_and_is_adjusted(client, csrf, app):
@@ -153,7 +154,10 @@ def test_profile_create_and_select(client, csrf, app):
     assert response.status_code==302
     with app.app_context(): profile=get_db().execute("SELECT * FROM profiles WHERE name='Alex'").fetchone()
     assert post_form(client,f"/profiles/{profile['id']}/select",csrf).status_code==302
-    assert b"Salve, Alex" in client.get("/").data
+    assert b"Salve, Alex" in client.get("/home").data
+    chooser = client.get("/", follow_redirects=True)
+    assert chooser.request.path == "/profiles"
+    assert b"Who is practicing?" in chooser.data and b"Current profile" not in chooser.data
 
 
 def test_three_family_profiles_are_seeded(app):

@@ -15,7 +15,8 @@ PowerShell in this folder and run:
 ```
 
 The first run creates `.venv` and installs the required Python packages.
-Later launches work offline. The browser opens to `http://127.0.0.1:5000`.
+Later launches work offline. The browser opens to the learner chooser at
+`http://127.0.0.1:5000`.
 Leave the PowerShell window open while using the app; press `Ctrl+C` there to
 stop it.
 

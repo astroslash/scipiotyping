@@ -19,6 +19,5 @@ def client(app):
 
 @pytest.fixture()
 def csrf(client):
-    response = client.get("/")
+    response = client.get("/profiles")
     return re.search(rb'name="csrf-token" content="([^"]+)"', response.data).group(1).decode()
-

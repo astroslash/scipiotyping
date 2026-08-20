@@ -37,7 +37,7 @@ Deploy.
 
 `api/index.py` is the serverless WSGI entry point. Vercel's native Flask routing
 sends each original URL to it without a catch-all rewrite. A successful
-deployment's `/health` endpoint reports version `1.6.0` (or later) and schema `8`.
+deployment's `/health` endpoint reports version `1.6.1` (or later) and schema `8`.
 
 ## 4. Copy existing local progress once
 
