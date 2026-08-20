@@ -4,7 +4,7 @@ import re
 import pytest
 from flask import Flask
 
-from scipiotyping import _validate_hosted_config, create_app
+from scipiotyping import _prepare_instance_path, _validate_hosted_config, create_app
 from scipiotyping.db import HybridRow, PostgresConnection, _hybrid_row_factory, get_db
 
 
@@ -120,3 +120,11 @@ def test_hosted_startup_rejects_missing_or_weak_secrets():
     app.config["SEED_PROFILE_PINS"]["Alice"] = "2222"
     with pytest.raises(RuntimeError, match="distinct"):
         _validate_hosted_config(app)
+
+
+def test_hosted_startup_does_not_create_local_instance_directory(tmp_path):
+    instance = tmp_path / "read-only-deployment" / "instance"
+    _prepare_instance_path(str(instance), hosted=True)
+    assert not instance.exists()
+    _prepare_instance_path(str(instance), hosted=False)
+    assert instance.is_dir()

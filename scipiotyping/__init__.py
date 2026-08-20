@@ -8,7 +8,7 @@ from pathlib import Path
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-__version__ = "1.5.2"
+__version__ = "1.5.3"
 
 from . import db
 from .content import content_report_command, load_passages, validate_content_command
@@ -47,12 +47,18 @@ def _validate_hosted_config(app: Flask) -> None:
         raise RuntimeError("Kenneth, William, and Alice each require a distinct 4–10 digit PIN.")
 
 
+def _prepare_instance_path(instance_path: str, hosted: bool) -> None:
+    """Create local storage only where the filesystem is persistent and writable."""
+    if not hosted:
+        Path(instance_path).mkdir(parents=True, exist_ok=True)
+
+
 def create_app(test_config: dict | None = None) -> Flask:
     app = Flask(__name__, instance_relative_config=True)
-    Path(app.instance_path).mkdir(parents=True, exist_ok=True)
-    secret_file = Path(app.instance_path) / ".secret_key"
     database_url = os.environ.get("DATABASE_URL", "")
     hosted_environment = bool(database_url or os.environ.get("VERCEL"))
+    _prepare_instance_path(app.instance_path, hosted_environment)
+    secret_file = Path(app.instance_path) / ".secret_key"
     if not os.environ.get("SECRET_KEY") and not test_config and not hosted_environment:
         if not secret_file.exists():
             secret_file.write_text(secrets.token_hex(32), encoding="ascii")

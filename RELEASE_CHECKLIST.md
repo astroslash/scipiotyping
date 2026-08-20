@@ -1,4 +1,10 @@
-# Release checklist — 1.5.2
+# Release checklist — 1.5.3
+
+## 1.5.3
+
+- [x] Identified the read-only `/var/task/instance` failure from Vercel logs.
+- [x] Restricted instance-directory creation to persistent local mode.
+- [x] Full release suite, wheel inspection, commit, tag, and GitHub push completed.
 
 ## 1.5.2
 

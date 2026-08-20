@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.3 — 2026-08-19
+
+- Stopped hosted startup from creating the offline SQLite instance directory on
+  Vercel's read-only `/var/task` filesystem.
+- Kept local directory and secret-file creation unchanged for offline Windows use.
+
 ## 1.5.2 — 2026-08-19
 
 - Fixed PostgreSQL startup when schema-creation commands return no result-column
