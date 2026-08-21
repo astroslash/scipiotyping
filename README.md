@@ -8,6 +8,11 @@ so the family can share one private Vercel deployment.
 A PIN-protected Guest option scores exercises without storing attempts,
 practice time, achievements, or a database profile.
 
+Each saved learner is assigned to Elementary or Middle School. Emily receives
+the 30 Grade 3 passages and six young-typist lessons; Kenneth, William, Alice,
+and Guest receive the 120 more advanced passages and the core keyboard path.
+Parents choose the school level when creating a profile and can change it later.
+
 ## Start on Windows
 
 Right-click `start-scipiotyping.ps1` and choose **Run with PowerShell**, or open
@@ -56,3 +61,5 @@ deployment guide](docs/vercel-deployment.md), [Parent guide](docs/parent-guide.m
 The 150 built-in passages are organized into thirteen subjects under
 `content/passages` and remain available offline. The Library can filter
 completed or unpracticed passages, sort the collection, and page through it.
+School-level filtering is enforced in the Library, lessons, recommendations,
+direct practice links, and scoring endpoints.

@@ -11,7 +11,7 @@ import click
 from flask import current_app, g
 from werkzeug.security import check_password_hash, generate_password_hash
 
-SCHEMA_VERSION = 8
+SCHEMA_VERSION = 9
 SEEDED_PROFILES = ("Kenneth", "William", "Alice", "Emily")
 
 SCHEMA_V1 = """
@@ -49,7 +49,8 @@ POSTGRES_SCHEMA = (
       placement_level INTEGER,
       placement_complete INTEGER NOT NULL DEFAULT 0,
       active INTEGER NOT NULL DEFAULT 1,
-      pin_hash TEXT
+      pin_hash TEXT,
+      school_level TEXT NOT NULL DEFAULT 'middle'
     )""",
     """CREATE TABLE IF NOT EXISTS attempts (
       id BIGSERIAL PRIMARY KEY,
@@ -79,7 +80,8 @@ POSTGRES_SCHEMA = (
       category TEXT NOT NULL, difficulty INTEGER NOT NULL CHECK(difficulty BETWEEN 1 AND 5),
       age INTEGER NOT NULL, objectives TEXT NOT NULL, context TEXT NOT NULL,
       vocabulary TEXT NOT NULL, source TEXT NOT NULL,
-      rights TEXT NOT NULL DEFAULT 'original', created_at TEXT NOT NULL
+      rights TEXT NOT NULL DEFAULT 'original', created_at TEXT NOT NULL,
+      school_level TEXT NOT NULL DEFAULT 'middle'
     )""",
     """CREATE TABLE IF NOT EXISTS practice_sessions (
       id TEXT PRIMARY KEY,
@@ -282,6 +284,14 @@ def migrate(connection: sqlite3.Connection) -> None:
         if not _has_column(connection, "profiles", "pin_hash"):
             connection.execute("ALTER TABLE profiles ADD COLUMN pin_hash TEXT")
         connection.execute("UPDATE schema_version SET version=8")
+        version = 8
+    if version < 9:
+        if not _has_column(connection, "profiles", "school_level"):
+            connection.execute("ALTER TABLE profiles ADD COLUMN school_level TEXT NOT NULL DEFAULT 'middle'")
+        if not _has_column(connection, "custom_passages", "school_level"):
+            connection.execute("ALTER TABLE custom_passages ADD COLUMN school_level TEXT NOT NULL DEFAULT 'middle'")
+        connection.execute("UPDATE profiles SET school_level='elementary' WHERE name='Emily'")
+        connection.execute("UPDATE schema_version SET version=9")
     connection.commit()
 
 
@@ -292,7 +302,12 @@ def init_postgres(connection: PostgresConnection) -> None:
     if version_row is None:
         connection.execute("INSERT INTO schema_version(version) VALUES(?)", (SCHEMA_VERSION,))
     elif version_row[0] < SCHEMA_VERSION:
-        connection.execute("ALTER TABLE profiles ADD COLUMN IF NOT EXISTS pin_hash TEXT")
+        if version_row[0] < 8:
+            connection.execute("ALTER TABLE profiles ADD COLUMN IF NOT EXISTS pin_hash TEXT")
+        if version_row[0] < 9:
+            connection.execute("ALTER TABLE profiles ADD COLUMN IF NOT EXISTS school_level TEXT NOT NULL DEFAULT 'middle'")
+            connection.execute("ALTER TABLE custom_passages ADD COLUMN IF NOT EXISTS school_level TEXT NOT NULL DEFAULT 'middle'")
+            connection.execute("UPDATE profiles SET school_level='elementary' WHERE name='Emily'")
         connection.execute("UPDATE schema_version SET version=?", (SCHEMA_VERSION,))
     connection.commit()
 
@@ -318,17 +333,18 @@ def init_database() -> None:
         migrate(connection)
     for name in SEEDED_PROFILES:
         daily_goal = 10 if name == "Emily" else 15
+        school_level = "elementary" if name == "Emily" else "middle"
         if is_postgres(connection):
             connection.execute(
-                "INSERT INTO profiles(name,created_at,daily_goal_minutes,preferred_difficulty) "
-                "VALUES(?,?,?,1) ON CONFLICT(name) DO NOTHING",
-                (name, datetime.now(UTC).isoformat(), daily_goal),
+                "INSERT INTO profiles(name,created_at,daily_goal_minutes,preferred_difficulty,school_level) "
+                "VALUES(?,?,?,1,?) ON CONFLICT(name) DO NOTHING",
+                (name, datetime.now(UTC).isoformat(), daily_goal, school_level),
             )
         else:
             connection.execute(
-                "INSERT OR IGNORE INTO profiles(name,created_at,daily_goal_minutes,preferred_difficulty) "
-                "VALUES(?,?,?,1)",
-                (name, datetime.now(UTC).isoformat(), daily_goal),
+                "INSERT OR IGNORE INTO profiles(name,created_at,daily_goal_minutes,preferred_difficulty,school_level) "
+                "VALUES(?,?,?,1,?)",
+                (name, datetime.now(UTC).isoformat(), daily_goal, school_level),
             )
     connection.commit()
     seed_profile_pins(connection)

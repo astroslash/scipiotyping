@@ -66,4 +66,5 @@ def targeted_passage(profile_id: int, focus_keys: list[str], source_texts: list[
         "generator_version": GENERATOR_VERSION,
         "revision": GENERATOR_VERSION,
         "seed": seed_text,
+        "profile_id": profile_id,
     }

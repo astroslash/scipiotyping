@@ -64,8 +64,11 @@ def main() -> None:
             emily_form.find_element(By.TAG_NAME, "button").click()
             WebDriverWait(driver, 10).until(lambda page: main_contains(page, "Salve, Emily"))
             assert main_contains(driver, "Young reader library")
+            driver.find_element(By.LINK_TEXT, "Library").click()
+            assert main_contains(driver, "30 passages") and not main_contains(driver, "The Plain of Marathon")
             driver.find_element(By.LINK_TEXT, "Lessons").click()
             assert main_contains(driver, "Young typists") and main_contains(driver, "The Cat Nap")
+            assert not main_contains(driver, "Keyboard path")
             driver.get("http://127.0.0.1:5002/")
             WebDriverWait(driver, 10).until(lambda page: page.current_url.endswith("/profiles"))
 
@@ -73,6 +76,12 @@ def main() -> None:
             william_form.find_element(By.NAME, "pin").send_keys("2222")
             william_form.find_element(By.TAG_NAME, "button").click()
             WebDriverWait(driver, 10).until(lambda page: main_contains(page, "Salve, William"))
+            assert not main_contains(driver, "Young reader library")
+            driver.find_element(By.LINK_TEXT, "Library").click()
+            assert main_contains(driver, "120 passages") and not main_contains(driver, "An Octopus Has Busy Arms")
+            driver.find_element(By.LINK_TEXT, "Lessons").click()
+            assert main_contains(driver, "Keyboard path") and not main_contains(driver, "Young typists")
+            driver.get("http://127.0.0.1:5002/home")
 
             for zoom, width in ((1, 1200), (1.25, 960), (1.5, 800), (2, 600)):
                 driver.set_window_size(width, 900)
@@ -93,6 +102,7 @@ def main() -> None:
             WebDriverWait(driver, 10).until(lambda page: main_contains(page, "Parent dashboard"))
             dashboard = driver.find_element(By.TAG_NAME, "main").text.lower()
             assert "private hosted database" in dashboard and "new learner pin" in dashboard
+            assert "school level" in dashboard and "middle school" in dashboard
             assert driver.execute_script("return document.documentElement.scrollWidth <= window.innerWidth")
             driver.get("http://127.0.0.1:5002/")
             WebDriverWait(driver, 10).until(lambda page: page.current_url.endswith("/profiles"))

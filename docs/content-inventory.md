@@ -24,6 +24,13 @@ and are not included in this inventory.
 | Silly Stories | 10 |
 | World History | 12 |
 
+## School level
+
+| Audience | Count |
+|---|---:|
+| Elementary | 30 |
+| Middle School | 120 |
+
 ## Typing difficulty
 
 | Difficulty | Count |

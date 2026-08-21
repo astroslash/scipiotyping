@@ -11,7 +11,7 @@ def post_form(client, path, csrf, data=None, **kwargs):
 
 def test_health_and_primary_pages(client):
     health = client.get("/health").get_json()
-    assert health["schema"] == 8 and health["version"] == "1.8.0"
+    assert health["schema"] == 9 and health["version"] == "1.9.0"
     assert client.get("/").headers["Location"].endswith("/profiles")
     for path in ["/home", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
         response = client.get(path)
@@ -39,7 +39,7 @@ def test_library_filters(client):
 
 def test_library_paginates_and_preserves_filters(client):
     response = client.get("/library?sort=title")
-    assert b"page 1 of 7" in response.data and b">Next<" in response.data
+    assert b"page 1 of 5" in response.data and b">Next<" in response.data
     assert b"sort=title" in response.data
 
 
@@ -74,7 +74,7 @@ def test_library_completion_status_is_profile_specific(client, csrf, app):
     untried = client.get("/library?status=not-practiced&q=marathon")
     assert b"The Plain of Marathon" in completed.data and b"Completed" in completed.data
     assert b"The Plain of Marathon" not in untried.data
-    post_form(client, "/parent/profiles", csrf, {"name": "Alex"})
+    post_form(client, "/parent/profiles", csrf, {"name": "Alex", "school_level": "middle"})
     with app.app_context():
         alex = get_db().execute("SELECT id FROM profiles WHERE name='Alex'").fetchone()[0]
     post_form(client, f"/profiles/{alex}/select", csrf)
@@ -92,7 +92,7 @@ def test_practice_session_heartbeats_are_idempotent_and_profile_owned(client, cs
     assert first.status_code == repeated.status_code == 200
     assert repeated.get_json()["daily"]["active_seconds"] == .1
     assert client.patch(f"/api/practice-sessions/{session_id}", headers=headers, json={"active_seconds": 99}).status_code == 400
-    post_form(client, "/parent/profiles", csrf, {"name": "Alex"})
+    post_form(client, "/parent/profiles", csrf, {"name": "Alex", "school_level": "middle"})
     with app.app_context():
         alex = get_db().execute("SELECT id FROM profiles WHERE name='Alex'").fetchone()[0]
     post_form(client, f"/profiles/{alex}/select", csrf)
@@ -150,9 +150,10 @@ def test_attempt_rejects_client_metrics_and_bad_text(client, csrf):
 
 
 def test_profile_create_and_select(client, csrf, app):
-    response=post_form(client,"/parent/profiles",csrf,{"name":"Alex"})
+    response=post_form(client,"/parent/profiles",csrf,{"name":"Alex","school_level":"middle"})
     assert response.status_code==302
     with app.app_context(): profile=get_db().execute("SELECT * FROM profiles WHERE name='Alex'").fetchone()
+    assert profile["school_level"] == "middle"
     assert post_form(client,f"/profiles/{profile['id']}/select",csrf).status_code==302
     assert b"Salve, Alex" in client.get("/home").data
     chooser = client.get("/", follow_redirects=True)
@@ -160,12 +161,23 @@ def test_profile_create_and_select(client, csrf, app):
     assert b"Who is practicing?" in chooser.data and b"Current profile" not in chooser.data
 
 
+def test_profile_creation_requires_school_level(client, csrf, app):
+    response = post_form(
+        client, "/parent/profiles", csrf, {"name": "Missing Level"},
+        follow_redirects=True,
+    )
+    assert b"Choose Elementary or Middle School" in response.data
+    with app.app_context():
+        assert get_db().execute("SELECT 1 FROM profiles WHERE name='Missing Level'").fetchone() is None
+
+
 def test_four_family_profiles_are_seeded(app):
     with app.app_context():
-        profiles = get_db().execute("SELECT name,daily_goal_minutes,preferred_difficulty FROM profiles ORDER BY id").fetchall()
+        profiles = get_db().execute("SELECT name,daily_goal_minutes,preferred_difficulty,school_level FROM profiles ORDER BY id").fetchall()
         names = [row[0] for row in profiles]
     assert names == ["Kenneth", "William", "Alice", "Emily"]
-    assert dict(profiles[-1]) == {"name": "Emily", "daily_goal_minutes": 10, "preferred_difficulty": 1}
+    assert [row["school_level"] for row in profiles] == ["middle", "middle", "middle", "elementary"]
+    assert dict(profiles[-1]) == {"name": "Emily", "daily_goal_minutes": 10, "preferred_difficulty": 1, "school_level": "elementary"}
 
 
 def test_emily_gets_young_reader_home_library_and_lessons(client, csrf, app):
@@ -177,8 +189,32 @@ def test_emily_gets_young_reader_home_library_and_lessons(client, csrf, app):
     assert b"Salve, Emily" in home.data and b"Young reader library" in home.data
     animals = client.get("/library?category=Animals")
     assert b"10 passages" in animals.data and b"An Octopus Has Busy Arms" in animals.data
+    assert b"The Plain of Marathon" not in client.get("/library?q=marathon").data
+    assert client.get("/practice/marathon-messenger").status_code == 404
     lessons = client.get("/lessons")
     assert b"Young typists" in lessons.data and b"The Cat Nap" in lessons.data
+    assert b"Keyboard path" not in lessons.data
+    placement = client.get("/placement")
+    assert b"/practice/octopus-busy-arms" in placement.data
+
+
+def test_middle_school_profiles_do_not_see_elementary_content(client, csrf):
+    home = client.get("/home")
+    assert b"Young reader library" not in home.data and b"120" in home.data
+    library = client.get("/library?category=Animals")
+    assert b"0 passages" in library.data and b"An Octopus Has Busy Arms" not in library.data
+    assert client.get("/practice/octopus-busy-arms").status_code == 404
+    assert client.post(
+        "/api/practice-sessions", headers={"X-CSRF-Token": csrf},
+        json={"passage_id": "octopus-busy-arms", "mode": "practice"},
+    ).status_code == 400
+    assert client.post(
+        "/api/attempts", headers={"X-CSRF-Token": csrf},
+        json={"passage_id": "octopus-busy-arms", "duration_seconds": 60,
+              "typed_text": "not an allowed passage", "mode": "practice"},
+    ).status_code == 400
+    lessons = client.get("/lessons")
+    assert b"Keyboard path" in lessons.data and b"Young typists" not in lessons.data
 
 
 def test_guest_pin_is_available_offline_without_a_database_profile(client, csrf, app):
@@ -187,21 +223,33 @@ def test_guest_pin_is_available_offline_without_a_database_profile(client, csrf,
     wrong = post_form(client, "/profiles/guest/select", csrf, {"pin": "1234567"}, follow_redirects=True)
     assert b"did not match the Guest profile" in wrong.data
     home = post_form(client, "/profiles/guest/select", csrf, {"pin": "8675309"}, follow_redirects=True)
-    assert b"Salve, Guest" in home.data
+    assert b"Salve, Guest" in home.data and b"Young reader library" not in home.data
     with app.app_context():
         assert get_db().execute("SELECT 1 FROM profiles WHERE name='Guest'").fetchone() is None
 
 
 def test_profile_delete_requires_confirmation(client, csrf, app):
-    post_form(client,"/parent/profiles",csrf,{"name":"Temporary"})
+    post_form(client,"/parent/profiles",csrf,{"name":"Temporary","school_level":"elementary"})
     with app.app_context(): profile=get_db().execute("SELECT * FROM profiles WHERE name='Temporary'").fetchone()
     response=post_form(client,f"/parent/profiles/{profile['id']}/delete",csrf,{"confirmation":"DELETE Temporary"},follow_redirects=True)
     assert b"Profile removed" in response.data
 
 
 def test_parent_settings_validation(client, csrf):
-    response=post_form(client,"/parent",csrf,{"daily_goal_minutes":"2","preferred_difficulty":"9"},follow_redirects=True)
-    assert b"Use a goal from 5 to 120" in response.data
+    response=post_form(client,"/parent",csrf,{"daily_goal_minutes":"2","preferred_difficulty":"9","school_level":"middle"},follow_redirects=True)
+    assert b"Use a valid goal, difficulty, and school level" in response.data
+
+
+def test_parent_can_change_a_profiles_school_level(client, csrf, app):
+    response = post_form(
+        client, "/parent", csrf,
+        {"daily_goal_minutes": "15", "preferred_difficulty": "1", "school_level": "elementary"},
+        follow_redirects=True,
+    )
+    assert b"Settings saved" in response.data
+    assert b"Young reader library" in client.get("/home").data
+    with app.app_context():
+        assert get_db().execute("SELECT school_level FROM profiles WHERE name='Kenneth'").fetchone()[0] == "elementary"
 
 
 def test_pin_lock_unlock(client, csrf):
@@ -214,7 +262,7 @@ def test_pin_lock_unlock(client, csrf):
 
 
 def test_custom_content_validation_and_add(client, csrf):
-    data={"id":"kenneth-test","title":"Kenneth Test","text":"This is an original household passage long enough to meet the required minimum length for careful typing practice.","category":"Family","difficulty":"2","age":"10","context":"A test passage.","source":"Household original"}
+    data={"id":"kenneth-test","title":"Kenneth Test","text":"This is an original household passage long enough to meet the required minimum length for careful typing practice.","category":"Family","difficulty":"2","age":"10","context":"A test passage.","source":"Household original","school_level":"middle"}
     response=post_form(client,"/parent/content",csrf,data,follow_redirects=True)
     assert b"Custom passage added" in response.data
     assert b"Kenneth Test" in client.get("/library?q=kenneth").data
@@ -237,7 +285,7 @@ def test_invalid_restore_does_not_replace_database(client, csrf):
 
 def test_valid_backup_restore_round_trip(client, csrf, app):
     backup=client.get("/parent/backup").data
-    post_form(client,"/parent/profiles",csrf,{"name":"After Backup"})
+    post_form(client,"/parent/profiles",csrf,{"name":"After Backup","school_level":"middle"})
     response=client.post("/parent/restore",data={"csrf_token":csrf,"confirmation":"RESTORE","backup":(io.BytesIO(backup),"good.db")},content_type="multipart/form-data",follow_redirects=True)
     assert b"Backup restored" in response.data
     with app.app_context(): assert get_db().execute("SELECT 1 FROM profiles WHERE name='After Backup'").fetchone() is None

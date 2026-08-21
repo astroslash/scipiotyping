@@ -11,6 +11,7 @@
   {% for profile in profiles %}
   <article class="passage-card">
     <h2>{{ profile.name }}</h2>
+    <span class="tag">{% if profile.school_level == 'elementary' %}Elementary{% else %}Middle school{% endif %}</span>
     <p>Daily goal: {{ profile.daily_goal_minutes }} minutes</p>
     {% if selected and profile.id == selected.id %}
       <strong>Current profile</strong>
@@ -29,6 +30,7 @@
   {% endfor %}
   <article class="passage-card">
     <h2>Guest</h2>
+    <span class="tag">Middle school</span>
     <p>Practice and receive a score without saving progress or activity.</p>
     {% if guest_selected %}
       <strong>Current profile</strong>

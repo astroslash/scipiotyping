@@ -7,6 +7,10 @@ release smoke test; it is not a runtime dependency. No front-end build step exis
 migrates the database. Built-in content is listed by `content/manifest.json` and
 split across `content/passages/`; custom content lives in the selected database.
 
+Profile and passage audiences use `school_level` values `elementary` and
+`middle`. Filtering must be applied to visible navigation and server-side
+practice/scoring lookups so a direct URL cannot cross the boundary.
+
 Run `run-tests.ps1` before a release. It runs pytest, validates content, opens a
 fresh temporary database, checks primary routes and schema integrity, and scans
 runtime files for remote dependencies. Never commit `instance/` or `.venv/`.

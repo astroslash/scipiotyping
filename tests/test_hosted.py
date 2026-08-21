@@ -83,13 +83,15 @@ def test_hosted_profile_creation_requires_pin(tmp_path):
     csrf = csrf_from(client.get("/profiles"))
     post(client, "/profiles/1/select", csrf, {"pin": "1111"})
     post(client, "/parent/unlock", csrf, {"password": "parent-password"})
-    response = post(client, "/parent/profiles", csrf, {"name": "No Pin"}, follow_redirects=True)
+    response = post(client, "/parent/profiles", csrf, {"name": "No Pin", "school_level": "middle"}, follow_redirects=True)
     assert b"must contain" in response.data
-    post(client, "/parent/profiles", csrf, {"name": "Cousin", "pin": "4444"})
+    post(client, "/parent/profiles", csrf, {"name": "Cousin", "pin": "4444", "school_level": "elementary"})
     with app.app_context():
-        assert get_db().execute("SELECT pin_hash FROM profiles WHERE name='Cousin'").fetchone()[0]
+        cousin = get_db().execute("SELECT * FROM profiles WHERE name='Cousin'").fetchone()
+        assert cousin["pin_hash"] and cousin["school_level"] == "elementary"
         emily = get_db().execute("SELECT * FROM profiles WHERE name='Emily'").fetchone()
         assert emily["daily_goal_minutes"] == 10 and emily["preferred_difficulty"] == 1
+        assert emily["school_level"] == "elementary"
 
 
 def test_guest_pin_scores_without_storing_any_activity(tmp_path):

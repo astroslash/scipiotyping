@@ -6,6 +6,11 @@ educational objectives, typing focus, context, vocabulary, source note, rights
 status, revision, introduction version, review status, review date, and at least
 one structured reference.
 
+Every loaded passage has a school-level audience. Grade 3 built-ins default to
+`elementary`; other built-ins default to `middle`. A passage may declare
+`school_level` explicitly as `elementary` or `middle`, and Parent-created
+passages require that choice.
+
 - Keep identifiers permanent. Never reuse or remove an ID listed in
   `content/manifest.json`; historical attempts depend on it.
 - Increment `revision` whenever target text changes. Metadata-only corrections do
@@ -32,7 +37,7 @@ Run `python -m flask --app scipiotyping validate-content` after editing and
 release. Drafts stay outside the manifest until they have passed factual,
 age-suitability, rights, punctuation, and typing review.
 
-Imported household passages receive `rights: original` and a source note chosen
-by the parent. They use a smaller compatibility schema because they are private
+Imported household passages receive `rights: original`, a school-level audience,
+and a source note chosen by the parent. They use a smaller compatibility schema because they are private
 and are stored in SQLite. ScipioTyping validates format but cannot establish
 legal rights or historical truth automatically.

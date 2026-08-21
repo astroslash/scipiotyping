@@ -35,6 +35,7 @@ GUEST_PROFILE = {
     "preferred_difficulty": 1,
     "placement_level": None,
     "placement_complete": 0,
+    "school_level": "middle",
 }
 
 
@@ -61,17 +62,24 @@ def _custom_passages() -> list[dict]:
     return items
 
 
-def passages() -> list[dict]:
-    return [dict(item) for item in load_passages(current_app.config["CONTENT_PATH"])] + _custom_passages()
+def passages(profile=None) -> list[dict]:
+    items = [dict(item) for item in load_passages(current_app.config["CONTENT_PATH"])] + _custom_passages()
+    if profile is None:
+        return items
+    return [item for item in items if item.get("school_level", "middle") == profile["school_level"]]
 
 
-def practice_items() -> list[dict]:
-    return passages() + lesson_passages()
+def practice_items(profile) -> list[dict]:
+    school_level = profile["school_level"]
+    drills = [item for item in lesson_passages() if item["school_level"] == school_level]
+    return passages(profile) + drills
 
 
-def _session_targeted_passage() -> dict | None:
+def _session_targeted_passage(profile=None) -> dict | None:
     item = session.get("targeted_passage")
     if not isinstance(item, dict) or not isinstance(item.get("text"), str) or not str(item.get("id", "")).startswith("targeted-"):
+        return None
+    if profile is not None and item.get("profile_id") != profile["id"]:
         return None
     return item
 
@@ -183,9 +191,10 @@ def index():
     profile = selected_profile()
     rows = get_db().execute("SELECT * FROM attempts WHERE profile_id=? ORDER BY completed_at DESC", (profile["id"],)).fetchall()
     stats = get_db().execute("SELECT COUNT(*) attempts, COALESCE(CAST(ROUND(CAST(AVG(adjusted_wpm) AS NUMERIC),1) AS REAL),0) wpm, COALESCE(CAST(ROUND(CAST(AVG(accuracy) AS NUMERIC),1) AS REAL),0) accuracy FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
-    suggestion, reason = recommend(profile, rows, passages())
+    available = passages(profile)
+    suggestion, reason = recommend(profile, rows, available)
     focus = focus_keys(rows)
-    return render_template("index.html", profile=profile, stats=stats, passage_count=len(passages()), suggestion=suggestion, reason=reason, streak=streak_days(rows), focus=focus)
+    return render_template("index.html", profile=profile, stats=stats, passage_count=len(available), suggestion=suggestion, reason=reason, streak=streak_days(rows), focus=focus)
 
 
 @bp.get("/library")
@@ -206,7 +215,8 @@ def library():
         (profile["id"],),
     ).fetchall()
     history = {row["passage_id"]: dict(row) for row in progress_rows}
-    items = passages()
+    available = passages(profile)
+    items = list(available)
     for item in items:
         record = history.get(item["id"], {})
         item["attempt_count"] = record.get("attempt_count", 0)
@@ -242,7 +252,7 @@ def library():
     items = items[(page - 1) * per_page:page * per_page]
     return render_template(
         "library.html", passages=items,
-        categories=sorted({p["category"] for p in passages()}),
+        categories=sorted({p["category"] for p in available}),
         selected_category=category, selected_difficulty=difficulty, query=query,
         selected_status=status, selected_sort=sort, page=page, page_count=page_count,
         result_count=result_count,
@@ -251,8 +261,9 @@ def library():
 
 @bp.get("/practice/<passage_id>")
 def practice(passage_id: str):
-    candidates = practice_items()
-    targeted = _session_targeted_passage()
+    profile = selected_profile()
+    candidates = practice_items(profile)
+    targeted = _session_targeted_passage(profile)
     if targeted:
         candidates.append(targeted)
     passage = next((item for item in candidates if item["id"] == passage_id), None)
@@ -268,7 +279,7 @@ def targeted_practice():
     if not focus:
         flash("Complete more practice before starting a weak-key workshop.", "error")
         return redirect(url_for("main.progress"))
-    sources = [item["text"] for item in practice_items()]
+    sources = [item["text"] for item in practice_items(profile)]
     passage = targeted_passage(profile["id"], [item["key"] for item in focus], sources)
     session["targeted_passage"] = passage
     return render_template("practice.html", passage=passage, mode="targeted", lesson_id="")
@@ -277,15 +288,15 @@ def targeted_practice():
 @bp.post("/api/practice-sessions")
 def start_practice_session():
     data = request.get_json(silent=True) or {}
-    candidates = practice_items()
-    targeted = _session_targeted_passage()
+    profile = selected_profile()
+    candidates = practice_items(profile)
+    targeted = _session_targeted_passage(profile)
     if targeted:
         candidates.append(targeted)
     passage = next((item for item in candidates if item["id"] == data.get("passage_id")), None)
     mode = data.get("mode") if data.get("mode") in {"practice", "lesson", "placement", "targeted"} else "practice"
     if not passage or (mode == "targeted" and (not targeted or passage["id"] != targeted["id"])):
         return jsonify(error="Invalid practice session."), 400
-    profile = selected_profile()
     if _guest_mode():
         return jsonify(id=f"guest-{secrets.token_urlsafe(18)}", daily=_guest_daily()), 201
     now = datetime.now(UTC).isoformat()
@@ -333,8 +344,9 @@ def update_practice_session(session_id: str):
 @bp.post("/api/attempts")
 def save_attempt():
     data = request.get_json(silent=True) or {}
-    candidates = practice_items()
-    targeted = _session_targeted_passage()
+    profile = selected_profile()
+    candidates = practice_items(profile)
+    targeted = _session_targeted_passage(profile)
     if targeted:
         candidates.append(targeted)
     passage = next((p for p in candidates if p["id"] == data.get("passage_id")), None)
@@ -346,7 +358,6 @@ def save_attempt():
         score = score_text(passage["text"], typed, duration)
     except (TypeError, ValueError):
         return jsonify(error="Invalid attempt data."), 400
-    profile = selected_profile()
     practice_session_id = data.get("practice_session_id")
     mode = data.get("mode") if data.get("mode") in {"practice", "lesson", "placement", "targeted"} else "practice"
     if _guest_mode():
@@ -416,7 +427,7 @@ def save_attempt():
              attempt_id))
         connection.execute("INSERT INTO practice_time_segments(session_id,recorded_at,active_seconds) VALUES(?,?,?)",
                            (implicit_id, now.isoformat(), duration))
-    new_awards = award_achievements(connection, profile["id"], {p["id"]:p for p in practice_items()})
+    new_awards = award_achievements(connection, profile["id"], {p["id"]:p for p in practice_items(profile)})
     connection.commit()
     if mode == "targeted":
         session.pop("targeted_passage", None)
@@ -445,10 +456,13 @@ def lessons():
     profile = selected_profile(); connection = get_db()
     completed = {row[0] for row in connection.execute("SELECT DISTINCT lesson_id FROM attempts WHERE profile_id=? AND completed=1 AND lesson_id IS NOT NULL", (profile["id"],))}
     level = progression_level(profile["placement_level"] or profile["preferred_difficulty"], completed)
+    school_level = profile["school_level"]
     drills = {p["id"].removeprefix("drill-"): p for p in lesson_passages()}
     cards = []
     for lesson in unlocked_lessons(level):
-        cards.append({**lesson, "passage": drills[lesson["id"]]})
+        passage = drills[lesson["id"]]
+        if passage["school_level"] == school_level:
+            cards.append({**lesson, "passage": passage})
     return render_template(
         "lessons.html", profile=profile,
         young_lessons=[item for item in cards if item.get("young_reader")],
@@ -458,7 +472,9 @@ def lessons():
 
 @bp.get("/placement")
 def placement():
-    candidates = [p for p in passages() if p["difficulty"] == 2]
+    profile = selected_profile()
+    target_difficulty = 1 if profile["school_level"] == "elementary" else 2
+    candidates = [p for p in passages(profile) if p["difficulty"] == target_difficulty]
     return render_template("placement.html", passage=candidates[0])
 
 
@@ -525,10 +541,16 @@ def parent():
     if not _parent_unlocked(): return render_template("parent_unlock.html")
     profile = selected_profile(); connection = get_db()
     if request.method == "POST":
-        goal, difficulty = request.form.get("daily_goal_minutes", type=int), request.form.get("preferred_difficulty", type=int)
-        if goal and 5 <= goal <= 120 and difficulty in range(1,6):
-            connection.execute("UPDATE profiles SET daily_goal_minutes=?, preferred_difficulty=? WHERE id=?", (goal,difficulty,profile["id"])); connection.commit(); flash("Settings saved.", "success")
-        else: flash("Use a goal from 5 to 120 minutes and difficulty from 1 to 5.", "error")
+        goal = request.form.get("daily_goal_minutes", type=int)
+        difficulty = request.form.get("preferred_difficulty", type=int)
+        school_level = request.form.get("school_level", "")
+        if goal and 5 <= goal <= 120 and difficulty in range(1,6) and school_level in {"elementary", "middle"}:
+            connection.execute(
+                "UPDATE profiles SET daily_goal_minutes=?, preferred_difficulty=?, school_level=? WHERE id=?",
+                (goal, difficulty, school_level, profile["id"]),
+            )
+            connection.commit(); flash("Settings saved.", "success")
+        else: flash("Use a valid goal, difficulty, and school level.", "error")
         return redirect(url_for("main.parent"))
     stats = connection.execute("SELECT COUNT(*) attempts, COALESCE(CAST(ROUND(CAST(AVG(adjusted_wpm) AS NUMERIC),1) AS REAL),0) wpm, COALESCE(CAST(ROUND(CAST(AVG(accuracy) AS NUMERIC),1) AS REAL),0) accuracy FROM attempts WHERE profile_id=?", (profile["id"],)).fetchone()
     return render_template("parent.html", profile=profile, stats=stats, profiles=connection.execute("SELECT * FROM profiles WHERE active=1 ORDER BY name").fetchall(), custom=_custom_passages(), pin_enabled=bool(_setting("parent_pin_hash")))
@@ -566,15 +588,19 @@ def parent_pin():
 def add_profile():
     _require_parent(); name = " ".join(request.form.get("name", "").split())
     pin = request.form.get("pin", "")
+    school_level = request.form.get("school_level", "")
     if not 1 <= len(name) <= 40: flash("Profile name must contain 1–40 characters.", "error")
+    elif school_level not in {"elementary", "middle"}:
+        flash("Choose Elementary or Middle School for the learner.", "error")
     elif current_app.config.get("HOSTED_MODE") and (not pin.isdigit() or not 4 <= len(pin) <= 10):
         flash("Hosted learner PINs must contain 4–10 digits.", "error")
     else:
         connection = get_db()
         try:
             connection.execute(
-                "INSERT INTO profiles(name,created_at,pin_hash) VALUES(?,?,?)",
-                (name, datetime.now(UTC).isoformat(), generate_password_hash(pin) if pin else None),
+                "INSERT INTO profiles(name,created_at,pin_hash,school_level) VALUES(?,?,?,?)",
+                (name, datetime.now(UTC).isoformat(), generate_password_hash(pin) if pin else None,
+                 school_level),
             )
             connection.commit(); flash("Profile created.", "success")
         except integrity_errors():
@@ -602,12 +628,17 @@ def delete_profile(profile_id: int):
 def add_content():
     _require_parent()
     raw = request.form.to_dict(); pid = raw.get("id", "").strip().lower()
-    item = {"id":pid,"title":raw.get("title","").strip(),"text":raw.get("text","").strip(),"category":raw.get("category","").strip(),"difficulty":request.form.get("difficulty",type=int),"age":request.form.get("age",type=int),"objectives":["custom practice"],"context":raw.get("context","").strip(),"vocabulary":[],"source":raw.get("source","").strip() or "Household original","rights":"original"}
+    item = {"id":pid,"title":raw.get("title","").strip(),"text":raw.get("text","").strip(),"category":raw.get("category","").strip(),"difficulty":request.form.get("difficulty",type=int),"age":request.form.get("age",type=int),"objectives":["custom practice"],"context":raw.get("context","").strip(),"vocabulary":[],"source":raw.get("source","").strip() or "Household original","rights":"original","school_level":raw.get("school_level","")}
     errors = validate_passages([item])
     if any(p["id"] == pid for p in passages()): errors.append("That passage ID already exists.")
     if errors: flash(" ".join(errors), "error")
     else:
-        get_db().execute("INSERT INTO custom_passages VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", (item["id"],item["title"],item["text"],item["category"],item["difficulty"],item["age"],json.dumps(item["objectives"]),item["context"],json.dumps(item["vocabulary"]),item["source"],item["rights"],datetime.now(UTC).isoformat())); get_db().commit(); flash("Custom passage added.", "success")
+        get_db().execute(
+            """INSERT INTO custom_passages(
+               id,title,text,category,difficulty,age,objectives,context,vocabulary,source,rights,created_at,school_level)
+               VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (item["id"],item["title"],item["text"],item["category"],item["difficulty"],item["age"],json.dumps(item["objectives"]),item["context"],json.dumps(item["vocabulary"]),item["source"],item["rights"],datetime.now(UTC).isoformat(),item["school_level"]),
+        ); get_db().commit(); flash("Custom passage added.", "success")
     return redirect(url_for("main.parent"))
 
 

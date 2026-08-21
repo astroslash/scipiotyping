@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.9.0 — 2026-08-20
+
+- Added an Elementary or Middle School setting to every saved learner profile.
+- Migrated Emily to Elementary while keeping Kenneth, William, and Alice in
+  Middle School; Guest also defaults to the middle-school collection.
+- Restricted Library results, recommendations, lessons, placement, generated
+  practice sources, direct passage URLs, and scoring APIs to the selected
+  learner's school level.
+- Added school-level selection to profile creation, profile settings, and
+  parent-created passages.
+
 ## 1.8.0 — 2026-08-20
 
 - Added Emily as a saved Level 1 learner with a 10-minute daily goal and initial

@@ -67,9 +67,17 @@ def test_young_reader_collection_is_simple_varied_and_age_appropriate(app):
         "Animals": 10, "Kid Jokes": 10, "Silly Stories": 10,
     }
     assert all(item["difficulty"] == 1 and item["reading_level"] == 3 for item in additions)
+    assert all(item["school_level"] == "elementary" for item in additions)
     assert all(item["age"] in {7, 8} and 35 <= item["word_count"] <= 55 for item in additions)
     assert all(item["rights"] == "original" and item["review_status"] == "reviewed"
                for item in additions)
+
+
+def test_middle_school_library_excludes_the_grade_three_collection(app):
+    items = load_passages(app.config["CONTENT_PATH"])
+    middle = [item for item in items if item["school_level"] == "middle"]
+    assert len(middle) == 120
+    assert all(item["reading_level"] > 3 for item in middle)
 
 
 def test_v14_expansion_has_planned_levels_lengths_and_sources(app):

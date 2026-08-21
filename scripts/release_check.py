@@ -18,6 +18,8 @@ def main() -> None:
         items = load_passages(app.config["CONTENT_PATH"])
         assert not validate_passages(items, strict=True)
         assert len(items) == 150
+        assert sum(item["school_level"] == "elementary" for item in items) == 30
+        assert sum(item["school_level"] == "middle" for item in items) == 120
         manifest = json.loads((root / "content" / "manifest.json").read_text(encoding="utf-8"))
         assert set(manifest["legacy_ids"]).issubset({item["id"] for item in items})
         assert (root / "docs" / "content-inventory.md").read_text(encoding="utf-8") == render_inventory(items)

@@ -22,12 +22,16 @@ chess, world cultures, warfare, leadership, and mathematics.
 A student selects a local profile, completes placement or chooses a lesson,
 types a passage, receives immediate character-level feedback, and sees WPM,
 accuracy, errors, practice time, achievements, and a clearly explained next
-recommendation. All primary workflows support keyboard-only use.
+recommendation. Elementary learners receive the Grade 3 collection and young
+lessons; middle-school learners receive the advanced collection and keyboard
+path. The same boundary applies to direct practice and scoring requests. All
+primary workflows support keyboard-only use.
 
 ## Parent experience
 
-The parent can set goals, manage profiles, control preferred difficulty, preview
-content, import validated original passages, export reports, and back up or
+The parent can set goals, manage profiles, choose each learner's school level,
+control preferred difficulty, preview content, assign original passages to a
+school level, export reports, and back up or
 restore the complete local database. An optional local PIN discourages casual
 access; it is not represented as internet-grade authentication.
 

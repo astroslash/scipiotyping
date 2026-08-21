@@ -43,6 +43,7 @@ def lesson_passages() -> list[dict]:
     return [{"id": f"drill-{lesson['id']}", "title": lesson["title"], "text": DRILL_TEXTS[lesson["id"]],
              "category": "Young Typists" if lesson.get("young_reader") else "Typing Fundamentals",
              "difficulty": lesson["level"], "age": 7 if lesson.get("young_reader") else 8,
+             "school_level": "elementary" if lesson.get("young_reader") else "middle",
              "objectives": [lesson["focus"]], "typing_focus": [lesson["focus"]],
              "context": lesson["description"], "vocabulary": [],
              "source": "Original ScipioTyping drill", "rights": "original",

@@ -1,7 +1,7 @@
 # Data model
 
-- `profiles`: learners, goals, preferred and placement difficulty, active state,
-  and an optional one-way learner PIN hash.
+- `profiles`: learners, Elementary or Middle School audience, goals, preferred
+  and placement difficulty, active state, and an optional one-way learner PIN hash.
 - `attempts`: one scored practice result, timing, completion, error map, per-key
   evidence, and reproducibility metadata for generated drills.
 - `practice_sessions`: active typing time for completed and unfinished exercises,
@@ -9,7 +9,8 @@
 - `practice_time_segments`: monotonic heartbeat deltas timestamped for accurate
   local-day totals, including sessions that cross midnight.
 - `achievements`: unique milestones earned by a profile.
-- `custom_passages`: parent-created original passages stored in the active database.
+- `custom_passages`: parent-created original passages with an Elementary or
+  Middle School audience, stored in the active database.
 - `settings`: household settings, including optional PIN hash and UI defaults.
 - `schema_version`: the most recently applied database migration.
 
@@ -48,3 +49,9 @@ local profiles remain frictionless. Hosted startup stores Werkzeug password
 hashes for saved-learner PINs supplied through environment variables or Emily's
 built-in initial PIN. Plain PINs and the parent password are never stored in the
 database or exports.
+
+Schema 9 adds `school_level` to profiles and custom passages. The migration
+assigns Emily to `elementary` and all other existing profiles and custom
+passages to `middle`. New profiles and custom passages require an explicit
+choice. Audience filtering is enforced before recommendations, navigation,
+practice sessions, and scored attempts are created.

@@ -4,14 +4,16 @@
    private family Vercel address.
 2. Kenneth, William, Alice, or Emily can choose their profile, then use **Placement**
    under Lessons or begin with any Library item. Hosted profiles require their PIN.
-   Emily starts at Level 1 with a 10-minute daily goal. Guest can score exercises
+   Emily starts in Elementary with a 10-minute daily goal. Kenneth, William,
+   Alice, and Guest use the Middle School collection. Guest can score exercises
    without adding any data to progress or backups.
 3. Use **Progress** for WPM, accuracy, time, streaks, achievements, and the
    keyboard heatmap. After enough practice, **Practice weak keys** opens a
    private drill assembled locally from the student's recent results.
-4. Use **Parent** to change goals, add profiles, set an optional local PIN, add an
+4. Use **Parent** to change goals and school level, add profiles, set an optional local PIN, add an
    original passage, export results and practice time, or download a complete
 backup.
+   Choose Elementary or Middle School whenever you create a learner or passage.
 5. In the Library, use **Not yet practiced** to find fresh material or
    **Completed** to repeat earlier work. Completion badges and best accuracy are
    private to the selected profile. Sorting and page controls remain available

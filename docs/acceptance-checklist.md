@@ -1,4 +1,4 @@
-# Version 1.4 acceptance checklist
+# Current acceptance checklist
 
 - [x] Clean Windows setup succeeds using README commands.
 - [x] Server binds to localhost and opens the browser.
@@ -6,6 +6,9 @@
 - [x] Placement, practice, correction, pause, completion, and saving work.
 - [x] Scoring formulas pass boundary and representative tests.
 - [x] Student data remains separated between profiles.
+- [x] Elementary and middle-school passages, lessons, recommendations, direct
+  links, and scoring APIs remain separated by profile.
+- [x] New profiles and Parent-created passages require a school-level audience.
 - [x] Lessons unlock and recommendations explain their reason.
 - [x] Goals, streaks, achievements, trends, and error summaries are correct.
 - [x] All 150 built-in passages validate with complete rights metadata.
@@ -23,6 +26,7 @@
 - [x] Library status filters, sorting, completion badges, and pagination are
   profile-specific and keyboard accessible.
 - [x] Schema 7 preserves exact target text and passage revision for new attempts.
+- [x] Schema 9 assigns Emily to Elementary and existing learners to Middle School.
 - [x] A synthetic 500-passage library loads successfully.
 - [x] Every subject contains 12 passages, including six reviewed v1.4 additions.
 - [x] The 60 additions meet the planned difficulty mix and per-level word bands.

@@ -10,7 +10,7 @@
   <a class="button secondary" href="{{ url_for('main.lessons') }}">Follow a lesson</a>
   {% if focus %}<a class="button secondary" href="{{ url_for('main.targeted_practice') }}">Practice weak keys</a>{% endif %}
 </section>
-{% if profile.name == 'Emily' or (profile.placement_level or profile.preferred_difficulty) == 1 %}
+{% if profile.school_level == 'elementary' %}
 <section class="callout">
   <p class="eyebrow">Young reader library</p>
   <h2>Short, funny, and friendly</h2>

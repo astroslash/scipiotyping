@@ -1,4 +1,12 @@
-# Release checklist — 1.8.0
+# Release checklist — 1.9.0
+
+## 1.9.0
+
+- [x] Added and migrated Elementary/Middle School profile assignments.
+- [x] Enforced audience filtering in UI, direct practice, session, and scoring paths.
+- [x] Added school-level selection to learner and custom-passage Parent forms.
+- [x] Preserved a pre-schema-9 backup of Kenneth's local database.
+- [x] Full release suite, browser checks, commit, tag, and GitHub push completed.
 
 ## 1.8.0
 

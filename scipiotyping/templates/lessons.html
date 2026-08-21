@@ -7,7 +7,7 @@
   <p>Your current level is {{ profile.placement_level or profile.preferred_difficulty }}. {% if not profile.placement_complete %}<a href="{{ url_for('main.placement') }}">Take placement</a> to find the best starting point.{% endif %}</p>
 </div>
 
-<section class="lesson-section" aria-labelledby="young-lessons-heading">
+{% if young_lessons %}<section class="lesson-section" aria-labelledby="young-lessons-heading">
   <div class="page-heading">
     <p class="eyebrow">Short and playful</p>
     <h2 id="young-lessons-heading">Young typists</h2>
@@ -24,9 +24,9 @@
     </article>
     {% endfor %}
   </div>
-</section>
+</section>{% endif %}
 
-<section class="lesson-section" aria-labelledby="keyboard-path-heading">
+{% if lessons %}<section class="lesson-section" aria-labelledby="keyboard-path-heading">
   <div class="page-heading"><p class="eyebrow">Skill progression</p><h2 id="keyboard-path-heading">Keyboard path</h2></div>
   <div class="card-grid">
     {% for lesson in lessons %}
@@ -39,5 +39,5 @@
     </article>
     {% endfor %}
   </div>
-</section>
+</section>{% endif %}
 {% endblock %}
