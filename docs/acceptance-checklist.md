@@ -11,7 +11,7 @@
 - [x] New profiles and Parent-created passages require a school-level audience.
 - [x] Lessons unlock and recommendations explain their reason.
 - [x] Goals, streaks, achievements, trends, and error summaries are correct.
-- [x] All 150 built-in passages validate with complete rights metadata.
+- [x] All 170 built-in passages validate with complete rights metadata.
 - [x] Custom content rejects malformed or unsafe input.
 - [x] CSV/JSON export and full backup/restore round trips succeed.
 - [x] Reset and restore require explicit confirmation.
@@ -19,7 +19,7 @@
 - [x] Reduced motion, high contrast, and large text are supported.
 - [x] Browser inspection finds no required external request.
 - [x] Automated tests and release check script pass.
-- [x] Content schema 2 loads thirteen subject files and protects all legacy IDs.
+- [x] Content schema 2 loads fourteen content files and protects all legacy IDs.
 - [x] Strict validation covers review, references, rights, reading level,
   revision, typing focus, length, and duplicates.
 - [x] A generated inventory and deterministic content report describe the library.
@@ -28,7 +28,8 @@
 - [x] Schema 7 preserves exact target text and passage revision for new attempts.
 - [x] Schema 9 assigns Emily to Elementary and existing learners to Middle School.
 - [x] A synthetic 500-passage library loads successfully.
-- [x] Every subject contains 12 passages, including six reviewed v1.4 additions.
+- [x] Every middle-school subject contains 14 passages, including two reviewed
+  long reads added in v1.10.
 - [x] The 60 additions meet the planned difficulty mix and per-level word bands.
 - [x] New prose is original, age-appropriate, source-aware, and backed by a
   structured HTTPS reference.

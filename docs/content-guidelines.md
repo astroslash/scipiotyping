@@ -31,6 +31,9 @@ passages require that choice.
   For general passages introduced in v1.4 and later, target 45–65 words at Level 2,
   60–85 at Level 3, 80–115 at Level 4, and 105–150 at Level 5. Level 1 is
   used for focused keyboard drills and the young-reader collection.
+- A labeled long-read collection may use 175–215 words at Levels 4 and 5. Long
+  reads are reserved for Middle School, use Grade 7–8 language, and must still
+  stay within the schema's absolute limit of 220 words.
 
 Run `python -m flask --app scipiotyping validate-content` after editing and
 `python -m flask --app scipiotyping content-report --write-inventory` before a

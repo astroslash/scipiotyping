@@ -39,20 +39,20 @@ def test_builtin_library_preserves_all_released_passages(app):
     counts = {}
     for item in items:
         counts[item["category"]] = counts.get(item["category"], 0) + 1
-    assert len(items) == 150 and counts == {
+    assert len(items) == 170 and counts == {
         "Animals": 10,
-        "Battles and Strategy": 12,
-        "Chess": 12,
-        "Classical History": 12,
-        "Epic Literature": 12,
-        "Greek Mythology": 12,
-        "History of Warfare": 12,
+        "Battles and Strategy": 14,
+        "Chess": 14,
+        "Classical History": 14,
+        "Epic Literature": 14,
+        "Greek Mythology": 14,
+        "History of Warfare": 14,
         "Kid Jokes": 10,
-        "Leaders": 12,
-        "Mathematics": 12,
-        "Poetry": 12,
+        "Leaders": 14,
+        "Mathematics": 14,
+        "Poetry": 14,
         "Silly Stories": 10,
-        "World History": 12,
+        "World History": 14,
     }
     assert set(manifest["legacy_ids"]) == {item["id"] for item in items}
 
@@ -76,8 +76,33 @@ def test_young_reader_collection_is_simple_varied_and_age_appropriate(app):
 def test_middle_school_library_excludes_the_grade_three_collection(app):
     items = load_passages(app.config["CONTENT_PATH"])
     middle = [item for item in items if item["school_level"] == "middle"]
-    assert len(middle) == 120
+    assert len(middle) == 140
     assert all(item["reading_level"] > 3 for item in middle)
+
+
+def test_v110_long_reads_are_balanced_substantial_and_middle_school_only(app):
+    additions = [
+        item for item in load_passages(app.config["CONTENT_PATH"])
+        if item["added_in"] == "1.10.0"
+    ]
+    advanced_categories = {
+        "Battles and Strategy", "Chess", "Classical History", "Epic Literature",
+        "Greek Mythology", "History of Warfare", "Leaders", "Mathematics",
+        "Poetry", "World History",
+    }
+    assert len(additions) == 20
+    assert Counter(item["category"] for item in additions) == {
+        category: 2 for category in advanced_categories
+    }
+    assert Counter(item["difficulty"] for item in additions) == {4: 10, 5: 10}
+    assert all(item["school_level"] == "middle" for item in additions)
+    assert all(item["reading_level"] in {7, 8} for item in additions)
+    assert all(175 <= item["word_count"] <= 215 for item in additions)
+    assert all(item["character_count"] >= 1100 for item in additions)
+    assert all(item["rights"] == "original" and item["review_status"] == "reviewed"
+               for item in additions)
+    assert all(item["references"][0].get("url", "").startswith("https://")
+               for item in additions)
 
 
 def test_v14_expansion_has_planned_levels_lengths_and_sources(app):
@@ -153,4 +178,4 @@ def test_content_report_and_inventory_are_deterministic(app):
     inventory = render_inventory(items)
     assert report["total"] == len(items)
     assert sum(report["categories"].values()) == len(items)
-    assert "# Content inventory" in inventory and "| Chess | 12 |" in inventory
+    assert "# Content inventory" in inventory and "| Chess | 14 |" in inventory

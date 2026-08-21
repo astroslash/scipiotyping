@@ -8,7 +8,7 @@ from pathlib import Path
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-__version__ = "1.9.0"
+__version__ = "1.10.0"
 
 DEFAULT_EMILY_PIN = "3333"
 

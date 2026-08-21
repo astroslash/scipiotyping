@@ -11,6 +11,7 @@
     "passages/kid-jokes.json",
     "passages/leaders.json",
     "passages/mathematics.json",
+    "passages/middle-school-long-reads.json",
     "passages/poetry.json",
     "passages/world-history.json",
     "passages/silly-stories.json"
@@ -165,6 +166,26 @@
     "cloud-in-backpack",
     "grandma-racing-teapot",
     "sock-elected-mayor",
-    "pancake-learns-fly"
+    "pancake-learns-fly",
+    "yorktown-alliance-closes-trap",
+    "d-day-planning-deception-logistics",
+    "chess-clock-joins-board",
+    "chess-notation-memory-system",
+    "roman-aqueducts-gravity",
+    "athenian-ostracism-pottery-votes",
+    "patroclus-changes-achilles",
+    "odysseus-bed-recognition",
+    "pandora-jar-hope-question",
+    "baucis-philemon-hospitality",
+    "civil-war-balloon-reconnaissance",
+    "pigeons-carry-wartime-messages",
+    "lincoln-emancipation-decision",
+    "eleanor-roosevelt-human-rights",
+    "fibonacci-rule-remembers",
+    "konigsberg-new-kind-map",
+    "ozymandias-boast-in-ruin",
+    "light-brigade-rhythm-memory",
+    "swahili-coast-ocean-trade",
+    "meiji-japan-selective-change"
   ]
 }

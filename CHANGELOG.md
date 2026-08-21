@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.10.0 — 2026-08-21
+
+- Added twenty original Middle School long reads ranging from 175 to 215 words.
+- Added two source-backed passages to each advanced subject, balanced across
+  typing Levels 4 and 5 and reading Grades 7 and 8.
+- Expanded the built-in library to 170 passages: 140 Middle School and 30
+  Elementary, with no change to Emily's young-reader collection.
+- Added validation coverage for long-read length, audience, category balance,
+  source metadata, and offline availability.
+
 ## 1.9.0 — 2026-08-20
 
 - Added an Elementary or Middle School setting to every saved learner profile.

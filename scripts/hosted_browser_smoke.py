@@ -78,7 +78,7 @@ def main() -> None:
             WebDriverWait(driver, 10).until(lambda page: main_contains(page, "Salve, William"))
             assert not main_contains(driver, "Young reader library")
             driver.find_element(By.LINK_TEXT, "Library").click()
-            assert main_contains(driver, "120 passages") and not main_contains(driver, "An Octopus Has Busy Arms")
+            assert main_contains(driver, "140 passages") and not main_contains(driver, "An Octopus Has Busy Arms")
             driver.find_element(By.LINK_TEXT, "Lessons").click()
             assert main_contains(driver, "Keyboard path") and not main_contains(driver, "Young typists")
             driver.get("http://127.0.0.1:5002/home")

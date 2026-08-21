@@ -11,7 +11,7 @@ def post_form(client, path, csrf, data=None, **kwargs):
 
 def test_health_and_primary_pages(client):
     health = client.get("/health").get_json()
-    assert health["schema"] == 9 and health["version"] == "1.9.0"
+    assert health["schema"] == 9 and health["version"] == "1.10.0"
     assert client.get("/").headers["Location"].endswith("/profiles")
     for path in ["/home", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
         response = client.get(path)
@@ -39,7 +39,7 @@ def test_library_filters(client):
 
 def test_library_paginates_and_preserves_filters(client):
     response = client.get("/library?sort=title")
-    assert b"page 1 of 5" in response.data and b">Next<" in response.data
+    assert b"page 1 of 6" in response.data and b">Next<" in response.data
     assert b"sort=title" in response.data
 
 
@@ -200,7 +200,7 @@ def test_emily_gets_young_reader_home_library_and_lessons(client, csrf, app):
 
 def test_middle_school_profiles_do_not_see_elementary_content(client, csrf):
     home = client.get("/home")
-    assert b"Young reader library" not in home.data and b"120" in home.data
+    assert b"Young reader library" not in home.data and b"140" in home.data
     library = client.get("/library?category=Animals")
     assert b"0 passages" in library.data and b"An Octopus Has Busy Arms" not in library.data
     assert client.get("/practice/octopus-busy-arms").status_code == 404
