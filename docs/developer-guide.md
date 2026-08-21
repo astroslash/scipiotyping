@@ -25,5 +25,6 @@ local address. Replace it with your own repository or global identity if desired
 
 The Vercel WSGI entry point is `api/index.py`. Hosted startup rejects missing or
 weak configuration: PostgreSQL, a 32-character secret key, a 12-character
-parent password, and distinct 4–10 digit PINs for all three seeded learners are
-mandatory. Do not commit any of those values.
+parent password, and 4–10 digit PINs for saved learners are mandatory. Emily's
+requested initial PIN is built in and can be overridden with `SCIPIO_EMILY_PIN`.
+Do not commit private override values.

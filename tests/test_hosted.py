@@ -4,7 +4,9 @@ import re
 import pytest
 from flask import Flask
 
-from scipiotyping import _prepare_instance_path, _validate_hosted_config, create_app
+from scipiotyping import (DEFAULT_EMILY_PIN, _hosted_secrets,
+                           _prepare_instance_path, _validate_hosted_config,
+                           create_app)
 from scipiotyping.db import HybridRow, PostgresConnection, _hybrid_row_factory, get_db
 from scipiotyping.lessons import DRILL_TEXTS
 from scipiotyping.routes import GUEST_PIN
@@ -18,7 +20,7 @@ def hosted_app(tmp_path):
         "DATABASE_URL": "",
         "HOSTED_MODE": True,
         "PARENT_PASSWORD": "parent-password",
-        "SEED_PROFILE_PINS": {"Kenneth": "1111", "William": "2222", "Alice": "3333"},
+        "SEED_PROFILE_PINS": {"Kenneth": "1111", "William": "2222", "Alice": "4444", "Emily": "3333"},
     })
 
 
@@ -39,7 +41,7 @@ def test_hosted_learner_access(tmp_path):
     profiles = client.get("/", follow_redirects=True)
     assert profiles.request.path == "/profiles"
     assert b"Welcome to ScipioTyping" in profiles.data
-    assert b"Kenneth" in profiles.data and b"William" in profiles.data and b"Alice" in profiles.data
+    assert all(name.encode() in profiles.data for name in ("Kenneth", "William", "Alice", "Emily"))
     csrf = csrf_from(profiles)
     assert client.get("/access").headers["Location"].endswith("/profiles")
     assert client.get("/").headers["Location"].endswith("/profiles")
@@ -50,6 +52,8 @@ def test_hosted_learner_access(tmp_path):
     assert b"Salve, Kenneth" in home.data
     switch = post(client, "/profiles/2/select", csrf, {"pin": "2222"}, follow_redirects=True)
     assert b"Salve, William" in switch.data
+    emily = post(client, "/profiles/4/select", csrf, {"pin": "3333"}, follow_redirects=True)
+    assert b"Salve, Emily" in emily.data and b"Young reader library" in emily.data
     reopened = client.get("/", follow_redirects=True)
     assert reopened.request.path == "/profiles" and b"Current profile" not in reopened.data
     assert client.get("/home").headers["Location"].endswith("/profiles")
@@ -59,7 +63,7 @@ def test_hosted_parent_password_and_json_backup(tmp_path):
     app = hosted_app(tmp_path)
     client = app.test_client()
     csrf = csrf_from(client.get("/profiles"))
-    post(client, "/profiles/3/select", csrf, {"pin": "3333"})
+    post(client, "/profiles/3/select", csrf, {"pin": "4444"})
     locked = client.get("/parent")
     assert b"Parent area locked" in locked.data and b"Parent password" in locked.data
     wrong = post(client, "/parent/unlock", csrf, {"password": "wrong"}, follow_redirects=True)
@@ -69,7 +73,7 @@ def test_hosted_parent_password_and_json_backup(tmp_path):
     backup = client.get("/parent/backup")
     payload = json.loads(backup.data)
     assert payload["format"] == "scipiotyping-cloud-backup"
-    assert [profile["name"] for profile in payload["tables"]["profiles"]] == ["Kenneth", "William", "Alice"]
+    assert [profile["name"] for profile in payload["tables"]["profiles"]] == ["Kenneth", "William", "Alice", "Emily"]
     assert all("pin_hash" not in profile for profile in payload["tables"]["profiles"])
 
 
@@ -84,6 +88,8 @@ def test_hosted_profile_creation_requires_pin(tmp_path):
     post(client, "/parent/profiles", csrf, {"name": "Cousin", "pin": "4444"})
     with app.app_context():
         assert get_db().execute("SELECT pin_hash FROM profiles WHERE name='Cousin'").fetchone()[0]
+        emily = get_db().execute("SELECT * FROM profiles WHERE name='Emily'").fetchone()
+        assert emily["daily_goal_minutes"] == 10 and emily["preferred_difficulty"] == 1
 
 
 def test_guest_pin_scores_without_storing_any_activity(tmp_path):
@@ -124,7 +130,7 @@ def test_guest_pin_scores_without_storing_any_activity(tmp_path):
     assert placement["tracked"] is False and placement["placement_level"] in range(1, 6)
     with app.app_context():
         connection = get_db()
-        assert connection.execute("SELECT COUNT(*) FROM profiles").fetchone()[0] == 3
+        assert connection.execute("SELECT COUNT(*) FROM profiles").fetchone()[0] == 4
         assert connection.execute("SELECT COUNT(*) FROM attempts").fetchone()[0] == 0
         assert connection.execute("SELECT COUNT(*) FROM practice_sessions").fetchone()[0] == 0
         assert connection.execute("SELECT COUNT(*) FROM achievements").fetchone()[0] == 0
@@ -157,7 +163,7 @@ def test_hosted_startup_rejects_missing_or_weak_secrets():
         DATABASE_URL="postgresql://example.invalid/database",
         SECRET_KEY="short",
         PARENT_PASSWORD="parent-password",
-        SEED_PROFILE_PINS={"Kenneth": "1111", "William": "2222", "Alice": "3333"},
+        SEED_PROFILE_PINS={"Kenneth": "1111", "William": "2222", "Alice": "4444", "Emily": "3333"},
     )
     with pytest.raises(RuntimeError, match="SECRET_KEY"):
         _validate_hosted_config(app)
@@ -166,9 +172,19 @@ def test_hosted_startup_rejects_missing_or_weak_secrets():
     with pytest.raises(RuntimeError, match="PARENT_PASSWORD"):
         _validate_hosted_config(app)
     app.config["PARENT_PASSWORD"] = "different-parent-password"
+    app.config["SEED_PROFILE_PINS"].pop("Emily")
+    with pytest.raises(RuntimeError, match="Every saved learner"):
+        _validate_hosted_config(app)
+    app.config["SEED_PROFILE_PINS"]["Emily"] = "3333"
     app.config["SEED_PROFILE_PINS"]["Alice"] = "2222"
     with pytest.raises(RuntimeError, match="distinct"):
         _validate_hosted_config(app)
+
+
+def test_emily_has_the_requested_default_pin(monkeypatch):
+    monkeypatch.delenv("SCIPIO_EMILY_PIN", raising=False)
+    _parent_password, pins = _hosted_secrets()
+    assert DEFAULT_EMILY_PIN == "3333" and pins["Emily"] == "3333"
 
 
 def test_hosted_startup_does_not_create_local_instance_directory(tmp_path):

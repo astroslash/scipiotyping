@@ -39,19 +39,37 @@ def test_builtin_library_preserves_all_released_passages(app):
     counts = {}
     for item in items:
         counts[item["category"]] = counts.get(item["category"], 0) + 1
-    assert len(items) == 120 and counts == {
+    assert len(items) == 150 and counts == {
+        "Animals": 10,
         "Battles and Strategy": 12,
         "Chess": 12,
         "Classical History": 12,
         "Epic Literature": 12,
         "Greek Mythology": 12,
         "History of Warfare": 12,
+        "Kid Jokes": 10,
         "Leaders": 12,
         "Mathematics": 12,
         "Poetry": 12,
+        "Silly Stories": 10,
         "World History": 12,
     }
     assert set(manifest["legacy_ids"]) == {item["id"] for item in items}
+
+
+def test_young_reader_collection_is_simple_varied_and_age_appropriate(app):
+    additions = [
+        item for item in load_passages(app.config["CONTENT_PATH"])
+        if item["added_in"] == "1.8.0"
+    ]
+    assert len(additions) == 30
+    assert Counter(item["category"] for item in additions) == {
+        "Animals": 10, "Kid Jokes": 10, "Silly Stories": 10,
+    }
+    assert all(item["difficulty"] == 1 and item["reading_level"] == 3 for item in additions)
+    assert all(item["age"] in {7, 8} and 35 <= item["word_count"] <= 55 for item in additions)
+    assert all(item["rights"] == "original" and item["review_status"] == "reviewed"
+               for item in additions)
 
 
 def test_v14_expansion_has_planned_levels_lengths_and_sources(app):

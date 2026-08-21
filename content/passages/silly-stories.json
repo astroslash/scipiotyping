@@ -1,0 +1,102 @@
+[
+  {
+    "id": "llama-runs-bakery", "title": "The Llama's Bakery",
+    "text": "Lulu the llama opened a bakery before sunrise. She made round rolls, square pies, and one cookie shaped like a sock. The cookie won first prize. No one ate it, because everyone wanted to wear it on a cold foot.",
+    "category": "Silly Stories", "difficulty": 1, "age": 7,
+    "objectives": ["follow a short story", "practice commas"], "context": "An original silly story about an unusual baker.",
+    "vocabulary": ["bakery: a place that makes and sells baked food"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["commas in a list", "the letter l"], "reading_level": 3,
+    "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "moon-misses-bus", "title": "The Moon Misses the Bus",
+    "text": "The moon missed the night bus and had to roll home. It rolled over a hill, around a pond, and past a sleepy cow. By sunrise, the moon reached the sky. “Next time,” it puffed, “I will leave early.”",
+    "category": "Silly Stories", "difficulty": 1, "age": 7,
+    "objectives": ["practice sequence words", "type dialogue"], "context": "An original make-believe story about the moon traveling home.",
+    "vocabulary": ["sunrise: the time when the sun appears"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["commas", "quotation marks"], "reading_level": 3,
+    "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "robot-grows-sandwiches", "title": "The Robot's Sandwich Garden",
+    "text": "Rex the robot planted three sandwich seeds. He watered them with tomato soup. Soon, tiny cheese leaves popped from the dirt. Rex picked one sandwich for lunch. It tasted like mud, so he planted a spoon tree instead.",
+    "category": "Silly Stories", "difficulty": 1, "age": 7,
+    "objectives": ["identify story order", "practice apostrophes"], "context": "An original silly story about a robot gardener.",
+    "vocabulary": ["planted: put seeds in the ground"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["apostrophes", "the letter r"], "reading_level": 3,
+    "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "invisible-purple-hat", "title": "The Invisible Purple Hat",
+    "text": "Nina wore an invisible purple hat to school. No one could see it, but everyone agreed it looked wonderful. At recess, a gust of wind blew the hat away. The class searched everywhere. They found it exactly where nobody was looking.",
+    "category": "Silly Stories", "difficulty": 1, "age": 8,
+    "objectives": ["notice a silly contradiction", "practice common words"], "context": "An original story about a hat that cannot be seen.",
+    "vocabulary": ["invisible: unable to be seen", "gust: a short burst of wind"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["the pairs in and is", "commas"], "reading_level": 3,
+    "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "dragon-needs-sneeze", "title": "The Dragon Who Could Not Sneeze",
+    "text": "A dragon felt a sneeze tickle his nose. He sniffed pepper, feathers, and a dusty rug. Nothing worked. Then a butterfly landed on his nose. “Ah-choo!” The sneeze toasted six marshmallows, and the butterfly asked for another turn.",
+    "category": "Silly Stories", "difficulty": 1, "age": 7,
+    "objectives": ["follow cause and effect", "practice exclamation marks"], "context": "An original gentle dragon story with a warm ending.",
+    "vocabulary": ["toasted: browned with heat"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["exclamation marks", "quotation marks"], "reading_level": 3,
+    "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "pirate-lost-puddle", "title": "The Pirate and the Puddle",
+    "text": "Captain Bea sailed across a giant puddle in a paper boat. She passed a floating leaf and waved to a brave ant. Then her ship bumped the curb. Bea raised her spoon and cried, “Land!” The voyage had lasted four minutes.",
+    "category": "Silly Stories", "difficulty": 1, "age": 7,
+    "objectives": ["follow a pretend adventure", "practice capital letters"], "context": "An original backyard pirate adventure.",
+    "vocabulary": ["voyage: a long trip, often by water", "curb: the raised edge of a street"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["capital letters", "quotation marks"], "reading_level": 3,
+    "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "cloud-in-backpack", "title": "A Cloud in My Backpack",
+    "text": "Sam found a small cloud hiding in his backpack. It rained on his pencils and snowed on his lunch. Sam opened the zipper and pointed outside. The cloud floated away, but it left one tiny rainbow curled around an eraser.",
+    "category": "Silly Stories", "difficulty": 1, "age": 7,
+    "objectives": ["read a fantasy event", "practice the letter c"], "context": "An original school story about pocket-sized weather.",
+    "vocabulary": ["floated: moved gently through the air"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["the letter c", "short sentences"], "reading_level": 3,
+    "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "grandma-racing-teapot", "title": "Grandma's Racing Teapot",
+    "text": "Grandma's teapot grew wheels on Tuesday. It raced the sugar bowl around the kitchen and won by one spoon. Grandma gave it a shiny ribbon. The teapot whistled proudly, then parked beside the cups and took a quiet nap.",
+    "category": "Silly Stories", "difficulty": 1, "age": 8,
+    "objectives": ["follow a beginning and ending", "practice apostrophes"], "context": "An original kitchen race with friendly objects.",
+    "vocabulary": ["ribbon: a narrow strip of cloth used as a prize"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["apostrophes", "the letter t"], "reading_level": 3,
+    "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "sock-elected-mayor", "title": "The Sock Who Became Mayor",
+    "text": "A blue sock became mayor of the laundry basket. Its first rule was simple: every sock needed a partner. The lonely socks cheered. By Friday, they had formed pairs, except for one green sock that happily wore a mitten.",
+    "category": "Silly Stories", "difficulty": 1, "age": 8,
+    "objectives": ["find the story problem and solution", "practice colons"], "context": "An original story about teamwork in a laundry basket.",
+    "vocabulary": ["mayor: the leader of a town or city"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["colon", "the letter s"], "reading_level": 3,
+    "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "pancake-learns-fly", "title": "The Pancake Learns to Fly",
+    "text": "A pancake jumped from the pan and tried to fly. It flapped two pats of butter like wings. Up it rose, past the table and over a chair. Then syrup made it sticky, so it landed safely on a hungry plate.",
+    "category": "Silly Stories", "difficulty": 1, "age": 7,
+    "objectives": ["follow action in order", "practice the pair fl"], "context": "An original breakfast story with a flying pancake.",
+    "vocabulary": ["flapped: moved up and down like wings"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["the pair fl", "commas"], "reading_level": 3,
+    "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  }
+]

@@ -8,7 +8,9 @@ from pathlib import Path
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-__version__ = "1.7.0"
+__version__ = "1.8.0"
+
+DEFAULT_EMILY_PIN = "3333"
 
 from . import db
 from .content import content_report_command, load_passages, validate_content_command
@@ -20,7 +22,10 @@ from .security import csrf_token, protect_csrf, require_hosted_access
 def _hosted_secrets() -> tuple[str, dict[str, str]]:
     parent_password = os.environ.get("SCIPIO_PARENT_PASSWORD", "")
     pins = {
-        name: os.environ.get(f"SCIPIO_{name.upper()}_PIN", "")
+        name: os.environ.get(
+            f"SCIPIO_{name.upper()}_PIN",
+            DEFAULT_EMILY_PIN if name == "Emily" else "",
+        )
         for name in db.SEEDED_PROFILES
     }
     return parent_password, pins
@@ -36,10 +41,11 @@ def _validate_hosted_config(app: Flask) -> None:
     if len(app.config["PARENT_PASSWORD"]) < 12:
         raise RuntimeError("SCIPIO_PARENT_PASSWORD must contain at least 12 characters.")
     pins = app.config["SEED_PROFILE_PINS"]
+    original_pins = [pins[name] for name in db.SEEDED_PROFILES if name != "Emily"]
     if set(pins) != set(db.SEEDED_PROFILES) or any(
         not pin.isdigit() or not 4 <= len(pin) <= 10 for pin in pins.values()
-    ) or len(set(pins.values())) != len(pins):
-        raise RuntimeError("Kenneth, William, and Alice each require a distinct 4–10 digit PIN.")
+    ) or len(set(original_pins)) != len(original_pins):
+        raise RuntimeError("Every saved learner requires a 4–10 digit PIN; Kenneth, William, and Alice must remain distinct.")
 
 
 def _prepare_instance_path(instance_path: str, hosted: bool) -> None:

@@ -1,16 +1,19 @@
 {
   "schema_version": 2,
   "files": [
+    "passages/animals.json",
     "passages/battles-and-strategy.json",
     "passages/chess.json",
     "passages/classical-history.json",
     "passages/epic-literature.json",
     "passages/greek-mythology.json",
     "passages/history-of-warfare.json",
+    "passages/kid-jokes.json",
     "passages/leaders.json",
     "passages/mathematics.json",
     "passages/poetry.json",
-    "passages/world-history.json"
+    "passages/world-history.json",
+    "passages/silly-stories.json"
   ],
   "legacy_ids": [
     "marathon-messenger",
@@ -132,6 +135,36 @@
     "angkor-water-network",
     "mongol-relay-network",
     "great-zimbabwe-stone-trade",
-    "akbar-imperial-debate"
+    "akbar-imperial-debate",
+    "octopus-busy-arms",
+    "bee-dance-map",
+    "penguin-warm-coat",
+    "elephant-amazing-trunk",
+    "sea-otter-rock-tool",
+    "owl-quiet-flight",
+    "frog-drinks-through-skin",
+    "dolphin-special-whistle",
+    "red-panda-false-thumb",
+    "turtle-shell-skeleton",
+    "giraffe-whisper-joke",
+    "turtle-alarm-joke",
+    "goat-report-card-joke",
+    "penguin-sandwich-joke",
+    "owl-math-joke",
+    "snail-fast-shoes-joke",
+    "bear-library-joke",
+    "frog-raincoat-joke",
+    "mouse-loud-music-joke",
+    "zebra-striped-pajamas-joke",
+    "llama-runs-bakery",
+    "moon-misses-bus",
+    "robot-grows-sandwiches",
+    "invisible-purple-hat",
+    "dragon-needs-sneeze",
+    "pirate-lost-puddle",
+    "cloud-in-backpack",
+    "grandma-racing-teapot",
+    "sock-elected-mayor",
+    "pancake-learns-fly"
   ]
 }

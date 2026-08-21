@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.8.0 — 2026-08-20
+
+- Added Emily as a saved Level 1 learner with a 10-minute daily goal and initial
+  PIN `3333`.
+- Added six optional young-typist lessons with simple animal humor and stories.
+- Added 30 reviewed Grade 3 passages across Animals, Kid Jokes, and Silly
+  Stories, bringing the built-in library to 150 passages in 13 subjects.
+- Added a young-reader home collection for Emily and other Level 1 learners.
+
 ## 1.7.0 — 2026-08-20
 
 - Added a PIN-protected Guest practice option without creating a database

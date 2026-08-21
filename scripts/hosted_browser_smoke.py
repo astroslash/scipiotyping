@@ -33,7 +33,7 @@ def main() -> None:
             "DATABASE_URL": "",
             "HOSTED_MODE": True,
             "PARENT_PASSWORD": "parent-browser-password",
-            "SEED_PROFILE_PINS": {"Kenneth": "1111", "William": "2222", "Alice": "3333"},
+            "SEED_PROFILE_PINS": {"Kenneth": "1111", "William": "2222", "Alice": "4444", "Emily": "3333"},
         })
         # This temporary QA server uses HTTP; production Vercel always retains Secure cookies over HTTPS.
         app.config["SESSION_COOKIE_SECURE"] = False
@@ -50,7 +50,7 @@ def main() -> None:
             WebDriverWait(driver, 10).until(lambda page: page.current_url.endswith("/profiles"))
             page = driver.find_element(By.TAG_NAME, "main").text
             assert "welcome to scipiotyping" in page.casefold()
-            assert all(name in page for name in ("Kenneth", "William", "Alice"))
+            assert all(name in page for name in ("Kenneth", "William", "Alice", "Emily"))
 
             for zoom, width in ((1, 1200), (1.25, 960), (1.5, 800), (2, 600)):
                 driver.set_window_size(width, 900)
@@ -58,6 +58,16 @@ def main() -> None:
                     "return document.documentElement.scrollWidth <= window.innerWidth + 1"
                 ), f"Profiles welcome overflowed at {zoom * 100:.0f}% zoom"
             driver.set_window_size(1200, 900)
+
+            emily_form = driver.find_element(By.CSS_SELECTOR, "form[action$='/profiles/4/select']")
+            emily_form.find_element(By.NAME, "pin").send_keys("3333")
+            emily_form.find_element(By.TAG_NAME, "button").click()
+            WebDriverWait(driver, 10).until(lambda page: main_contains(page, "Salve, Emily"))
+            assert main_contains(driver, "Young reader library")
+            driver.find_element(By.LINK_TEXT, "Lessons").click()
+            assert main_contains(driver, "Young typists") and main_contains(driver, "The Cat Nap")
+            driver.get("http://127.0.0.1:5002/")
+            WebDriverWait(driver, 10).until(lambda page: page.current_url.endswith("/profiles"))
 
             william_form = driver.find_element(By.CSS_SELECTOR, "form[action$='/profiles/2/select']")
             william_form.find_element(By.NAME, "pin").send_keys("2222")

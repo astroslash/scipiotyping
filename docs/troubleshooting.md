@@ -32,7 +32,7 @@ kept under `instance/backups`.
 ## A Vercel deployment fails during startup
 
 Open the deployment log and confirm all required environment values exist:
-`DATABASE_URL`, `SECRET_KEY`, the parent password, and all three learner PINs.
+`DATABASE_URL`, `SECRET_KEY`, the parent password, and the original three learner PINs.
 The database URL must be PostgreSQL, the secret must be at least 32 characters,
 the parent password must be at least 12 characters, and the three numeric PINs
 must be distinct. Redeploy after correcting a value.

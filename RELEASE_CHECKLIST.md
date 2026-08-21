@@ -1,4 +1,11 @@
-# Release checklist — 1.7.0
+# Release checklist — 1.8.0
+
+## 1.8.0
+
+- [x] Seeded Emily with PIN 3333, Level 1, and a 10-minute daily goal.
+- [x] Added and reviewed 30 Grade 3 passages in three young-reader subjects.
+- [x] Added six optional young-typist lessons without changing core progression.
+- [x] Full release suite, browser checks, commit, tag, and GitHub push completed.
 
 ## 1.7.0
 

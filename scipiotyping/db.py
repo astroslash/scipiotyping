@@ -12,7 +12,7 @@ from flask import current_app, g
 from werkzeug.security import check_password_hash, generate_password_hash
 
 SCHEMA_VERSION = 8
-SEEDED_PROFILES = ("Kenneth", "William", "Alice")
+SEEDED_PROFILES = ("Kenneth", "William", "Alice", "Emily")
 
 SCHEMA_V1 = """
 PRAGMA foreign_keys = ON;
@@ -317,15 +317,18 @@ def init_database() -> None:
         connection.executescript(SCHEMA_V1)
         migrate(connection)
     for name in SEEDED_PROFILES:
+        daily_goal = 10 if name == "Emily" else 15
         if is_postgres(connection):
             connection.execute(
-                "INSERT INTO profiles(name,created_at) VALUES(?,?) ON CONFLICT(name) DO NOTHING",
-                (name, datetime.now(UTC).isoformat()),
+                "INSERT INTO profiles(name,created_at,daily_goal_minutes,preferred_difficulty) "
+                "VALUES(?,?,?,1) ON CONFLICT(name) DO NOTHING",
+                (name, datetime.now(UTC).isoformat(), daily_goal),
             )
         else:
             connection.execute(
-                "INSERT OR IGNORE INTO profiles(name,created_at) VALUES(?,?)",
-                (name, datetime.now(UTC).isoformat()),
+                "INSERT OR IGNORE INTO profiles(name,created_at,daily_goal_minutes,preferred_difficulty) "
+                "VALUES(?,?,?,1)",
+                (name, datetime.now(UTC).isoformat(), daily_goal),
             )
     connection.commit()
     seed_profile_pins(connection)

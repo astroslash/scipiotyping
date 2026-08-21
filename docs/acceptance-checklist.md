@@ -8,7 +8,7 @@
 - [x] Student data remains separated between profiles.
 - [x] Lessons unlock and recommendations explain their reason.
 - [x] Goals, streaks, achievements, trends, and error summaries are correct.
-- [x] All 120 built-in passages validate with complete rights metadata.
+- [x] All 150 built-in passages validate with complete rights metadata.
 - [x] Custom content rejects malformed or unsafe input.
 - [x] CSV/JSON export and full backup/restore round trips succeed.
 - [x] Reset and restore require explicit confirmation.
@@ -16,7 +16,7 @@
 - [x] Reduced motion, high contrast, and large text are supported.
 - [x] Browser inspection finds no required external request.
 - [x] Automated tests and release check script pass.
-- [x] Content schema 2 loads ten subject files and protects all legacy IDs.
+- [x] Content schema 2 loads thirteen subject files and protects all legacy IDs.
 - [x] Strict validation covers review, references, rights, reading level,
   revision, typing focus, length, and duplicates.
 - [x] A generated inventory and deterministic content report describe the library.

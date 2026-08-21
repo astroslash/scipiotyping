@@ -22,9 +22,10 @@ one structured reference.
 - Mathematical explanations must distinguish intuition from proof.
 - Keep released passages between 35 and 220 words. Vary length intentionally,
   using longer text primarily at higher typing levels.
-- For passages introduced in v1.4 and later, target 45–65 words at Level 2,
+- For young-reader passages, target 35–55 words at Level 1 with Grade 3 language.
+  For general passages introduced in v1.4 and later, target 45–65 words at Level 2,
   60–85 at Level 3, 80–115 at Level 4, and 105–150 at Level 5. Level 1 is
-  reserved for focused keyboard drills rather than reading passages.
+  used for focused keyboard drills and the young-reader collection.
 
 Run `python -m flask --app scipiotyping validate-content` after editing and
 `python -m flask --app scipiotyping content-report --write-inventory` before a

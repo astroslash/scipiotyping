@@ -2,9 +2,10 @@
 
 1. Run `start-scipiotyping.ps1` and leave its PowerShell window open, or open the
    private family Vercel address.
-2. Kenneth, William, or Alice can choose their profile, then use **Placement**
+2. Kenneth, William, Alice, or Emily can choose their profile, then use **Placement**
    under Lessons or begin with any Library item. Hosted profiles require their PIN.
-   Guest can score exercises without adding any data to progress or backups.
+   Emily starts at Level 1 with a 10-minute daily goal. Guest can score exercises
+   without adding any data to progress or backups.
 3. Use **Progress** for WPM, accuracy, time, streaks, achievements, and the
    keyboard heatmap. After enough practice, **Practice weak keys** opens a
    private drill assembled locally from the student's recent results.

@@ -1,6 +1,6 @@
 # Deploying ScipioTyping to Vercel
 
-ScipioTyping v1.6 keeps the Windows shortcut and local SQLite data unchanged.
+ScipioTyping keeps the Windows shortcut and local SQLite data unchanged.
 The hosted copy uses PostgreSQL because Vercel functions do not provide a
 persistent SQLite filesystem. A free Vercel Hobby project plus a free PostgreSQL
 provider such as Neon is sufficient for normal family use; no paid subscription
@@ -14,6 +14,8 @@ Choose and keep these outside GitHub:
 - `SCIPIO_PARENT_PASSWORD`: a password of at least 12 characters.
 - `SCIPIO_KENNETH_PIN`, `SCIPIO_WILLIAM_PIN`, and `SCIPIO_ALICE_PIN`: three
   distinct PINs of 4–10 digits.
+- `SCIPIO_EMILY_PIN` is optional. Emily's requested initial PIN is built in as
+  `3333`; set this variable only to override it privately.
 
 PowerShell can generate a suitable session secret:
 
@@ -37,7 +39,7 @@ Deploy.
 
 `api/index.py` is the serverless WSGI entry point. Vercel's native Flask routing
 sends each original URL to it without a catch-all rewrite. A successful
-deployment's `/health` endpoint reports version `1.7.0` (or later) and schema `8`.
+deployment's `/health` endpoint reports version `1.8.0` (or later) and schema `8`.
 
 ## 4. Copy existing local progress once
 
@@ -63,7 +65,7 @@ Remove the temporary environment values by closing that PowerShell window.
 ## 5. Verify and operate
 
 Visit the Vercel URL in a private browser window. Confirm the welcome screen,
-all three saved-learner PINs, Guest PIN `8675309`, the separate Parent password,
+all saved-learner PINs, Emily's PIN `3333`, Guest PIN `8675309`, the separate Parent password,
 Kenneth's historical results, and one new completed lesson. Confirm a Guest
 exercise is scored and labeled as not saved. Download an occasional hosted JSON archive
 from Parent. Use the database provider's restore/snapshot tools for a full cloud

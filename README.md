@@ -1,7 +1,7 @@
 # ScipioTyping
 
-ScipioTyping is a private, offline-first typing tutor for Kenneth, William, and
-Alice. It runs in a browser with no advertisements, analytics, CDN, or paid
+ScipioTyping is a private, offline-first typing tutor for Kenneth, William,
+Alice, and Emily. It runs in a browser with no advertisements, analytics, CDN, or paid
 subscription. Local mode stores progress in SQLite; hosted mode uses PostgreSQL
 so the family can share one private Vercel deployment.
 
@@ -53,6 +53,6 @@ deployment guide](docs/vercel-deployment.md), [Parent guide](docs/parent-guide.m
 [Developer guide](docs/developer-guide.md), and
 [Troubleshooting](docs/troubleshooting.md).
 
-The 120 built-in passages are organized into ten subjects under
+The 150 built-in passages are organized into thirteen subjects under
 `content/passages` and remain available offline. The Library can filter
 completed or unpracticed passages, sort the collection, and page through it.

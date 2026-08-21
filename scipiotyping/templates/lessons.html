@@ -1,3 +1,43 @@
-{% extends 'base.html' %}{% block title %}Lessons · ScipioTyping{% endblock %}
-{% block content %}<div class="page-heading"><p class="eyebrow">Training path</p><h1>Lessons</h1><p>Your current level is {{ profile.placement_level or profile.preferred_difficulty }}. {% if not profile.placement_complete %}<a href="{{ url_for('main.placement') }}">Take placement</a> to find the best starting point.{% endif %}</p></div><div class="card-grid">{% for lesson in lessons %}<article class="passage-card {% if not lesson.unlocked %}locked{% endif %}"><span class="tag">Level {{ lesson.level }}</span><h2>{{ lesson.title }}</h2><p>{{ lesson.description }}</p><p><strong>Focus:</strong> <kbd>{{ lesson.focus }}</kbd></p>{% if lesson.unlocked %}<a class="button secondary" href="{{ url_for('main.practice', passage_id=lesson.passage.id, mode='lesson', lesson=lesson.id) }}">Begin lesson</a>{% else %}<p aria-label="Locked">🔒 Complete placement or earlier levels to unlock.</p>{% endif %}</article>{% endfor %}</div>{% endblock %}
+{% extends 'base.html' %}
+{% block title %}Lessons · ScipioTyping{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <p class="eyebrow">Training path</p>
+  <h1>Lessons</h1>
+  <p>Your current level is {{ profile.placement_level or profile.preferred_difficulty }}. {% if not profile.placement_complete %}<a href="{{ url_for('main.placement') }}">Take placement</a> to find the best starting point.{% endif %}</p>
+</div>
 
+<section class="lesson-section" aria-labelledby="young-lessons-heading">
+  <div class="page-heading">
+    <p class="eyebrow">Short and playful</p>
+    <h2 id="young-lessons-heading">Young typists</h2>
+    <p>Simple animal stories and jokes for new readers and new typists.</p>
+  </div>
+  <div class="card-grid">
+    {% for lesson in young_lessons %}
+    <article class="passage-card">
+      <span class="tag">Level 1 · Young typist</span>
+      <h3>{{ lesson.title }}</h3>
+      <p>{{ lesson.description }}</p>
+      <p><strong>Focus:</strong> <kbd>{{ lesson.focus }}</kbd></p>
+      <a class="button secondary" href="{{ url_for('main.practice', passage_id=lesson.passage.id, mode='lesson', lesson=lesson.id) }}">Begin lesson</a>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="lesson-section" aria-labelledby="keyboard-path-heading">
+  <div class="page-heading"><p class="eyebrow">Skill progression</p><h2 id="keyboard-path-heading">Keyboard path</h2></div>
+  <div class="card-grid">
+    {% for lesson in lessons %}
+    <article class="passage-card {% if not lesson.unlocked %}locked{% endif %}">
+      <span class="tag">Level {{ lesson.level }}</span>
+      <h3>{{ lesson.title }}</h3>
+      <p>{{ lesson.description }}</p>
+      <p><strong>Focus:</strong> <kbd>{{ lesson.focus }}</kbd></p>
+      {% if lesson.unlocked %}<a class="button secondary" href="{{ url_for('main.practice', passage_id=lesson.passage.id, mode='lesson', lesson=lesson.id) }}">Begin lesson</a>{% else %}<p aria-label="Locked">🔒 Complete placement or earlier levels to unlock.</p>{% endif %}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

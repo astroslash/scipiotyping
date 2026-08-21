@@ -11,7 +11,7 @@ def post_form(client, path, csrf, data=None, **kwargs):
 
 def test_health_and_primary_pages(client):
     health = client.get("/health").get_json()
-    assert health["schema"] == 8 and health["version"] == "1.7.0"
+    assert health["schema"] == 8 and health["version"] == "1.8.0"
     assert client.get("/").headers["Location"].endswith("/profiles")
     for path in ["/home", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
         response = client.get(path)
@@ -39,7 +39,7 @@ def test_library_filters(client):
 
 def test_library_paginates_and_preserves_filters(client):
     response = client.get("/library?sort=title")
-    assert b"page 1 of 5" in response.data and b">Next<" in response.data
+    assert b"page 1 of 7" in response.data and b">Next<" in response.data
     assert b"sort=title" in response.data
 
 
@@ -160,10 +160,25 @@ def test_profile_create_and_select(client, csrf, app):
     assert b"Who is practicing?" in chooser.data and b"Current profile" not in chooser.data
 
 
-def test_three_family_profiles_are_seeded(app):
+def test_four_family_profiles_are_seeded(app):
     with app.app_context():
-        names = [row[0] for row in get_db().execute("SELECT name FROM profiles ORDER BY id")]
-    assert names == ["Kenneth", "William", "Alice"]
+        profiles = get_db().execute("SELECT name,daily_goal_minutes,preferred_difficulty FROM profiles ORDER BY id").fetchall()
+        names = [row[0] for row in profiles]
+    assert names == ["Kenneth", "William", "Alice", "Emily"]
+    assert dict(profiles[-1]) == {"name": "Emily", "daily_goal_minutes": 10, "preferred_difficulty": 1}
+
+
+def test_emily_gets_young_reader_home_library_and_lessons(client, csrf, app):
+    with app.app_context():
+        database = get_db()
+        database.execute("UPDATE profiles SET placement_level=3, placement_complete=1 WHERE id=4")
+        database.commit()
+    home = post_form(client, "/profiles/4/select", csrf, follow_redirects=True)
+    assert b"Salve, Emily" in home.data and b"Young reader library" in home.data
+    animals = client.get("/library?category=Animals")
+    assert b"10 passages" in animals.data and b"An Octopus Has Busy Arms" in animals.data
+    lessons = client.get("/lessons")
+    assert b"Young typists" in lessons.data and b"The Cat Nap" in lessons.data
 
 
 def test_guest_pin_is_available_offline_without_a_database_profile(client, csrf, app):

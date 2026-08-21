@@ -21,6 +21,7 @@ def test_hosted_dependencies_and_secret_template_are_documented():
     for name in ("DATABASE_URL", "SCIPIO_PARENT_PASSWORD",
                  "SCIPIO_KENNETH_PIN", "SCIPIO_WILLIAM_PIN", "SCIPIO_ALICE_PIN"):
         assert name in environment
+    assert "SCIPIO_EMILY_PIN=3333" in environment
 
 
 def test_distribution_explicitly_packages_code_content_and_assets():

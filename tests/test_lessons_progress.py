@@ -20,7 +20,8 @@ def test_unlocks_only_at_or_below_level():
 
 
 def test_focused_drills_and_progression():
-    assert len(lesson_passages()) == 8
+    assert len(lesson_passages()) == 14
+    assert sum(bool(item.get("young_reader")) for item in unlocked_lessons(1)) == 6
     assert progression_level(1, {"home-row", "upper-row"}) == 2
     assert progression_level(1, {"home-row"}) == 1
 

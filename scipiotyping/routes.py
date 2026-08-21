@@ -449,7 +449,11 @@ def lessons():
     cards = []
     for lesson in unlocked_lessons(level):
         cards.append({**lesson, "passage": drills[lesson["id"]]})
-    return render_template("lessons.html", lessons=cards, profile=profile)
+    return render_template(
+        "lessons.html", profile=profile,
+        young_lessons=[item for item in cards if item.get("young_reader")],
+        lessons=[item for item in cards if not item.get("young_reader")],
+    )
 
 
 @bp.get("/placement")

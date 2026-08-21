@@ -10,6 +10,16 @@
   <a class="button secondary" href="{{ url_for('main.lessons') }}">Follow a lesson</a>
   {% if focus %}<a class="button secondary" href="{{ url_for('main.targeted_practice') }}">Practice weak keys</a>{% endif %}
 </section>
+{% if profile.name == 'Emily' or (profile.placement_level or profile.preferred_difficulty) == 1 %}
+<section class="callout">
+  <p class="eyebrow">Young reader library</p>
+  <h2>Short, funny, and friendly</h2>
+  <p>Practice with animal facts, kid jokes, and silly stories written for Grade 3 readers.</p>
+  <a class="button secondary" href="{{ url_for('main.library', category='Animals') }}">Animals</a>
+  <a class="button secondary" href="{{ url_for('main.library', category='Kid Jokes') }}">Kid jokes</a>
+  <a class="button secondary" href="{{ url_for('main.library', category='Silly Stories') }}">Silly stories</a>
+</section>
+{% endif %}
 <section class="stat-grid" aria-label="Your progress">
   <article><strong>{{ stats.attempts }}</strong><span>passages completed</span></article>
   <article><strong>{{ stats.wpm }}</strong><span>average adjusted WPM</span></article>
