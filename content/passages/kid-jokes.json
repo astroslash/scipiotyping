@@ -98,5 +98,55 @@
     "typing_focus": ["apostrophes", "quotation marks"], "reading_level": 3,
     "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
     "references": [{"citation": "Original ScipioTyping joke written for young learners"}]
+  },
+  {
+    "id": "dinosaur-homework-joke", "title": "The Dinosaur's Homework",
+    "text": "Why did the dinosaur bring a ladder to school? His homework was over his head! The teacher pointed to a small worksheet and asked, “Is that really why?” The dinosaur nodded. He was very tall, and the paper was sitting on a high shelf.",
+    "category": "Kid Jokes", "difficulty": 1, "age": 7,
+    "objectives": ["enjoy wordplay", "practice a question"], "context": "An original school joke about a tall student.",
+    "vocabulary": [], "source": "Original ScipioTyping joke", "rights": "original",
+    "typing_focus": ["question marks", "quotation marks"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Original ScipioTyping joke written for young learners"}]
+  },
+  {
+    "id": "kangaroo-backpack-joke", "title": "The Kangaroo's Backpack",
+    "text": "A kangaroo brought an empty backpack to class. “Where are your books?” asked the teacher. The kangaroo patted her pouch and said, “My backpack is only for snacks.” At lunch, she opened it. Inside was one sandwich and a very surprised toy frog.",
+    "category": "Kid Jokes", "difficulty": 1, "age": 7,
+    "objectives": ["type dialogue", "read a gentle joke"], "context": "An original joke about a kangaroo's unusual school bag.",
+    "vocabulary": ["pouch: a pocket on a kangaroo's body"], "source": "Original ScipioTyping joke", "rights": "original",
+    "typing_focus": ["quotation marks", "apostrophes"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Original ScipioTyping joke written for young learners"}]
+  },
+  {
+    "id": "chicken-keyboard-joke", "title": "The Chicken at the Keyboard",
+    "text": "Why did the chicken sit at the computer? She wanted to peck out an email! She tapped every key with care, then pressed Send. Her message said, “Dear Farmer, please put more corn by the coop.” The farmer replied with three rows of question marks.",
+    "category": "Kid Jokes", "difficulty": 1, "age": 8,
+    "objectives": ["enjoy a typing joke", "practice capital letters"], "context": "An original joke about a chicken writing email.",
+    "vocabulary": ["coop: a small building where chickens live"], "source": "Original ScipioTyping joke", "rights": "original",
+    "typing_focus": ["capital letters", "quotation marks"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Original ScipioTyping joke written for young learners"}]
+  },
+  {
+    "id": "cat-astronaut-joke", "title": "The Cat Goes to Space",
+    "text": "What did the cat astronaut pack for the Moon? A bowl, a blanket, and a mouse map! “Why the map?” asked Mission Control. The cat purred and said, “I heard the Moon has giant craters. A mouse could hide anywhere up there.”",
+    "category": "Kid Jokes", "difficulty": 1, "age": 7,
+    "objectives": ["practice a list", "type a question and answer"], "context": "An original space joke featuring a prepared cat.",
+    "vocabulary": ["crater: a bowl-shaped hole in the ground"], "source": "Original ScipioTyping joke", "rights": "original",
+    "typing_focus": ["commas", "question marks"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Original ScipioTyping joke written for young learners"}]
+  },
+  {
+    "id": "duck-library-card-joke", "title": "The Duck's Library Card",
+    "text": "A duck waddled into the library and asked for a card. “Can you write your name?” asked the librarian. The duck dipped one foot in ink and stamped the page. “Close enough,” said the librarian. The new card was filed under W for Webbed Foot.",
+    "category": "Kid Jokes", "difficulty": 1, "age": 8,
+    "objectives": ["read a library joke", "practice dialogue"], "context": "An original joke about a duck joining the library.",
+    "vocabulary": ["filed: placed in an organized group"], "source": "Original ScipioTyping joke", "rights": "original",
+    "typing_focus": ["quotation marks", "capital letters"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Original ScipioTyping joke written for young learners"}]
   }
 ]

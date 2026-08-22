@@ -62,6 +62,27 @@ def main() -> None:
                 get_db().execute("UPDATE attempts SET key_stats=? WHERE id=?", (json.dumps(weak), row["id"]))
                 get_db().commit()
 
+            # Equivalent symbols must paint and score as correct in the browser and server.
+            driver.get("http://127.0.0.1:5001/practice/drill-symbols?mode=lesson&lesson=symbols")
+            symbol_text = driver.find_element(By.ID, "passage").text
+            alternate_symbols = symbol_text.replace("×", "*", 1).replace("×", "x", 1)
+            symbol_field = driver.find_element(By.ID, "typing-input")
+            symbol_field.send_keys(alternate_symbols[0])
+            time.sleep(0.6)
+            symbol_field.send_keys(alternate_symbols[1:])
+            WebDriverWait(driver, 10).until(lambda page: page.find_element(By.ID, "results").is_displayed())
+            symbol_result = driver.find_element(By.ID, "results").text.lower()
+            assert "accuracy: 100%" in symbol_result and "remaining errors: 0" in symbol_result
+
+            driver.get("http://127.0.0.1:5001/practice/odysseus-cyclops-name")
+            quote_text = driver.find_element(By.ID, "passage").text
+            quote_prefix = quote_text[:quote_text.index("”") + 1].replace("“", '"').replace("”", '"')
+            quote_field = driver.find_element(By.ID, "typing-input")
+            quote_field.send_keys(quote_prefix[0])
+            time.sleep(0.6)
+            quote_field.send_keys(quote_prefix[1:])
+            assert not driver.find_elements(By.CSS_SELECTOR, "#passage .wrong")
+
             # Personalized path: heatmap recommendation opens and completes a reproducible drill.
             driver.get("http://127.0.0.1:5001/progress")
             assert driver.find_element(By.CSS_SELECTOR, ".key-a, [aria-label^='A,']").is_displayed()

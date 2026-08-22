@@ -31,6 +31,38 @@
   let heartbeatInFlight = false;
   const keyErrors = {};
 
+  const doubleQuotes = new Set(['"', '“', '”', '„', '‟']);
+  const singleQuotes = new Set(["'", '‘', '’', '‚', '‛']);
+  const multiplicationMarks = new Set(['*', '×']);
+
+  function isMultiplicationX(expectedText, index) {
+    const expected = expectedText[index];
+    if (expected !== 'x' && expected !== 'X') return false;
+    let left = index - 1, right = index + 1;
+    while (left >= 0 && /\s/.test(expectedText[left])) left--;
+    while (right < expectedText.length && /\s/.test(expectedText[right])) right++;
+    if (left < 0 || right >= expectedText.length) return false;
+    const separated = index > 0 && /\s/.test(expectedText[index - 1])
+      && index + 1 < expectedText.length && /\s/.test(expectedText[index + 1]);
+    let leftStart = left, rightEnd = right;
+    while (leftStart >= 0 && /[\p{L}\p{N}]/u.test(expectedText[leftStart])) leftStart--;
+    while (rightEnd < expectedText.length && /[\p{L}\p{N}]/u.test(expectedText[rightEnd])) rightEnd++;
+    const symbolic = separated && left - leftStart === 1 && rightEnd - right === 1
+      && /[\p{L}\p{N}]/u.test(expectedText[left]) && /[\p{L}\p{N}]/u.test(expectedText[right]);
+    return symbolic || /\d/.test(expectedText[left]) || /\d/.test(expectedText[right])
+      || /[)\]}]/.test(expectedText[left]) || /[(\[{]/.test(expectedText[right]);
+  }
+
+  function equivalent(expected, typed, index, expectedText = target) {
+    if (expected === typed) return true;
+    if (doubleQuotes.has(expected) && doubleQuotes.has(typed)) return true;
+    if (singleQuotes.has(expected) && singleQuotes.has(typed)) return true;
+    if (multiplicationMarks.has(expected)
+        && (multiplicationMarks.has(typed) || typed === 'x' || typed === 'X')) return true;
+    return isMultiplicationX(expectedText, index)
+      && (multiplicationMarks.has(typed) || typed === 'x' || typed === 'X');
+  }
+
   async function beginPracticeSession() {
     if (practiceSessionId) return practiceSessionId;
     if (!sessionStartPromise) {
@@ -82,13 +114,14 @@
     for (let j = 1; j < columns; j++) { cost[0][j] = j; back[0][j] = 'insert'; }
     for (let i = 1; i < rows; i++) {
       for (let j = 1; j < columns; j++) {
-        const same = expected[i - 1] === typed[j - 1];
+        const same = equivalent(expected[i - 1], typed[j - 1], i - 1, expected);
         const candidates = [
           [cost[i - 1][j - 1] + (same ? 0 : 1), same ? 0 : 2, same ? 'match' : 'substitute'],
           [cost[i - 1][j] + 1, 3, 'delete'],
           [cost[i][j - 1] + 1, 4, 'insert']
         ];
-        if (i >= 2 && j >= 2 && expected[i - 2] === typed[j - 1] && expected[i - 1] === typed[j - 2]) {
+        if (i >= 2 && j >= 2 && equivalent(expected[i - 2], typed[j - 1], i - 2, expected)
+            && equivalent(expected[i - 1], typed[j - 2], i - 1, expected)) {
           candidates.push([cost[i - 2][j - 2] + 1, 1, 'transpose']);
         }
         candidates.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
@@ -280,7 +313,7 @@
       // repaint, so a cached cursor would misattribute otherwise-correct keys.
       paint(input.value);
       const expected = target[currentExpectedIndex];
-      if (event.key !== expected) {
+      if (!equivalent(expected, event.key, currentExpectedIndex)) {
         const label = expected === ' ' ? 'space' : expected;
         if (label) keyErrors[label] = (keyErrors[label] || 0) + 1;
       }

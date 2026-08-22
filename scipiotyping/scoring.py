@@ -3,6 +3,51 @@ from __future__ import annotations
 from collections import Counter
 from math import ceil
 
+DOUBLE_QUOTES = frozenset({'"', '“', '”', '„', '‟'})
+SINGLE_QUOTES = frozenset({"'", '‘', '’', '‚', '‛'})
+MULTIPLICATION_MARKS = frozenset({'*', '×'})
+
+
+def _is_multiplication_x(target: str, index: int) -> bool:
+    """Recognize x as an operator without treating x inside a word as a symbol."""
+    if target[index] not in {'x', 'X'}:
+        return False
+    left = index - 1
+    while left >= 0 and target[left].isspace():
+        left -= 1
+    right = index + 1
+    while right < len(target) and target[right].isspace():
+        right += 1
+    if left < 0 or right >= len(target):
+        return False
+    separated = (index > 0 and target[index - 1].isspace()
+                 and index + 1 < len(target) and target[index + 1].isspace())
+    numeric = target[left].isdigit() or target[right].isdigit()
+    grouped = target[left] in ')]}' or target[right] in '([{'
+    left_start = left
+    while left_start >= 0 and target[left_start].isalnum():
+        left_start -= 1
+    right_end = right
+    while right_end < len(target) and target[right_end].isalnum():
+        right_end += 1
+    symbolic = (separated and left - left_start == 1 and right_end - right == 1
+                and target[left].isalnum() and target[right].isalnum())
+    return numeric or grouped or symbolic
+
+
+def characters_equivalent(expected: str, typed: str, target: str, index: int) -> bool:
+    """Return whether a typed character is an accepted form of the target key."""
+    if expected == typed:
+        return True
+    if expected in DOUBLE_QUOTES and typed in DOUBLE_QUOTES:
+        return True
+    if expected in SINGLE_QUOTES and typed in SINGLE_QUOTES:
+        return True
+    if expected in MULTIPLICATION_MARKS and typed in MULTIPLICATION_MARKS | {'x', 'X'}:
+        return True
+    return (_is_multiplication_x(target, index)
+            and typed in MULTIPLICATION_MARKS | {'x', 'X'})
+
 
 def align_text(target: str, typed: str) -> list[dict[str, str]]:
     """Return a minimum-edit alignment with adjacent transpositions.
@@ -23,15 +68,16 @@ def align_text(target: str, typed: str) -> list[dict[str, str]]:
 
     for i in range(1, rows):
         for j in range(1, columns):
-            same = target[i - 1] == typed[j - 1]
+            same = characters_equivalent(target[i - 1], typed[j - 1], target, i - 1)
             candidates = [
                 (cost[i - 1][j - 1] + (0 if same else 1), 0 if same else 2,
                  "match" if same else "substitute", i - 1, j - 1),
                 (cost[i - 1][j] + 1, 3, "delete", i - 1, j),
                 (cost[i][j - 1] + 1, 4, "insert", i, j - 1),
             ]
-            if (i >= 2 and j >= 2 and target[i - 2] == typed[j - 1]
-                    and target[i - 1] == typed[j - 2]):
+            if (i >= 2 and j >= 2
+                    and characters_equivalent(target[i - 2], typed[j - 1], target, i - 2)
+                    and characters_equivalent(target[i - 1], typed[j - 2], target, i - 1)):
                 candidates.append((cost[i - 2][j - 2] + 1, 1, "transpose", i - 2, j - 2))
             best = min(candidates, key=lambda item: (item[0], item[1]))
             cost[i][j] = best[0]

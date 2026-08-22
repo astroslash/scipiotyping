@@ -98,5 +98,55 @@
     "typing_focus": ["the pair fl", "commas"], "reading_level": 3,
     "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
     "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "backpack-hiccups", "title": "The Backpack That Hiccupped",
+    "text": "Maya's backpack hiccupped during math. Out popped a pencil, a sock, and yesterday's banana. “Excuse me,” whispered Maya. The backpack hiccupped again and launched her homework onto the teacher's desk. At least the work arrived on time, even if the banana did not.",
+    "category": "Silly Stories", "difficulty": 1, "age": 8,
+    "objectives": ["follow a funny sequence", "practice apostrophes"], "context": "An original school story about a noisy backpack.",
+    "vocabulary": ["launched: sent quickly through the air"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["apostrophes", "quotation marks"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "banana-detective", "title": "The Banana Detective",
+    "text": "Detective Banana found yellow footprints across the kitchen. He followed them past the sink and under the table. The trail ended at a fruit bowl. “Aha!” he cried. Then he looked down. The footprints were his own. He peeled away from the case very quietly.",
+    "category": "Silly Stories", "difficulty": 1, "age": 8,
+    "objectives": ["identify a surprise ending", "practice exclamation marks"], "context": "An original mystery starring a confused banana.",
+    "vocabulary": ["detective: a person who solves mysteries"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["exclamation marks", "quotation marks"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "tuesday-turns-purple", "title": "Tuesday Turns Purple",
+    "text": "On Tuesday, everything turned purple. The toast was purple. The school bus was purple. Even Mr. Lee's white shoes looked like grapes. On Wednesday, every color returned except one. The class hamster stayed purple and seemed very pleased about it.",
+    "category": "Silly Stories", "difficulty": 1, "age": 7,
+    "objectives": ["follow events across days", "practice repeated words"], "context": "An original color-changing story with a hamster ending.",
+    "vocabulary": [], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["capital letters", "the pair ur"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "hamster-tiny-elevator", "title": "The Hamster's Tiny Elevator",
+    "text": "Pip built an elevator for his hamster. It went from the floor to the top of the couch. The hamster rode up, ate one cracker, and pushed the button again. Soon it was giving rides to three buttons, a marble, and a sleepy beetle.",
+    "category": "Silly Stories", "difficulty": 1, "age": 7,
+    "objectives": ["follow story order", "practice commas"], "context": "An original story about a very small elevator.",
+    "vocabulary": ["elevator: a platform that carries things up or down"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["apostrophes", "commas"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
+  },
+  {
+    "id": "shoes-take-walk", "title": "The Shoes Take a Walk",
+    "text": "Leo's shoes went for a walk without him. They marched down the hall, skipped over a rug, and waited by the door. “You forgot something,” Leo called. The shoes looked back. Of course! They returned, picked up Leo, and carried him to breakfast.",
+    "category": "Silly Stories", "difficulty": 1, "age": 7,
+    "objectives": ["follow personified objects", "type a funny ending"], "context": "An original morning story about independent shoes.",
+    "vocabulary": ["marched: walked with steady, even steps"], "source": "Original ScipioTyping story", "rights": "original",
+    "typing_focus": ["apostrophes", "quotation marks"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Original ScipioTyping story written for young learners"}]
   }
 ]

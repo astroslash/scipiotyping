@@ -72,7 +72,7 @@ access; it is not represented as internet-grade authentication.
 ## Release scope
 
 Version 1.0 includes local profiles, placement, lesson tracks, adaptive passage
-recommendations, 170 curated passages, goals, streaks, achievements, trend and
+recommendations, 185 curated passages, goals, streaks, achievements, trend and
 error reports, parent controls, import/export, backup/restore, accessible themes,
 offline assets, a Windows launcher, tests, and household documentation.
 

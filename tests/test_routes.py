@@ -11,7 +11,7 @@ def post_form(client, path, csrf, data=None, **kwargs):
 
 def test_health_and_primary_pages(client):
     health = client.get("/health").get_json()
-    assert health["schema"] == 9 and health["version"] == "1.10.0"
+    assert health["schema"] == 9 and health["version"] == "1.11.0"
     assert client.get("/").headers["Location"].endswith("/profiles")
     for path in ["/home", "/library", "/lessons", "/placement", "/progress", "/profiles", "/parent", "/help", "/practice/marathon-messenger"]:
         response = client.get(path)
@@ -188,7 +188,7 @@ def test_emily_gets_young_reader_home_library_and_lessons(client, csrf, app):
     home = post_form(client, "/profiles/4/select", csrf, follow_redirects=True)
     assert b"Salve, Emily" in home.data and b"Young reader library" in home.data
     animals = client.get("/library?category=Animals")
-    assert b"10 passages" in animals.data and b"An Octopus Has Busy Arms" in animals.data
+    assert b"15 passages" in animals.data and b"An Octopus Has Busy Arms" in animals.data
     assert b"The Plain of Marathon" not in client.get("/library?q=marathon").data
     assert client.get("/practice/marathon-messenger").status_code == 404
     lessons = client.get("/lessons")

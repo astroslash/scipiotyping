@@ -78,6 +78,43 @@ def test_unicode_text():
     assert result["completed"] and result["typed_characters"] == 14
 
 
+@pytest.mark.parametrize(("target", "typed"), [
+    ('She said, “Ready.”', 'She said, "Ready."'),
+    ('She said, “Ready.”', 'She said, ”Ready.“'),
+    ("Odysseus’ plan", "Odysseus' plan"),
+])
+def test_straight_curly_and_directional_quotes_are_equivalent(target, typed):
+    result = score_text(target, typed, 60)
+    assert result["accuracy"] == 100
+    assert result["errors"] == 0
+    assert result["matches"] == len(target)
+
+
+@pytest.mark.parametrize(("target", "typed"), [
+    ('6 × 7 = 42', '6 * 7 = 42'),
+    ('6 × 7 = 42', '6 x 7 = 42'),
+    ('6 * 7 = 42', '6 X 7 = 42'),
+    ('6 x 7 = 42', '6 × 7 = 42'),
+    ('6x7 = 42', '6*7 = 42'),
+])
+def test_multiplication_symbols_are_equivalent(target, typed):
+    result = score_text(target, typed, 60)
+    assert result["accuracy"] == 100
+    assert result["errors"] == 0
+
+
+def test_an_x_inside_an_ordinary_word_is_not_a_multiplication_symbol():
+    result = score_text('The fox is quick.', 'The fo* is quick.', 60)
+    assert result["substitutions"] == 1
+    assert result["accuracy"] < 100
+
+
+def test_a_named_letter_x_in_prose_is_not_a_multiplication_symbol():
+    result = score_text('The letter x is useful.', 'The letter * is useful.', 60)
+    assert result["substitutions"] == 1
+    assert result["accuracy"] < 100
+
+
 def test_alignment_operations_reconstruct_both_inputs():
     target, typed = "a bc", "axb c"
     operations = align_text(target, typed)

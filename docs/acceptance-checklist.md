@@ -5,13 +5,17 @@
 - [x] Health check and all primary pages respond successfully.
 - [x] Placement, practice, correction, pause, completion, and saving work.
 - [x] Scoring formulas pass boundary and representative tests.
+- [x] Straight and directional quotation marks score equivalently in both live
+  feedback and saved results.
+- [x] Multiplication `*`, `×`, and contextual `x` score equivalently without
+  masking an incorrect x inside an ordinary word.
 - [x] Student data remains separated between profiles.
 - [x] Elementary and middle-school passages, lessons, recommendations, direct
   links, and scoring APIs remain separated by profile.
 - [x] New profiles and Parent-created passages require a school-level audience.
 - [x] Lessons unlock and recommendations explain their reason.
 - [x] Goals, streaks, achievements, trends, and error summaries are correct.
-- [x] All 170 built-in passages validate with complete rights metadata.
+- [x] All 185 built-in passages validate with complete rights metadata.
 - [x] Custom content rejects malformed or unsafe input.
 - [x] CSV/JSON export and full backup/restore round trips succeed.
 - [x] Reset and restore require explicit confirmation.
@@ -30,6 +34,7 @@
 - [x] A synthetic 500-passage library loads successfully.
 - [x] Every middle-school subject contains 14 passages, including two reviewed
   long reads added in v1.10.
+- [x] Animals, Kid Jokes, and Silly Stories each contain 15 Grade 3 passages.
 - [x] The 60 additions meet the planned difficulty mix and per-level word bands.
 - [x] New prose is original, age-appropriate, source-aware, and backed by a
   structured HTTPS reference.

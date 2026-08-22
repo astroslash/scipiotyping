@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.11.0 — 2026-08-21
+
+- Accepted straight, curly, left-facing, and right-facing quotation marks as
+  equivalent in live feedback and final scoring.
+- Accepted `*`, `×`, and a contextually recognized multiplication `x` as
+  equivalent without treating the letter x inside ordinary words as a symbol.
+- Added fifteen Grade 3 passages: five animal facts, five original jokes, and
+  five original silly stories.
+- Expanded the Elementary library to 45 passages and the complete built-in
+  library to 185 passages while leaving the Middle School collection unchanged.
+
 ## 1.10.0 — 2026-08-21
 
 - Added twenty original Middle School long reads ranging from 175 to 215 words.

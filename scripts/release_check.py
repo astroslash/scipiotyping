@@ -17,8 +17,8 @@ def main() -> None:
         app = create_app({"TESTING": True, "SECRET_KEY": "release-check", "DATABASE": str(Path(temporary) / "release.db")})
         items = load_passages(app.config["CONTENT_PATH"])
         assert not validate_passages(items, strict=True)
-        assert len(items) == 170
-        assert sum(item["school_level"] == "elementary" for item in items) == 30
+        assert len(items) == 185
+        assert sum(item["school_level"] == "elementary" for item in items) == 45
         assert sum(item["school_level"] == "middle" for item in items) == 140
         manifest = json.loads((root / "content" / "manifest.json").read_text(encoding="utf-8"))
         assert set(manifest["legacy_ids"]).issubset({item["id"] for item in items})

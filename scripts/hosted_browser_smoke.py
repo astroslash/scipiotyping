@@ -65,7 +65,7 @@ def main() -> None:
             WebDriverWait(driver, 10).until(lambda page: main_contains(page, "Salve, Emily"))
             assert main_contains(driver, "Young reader library")
             driver.find_element(By.LINK_TEXT, "Library").click()
-            assert main_contains(driver, "30 passages") and not main_contains(driver, "The Plain of Marathon")
+            assert main_contains(driver, "45 passages") and not main_contains(driver, "The Plain of Marathon")
             driver.find_element(By.LINK_TEXT, "Lessons").click()
             assert main_contains(driver, "Young typists") and main_contains(driver, "The Cat Nap")
             assert not main_contains(driver, "Keyboard path")

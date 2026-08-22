@@ -128,5 +128,60 @@
     "typing_focus": ["the letters t and l", "apostrophes"], "reading_level": 3,
     "revision": 1, "added_in": "1.8.0", "review_status": "reviewed", "reviewed_on": "2026-08-20",
     "references": [{"citation": "Smithsonian, educational information about turtle shells"}]
+  },
+  {
+    "id": "capybara-water-rodent", "title": "The Capybara Takes a Swim",
+    "text": "A capybara is the world's largest rodent. It has slightly webbed feet and lives near rivers, ponds, or marshes. Its eyes, ears, and nose sit high on its head. The capybara can watch and breathe while most of its round body stays underwater.",
+    "category": "Animals", "difficulty": 1, "age": 8,
+    "objectives": ["learn about capybara bodies", "practice commas"], "context": "A young-reader introduction to a swimming rodent.",
+    "vocabulary": ["rodent: a mammal with front teeth that keep growing", "webbed: joined by skin between the toes"],
+    "source": "Original summary of San Diego Zoo capybara information", "rights": "original",
+    "typing_focus": ["commas", "the letters c and a"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "San Diego Zoo, Capybara", "url": "https://animals.sandiegozoo.org/animals/capybara"}]
+  },
+  {
+    "id": "axolotl-keeps-gills", "title": "The Axolotl Stays Young",
+    "text": "An axolotl is a salamander that keeps its feathery gills as an adult. It spends its whole life in water. An axolotl can regrow a lost leg and other body parts. Wild axolotls are in serious danger, so people are working to protect their watery home in Mexico.",
+    "category": "Animals", "difficulty": 1, "age": 8,
+    "objectives": ["learn about axolotl adaptations", "type longer animal names"], "context": "A simple look at an unusual salamander and its conservation.",
+    "vocabulary": ["gills: body parts used to breathe in water", "regrow: grow again"],
+    "source": "Original summary of Aquarium of the Pacific axolotl information", "rights": "original",
+    "typing_focus": ["the letter x", "short sentences"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Aquarium of the Pacific, Axolotl", "url": "https://www.aquariumofpacific.org/onlinelearningcenter/species/axolotl"}]
+  },
+  {
+    "id": "sloth-fur-garden", "title": "A Tiny Garden in Sloth Fur",
+    "text": "A sloth's coarse hairs have tiny grooves. In the damp forest, algae can grow in those grooves and give the fur a green tint. Moths and beetles may live there too. The sloth carries a small ecosystem while it hangs quietly among green leaves.",
+    "category": "Animals", "difficulty": 1, "age": 8,
+    "objectives": ["learn about sloth fur", "practice apostrophes"], "context": "A young-reader explanation of the living community in sloth fur.",
+    "vocabulary": ["algae: simple living things that often grow in water", "ecosystem: living things and their surroundings"],
+    "source": "Original summary of Smithsonian's National Zoo sloth information", "rights": "original",
+    "typing_focus": ["apostrophes", "the pair sl"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Smithsonian's National Zoo, Two-toed sloth", "url": "https://nationalzoo.si.edu/animals/two-toed-sloth"}]
+  },
+  {
+    "id": "meerkat-sentry-turn", "title": "The Meerkat on Lookout",
+    "text": "Meerkats live together in groups called mobs. While others eat, dig, or rest, one meerkat may stand guard. The sentry rises on its back legs and scans for danger. Group members take turns watching, so one small animal is not always stuck with lookout duty.",
+    "category": "Animals", "difficulty": 1, "age": 7,
+    "objectives": ["learn about animal teamwork", "practice commas"], "context": "A simple explanation of sentry duty in a meerkat group.",
+    "vocabulary": ["sentry: someone who watches for danger", "mob: a group of meerkats"],
+    "source": "Original summary of Smithsonian's National Zoo meerkat information", "rights": "original",
+    "typing_focus": ["commas", "the letters m and e"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Smithsonian's National Zoo, Meerkat", "url": "https://nationalzoo.si.edu/animals/meerkat"}]
+  },
+  {
+    "id": "mole-rat-digging-team", "title": "The Mole-Rat Digging Team",
+    "text": "Naked mole-rats dig tunnels as a team. The animal in front bites into hard soil. Workers behind it sweep the loose dirt backward. The last worker kicks the dirt outside. Their lips close behind their big front teeth, so they can dig without filling their mouths with soil.",
+    "category": "Animals", "difficulty": 1, "age": 8,
+    "objectives": ["learn about cooperative digging", "follow steps in order"], "context": "A young-reader description of naked mole-rat teamwork.",
+    "vocabulary": ["tunnel: a passage under the ground", "worker: a group member that performs a task"],
+    "source": "Original summary of Smithsonian's National Zoo naked mole-rat information", "rights": "original",
+    "typing_focus": ["hyphenated words", "the pair th"], "reading_level": 3, "school_level": "elementary",
+    "revision": 1, "added_in": "1.11.0", "review_status": "reviewed", "reviewed_on": "2026-08-21",
+    "references": [{"citation": "Smithsonian's National Zoo, Naked mole-rat", "url": "https://nationalzoo.si.edu/animals/naked-mole-rat"}]
   }
 ]

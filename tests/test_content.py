@@ -39,19 +39,19 @@ def test_builtin_library_preserves_all_released_passages(app):
     counts = {}
     for item in items:
         counts[item["category"]] = counts.get(item["category"], 0) + 1
-    assert len(items) == 170 and counts == {
-        "Animals": 10,
+    assert len(items) == 185 and counts == {
+        "Animals": 15,
         "Battles and Strategy": 14,
         "Chess": 14,
         "Classical History": 14,
         "Epic Literature": 14,
         "Greek Mythology": 14,
         "History of Warfare": 14,
-        "Kid Jokes": 10,
+        "Kid Jokes": 15,
         "Leaders": 14,
         "Mathematics": 14,
         "Poetry": 14,
-        "Silly Stories": 10,
+        "Silly Stories": 15,
         "World History": 14,
     }
     assert set(manifest["legacy_ids"]) == {item["id"] for item in items}
@@ -71,6 +71,27 @@ def test_young_reader_collection_is_simple_varied_and_age_appropriate(app):
     assert all(item["age"] in {7, 8} and 35 <= item["word_count"] <= 55 for item in additions)
     assert all(item["rights"] == "original" and item["review_status"] == "reviewed"
                for item in additions)
+
+
+def test_v111_young_reader_expansion_is_balanced_simple_and_elementary_only(app):
+    additions = [
+        item for item in load_passages(app.config["CONTENT_PATH"])
+        if item["added_in"] == "1.11.0"
+    ]
+    assert len(additions) == 15
+    assert Counter(item["category"] for item in additions) == {
+        "Animals": 5, "Kid Jokes": 5, "Silly Stories": 5,
+    }
+    assert all(item["difficulty"] == 1 and item["reading_level"] == 3
+               for item in additions)
+    assert all(item["school_level"] == "elementary" for item in additions)
+    assert all(item["age"] in {7, 8} and 35 <= item["word_count"] <= 55
+               for item in additions)
+    assert all(item["rights"] == "original" and item["review_status"] == "reviewed"
+               for item in additions)
+    animal_additions = [item for item in additions if item["category"] == "Animals"]
+    assert all(item["references"][0].get("url", "").startswith("https://")
+               for item in animal_additions)
 
 
 def test_middle_school_library_excludes_the_grade_three_collection(app):
